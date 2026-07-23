@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "name": "MyOKUcare",
+  "short_name": "MyOKUcare",
+  "description": "Sistem sokongan komuniti OKU, pekerjaan inklusif dan bantuan kebajikan.",
+  "lang": "ms",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#F7F8FB",
+  "theme_color": "#FF6565",
+  "categories": ["government", "health", "productivity"],
+  "icons": [
+    {"src": "/icons/pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/icons/pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/icons/pwa-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Log Masuk", "short_name": "Log Masuk", "url": "/login", "icons": [{"src": "/icons/pwa-192.png", "sizes": "192x192"}]},
+    {"name": "Dashboard", "short_name": "Dashboard", "url": "/dashboard", "icons": [{"src": "/icons/pwa-192.png", "sizes": "192x192"}]}
+  ]
+}

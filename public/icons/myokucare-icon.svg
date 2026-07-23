@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">MyOKUcare</title>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF9064"/><stop offset="1" stop-color="#FF6565"/></linearGradient></defs>
+  <rect width="512" height="512" rx="116" fill="url(#g)"/>
+  <path d="M128 352V160h51l77 104 77-104h51v192h-58V248l-70 91-70-91v104z" fill="#fff"/>
+  <circle cx="399" cy="113" r="31" fill="#fff" opacity=".2"/>
+</svg>

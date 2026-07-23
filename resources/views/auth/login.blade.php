@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#FF6565">
+    @include('partials.pwa-head')
     <title>Log Masuk — MyOKUcare</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
     <style>
@@ -27,6 +28,7 @@
         <a class="btn welcome-button" href="{{ route('welcome') }}">← Kembali ke Laman Utama</a>
         <form class="login-form" method="post" action="{{ route('login.store') }}">@csrf
             <p class="eyebrow">Selamat Kembali</p><h2>Log masuk MyOKUcare</h2><p>Gunakan e-mel dan kata laluan yang didaftarkan untuk akaun anda.</p>
+            @if(session('success'))<div class="notice">{{ session('success') }}</div>@endif
             @if($errors->any())<div class="error">{{ $errors->first() }}</div>@endif
             <div class="form-group"><label for="email">Alamat e-mel</label><input class="field" id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="email" required autofocus placeholder="nama@contoh.my"></div>
             <div class="form-group"><label for="password">Kata laluan</label><input class="field" id="password" name="password" type="password" autocomplete="current-password" required placeholder="Masukkan kata laluan"></div>

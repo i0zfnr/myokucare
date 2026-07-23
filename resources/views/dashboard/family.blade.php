@@ -1,0 +1,10 @@
+@extends('layout',['title'=>'Dashboard Ahli Keluarga'])
+@section('content')
+<div class="page-head"><div><p class="eyebrow">Sokongan Keluarga</p><h2>Pantauan untuk {{ $oku?->name ?? 'ahli keluarga anda' }}</h2><p>Bantu pantau pekerjaan dan urusan kebajikan bagi profil yang dipautkan.</p></div>@if($oku)<a class="btn btn-primary" href="{{ route('jobs.index') }}">Semak Peluang Kerja</a>@endif</div>
+@php $metrics=[['Permohonan Kerja',$interests->count(),'◎'],['Permohonan Kebajikan',$welfareApplications->count(),'♡'],['Sedang Bekerja',$activeEmployment ? 1 : 0,'✓'],['Profil Dipautkan',$oku ? 1 : 0,'◉']]; @endphp
+<section class="metric-grid">@foreach($metrics as [$label,$value,$icon])<article class="metric-card"><div class="metric-top"><span class="metric-icon">{{ $icon }}</span><span class="metric-change">Keluarga</span></div><span>{{ $label }}</span><strong>{{ number_format($value) }}</strong></article>@endforeach</section>
+<section class="dashboard-grid">
+    <article class="panel"><div class="panel-head"><div><h3>Permohonan Kebajikan</h3><p>Status permohonan terkini bagi profil dipautkan</p></div>@if($oku)<a class="btn" href="{{ route('welfare.index') }}">Lihat Semua</a>@endif</div><div class="activity-list">@forelse($welfareApplications as $application)<div class="activity-row"><span class="metric-icon">♡</span><div><strong>{{ $application->application_type }}</strong><span>{{ $application->application_date->format('d M Y') }}</span></div><span class="badge">{{ $application->status }}</span></div>@empty<div class="empty">{{ $oku ? 'Belum ada permohonan kebajikan.' : 'Akaun keluarga belum dipautkan kepada profil OKU.' }}</div>@endforelse</div></article>
+    <aside class="panel"><div class="panel-head"><div><h3>Sokongan Pekerjaan</h3><p>Aktiviti pekerjaan terkini</p></div></div><div class="quick-list">@forelse($interests->take(3) as $interest)<div class="quick-link"><span class="metric-icon">◆</span><span><strong>{{ $interest->job->title }}</strong><span>{{ $interest->status }}</span></span></div>@empty<div class="empty">Belum ada aktiviti pekerjaan.</div>@endforelse</div></aside>
+</section>
+@endsection

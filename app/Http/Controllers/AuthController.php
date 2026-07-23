@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Oku;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
@@ -23,22 +25,55 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
+        $okuRequired = Rule::requiredIf($request->input('role') === 'oku_user');
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'role' => ['required', Rule::in(['employer', 'oku_user', 'family_member'])],
             'password' => ['required', 'confirmed', Password::min(8)->letters()->numbers()],
+            'ic_number' => [$okuRequired, 'nullable', 'string', 'max:20', 'unique:okus,ic_number'],
+            'gender' => [$okuRequired, 'nullable', Rule::in(['Lelaki', 'Perempuan'])],
+            'age' => [$okuRequired, 'nullable', 'integer', 'min:16', 'max:120'],
+            'marital_status' => [$okuRequired, 'nullable', Rule::in(['Berkahwin', 'Bujang', 'Duda', 'Janda'])],
+            'address' => [$okuRequired, 'nullable', 'string', 'max:2000'],
+            'phone_number' => [$okuRequired, 'nullable', 'string', 'max:20'],
+            'education_level' => [$okuRequired, 'nullable', 'string', 'max:100'],
+            'oku_card_number' => [$okuRequired, 'nullable', 'string', 'max:50', 'unique:okus,oku_card_number'],
+            'oku_category' => [$okuRequired, 'nullable', Rule::in(['Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan'])],
         ]);
 
-        $user = User::create($data + [
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
+        DB::transaction(function () use ($data): void {
+            $oku = null;
+            if ($data['role'] === 'oku_user') {
+                $oku = Oku::query()->create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'ic_number' => $data['ic_number'],
+                    'gender' => $data['gender'],
+                    'age' => $data['age'],
+                    'marital_status' => $data['marital_status'],
+                    'address' => $data['address'],
+                    'phone_number' => $data['phone_number'],
+                    'education_level' => $data['education_level'],
+                    'oku_card_number' => $data['oku_card_number'],
+                    'oku_category' => $data['oku_category'],
+                    'availability_status' => 'Mencari Kerja',
+                    'verification_status' => 'Pending',
+                ]);
+            }
 
-        Auth::login($user);
-        $request->session()->regenerate();
+            User::query()->create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'role' => $data['role'],
+                'password' => $data['password'],
+                'oku_id' => $oku?->id,
+                'is_active' => true,
+                'email_verified_at' => now(),
+            ]);
+        });
 
-        return redirect()->route('dashboard')->with('success', 'Akaun anda berjaya didaftarkan.');
+        return redirect()->route('login')->with('success', 'Pendaftaran berjaya. Sila log masuk dan muat naik gambar Kad OKU anda.');
     }
 
     public function store(Request $request)
@@ -64,6 +99,11 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
         $request->user()->forceFill(['last_login_at' => now()])->save();
+
+        if ($request->user()->role === 'oku_user' && ! $request->user()->oku?->oku_card_image_path) {
+            return redirect()->route('career-profile.show')
+                ->with('success', 'Sila muat naik gambar Kad OKU anda untuk memulakan proses pengesahan JKM.');
+        }
 
         return redirect()->intended(route('dashboard'));
     }

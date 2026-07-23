@@ -2,23 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OkuIndexRequest;
+use App\Http\Requests\SaveOkuRequest;
 use App\Models\Oku;
 use App\Services\JobMatchingService;
 use App\Services\OkuDataService;
+use App\Services\OkuImportService;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use RuntimeException;
 
 class OkuController extends Controller
 {
-    public function index(Request $request, OkuDataService $data)
+    public function index(OkuIndexRequest $request, OkuDataService $data)
     {
-        $okus = Oku::query()
-            ->when($request->filled('search'), fn ($q) => $q->where(fn ($q) => $q->where('name', 'like', '%'.$request->search.'%')->orWhere('ic_number', 'like', '%'.$request->search.'%')->orWhere('oku_card_number', 'like', '%'.$request->search.'%')))
-            ->when($request->filled('category'), fn ($q) => $q->where('oku_category', $request->category))
-            ->when($request->filled('employment_status'), fn ($q) => $q->where('employment_status', $request->employment_status))
-            ->latest()->paginate(15)->withQueryString();
+        $filters = $request->validated();
+        $sortBy = $filters['sort_by'] ?? 'created_at';
+        $sortDirection = $filters['sort_direction'] ?? 'desc';
+        $perPage = (int) ($filters['per_page'] ?? $request->user()->preferences['default_page_size'] ?? 15);
 
-        return view('oku.index', ['okus' => $okus, 'stats' => $data->getStats()]);
+        $okus = Oku::query()
+            ->when(filled($filters['search'] ?? null), function ($query) use ($filters) {
+                $term = $filters['search'];
+                $query->where(fn ($query) => $query
+                    ->where('name', 'like', "%{$term}%")
+                    ->orWhere('ic_number', 'like', "%{$term}%")
+                    ->orWhere('oku_card_number', 'like', "%{$term}%"));
+            })
+            ->when(filled($filters['category'] ?? null), fn ($query) => $query->where('oku_category', $filters['category']))
+            ->when(filled($filters['employment_status'] ?? null), fn ($query) => $query->where('employment_status', $filters['employment_status']))
+            ->when(filled($filters['verification_status'] ?? null), fn ($query) => $query->where('verification_status', $filters['verification_status']))
+            ->when(isset($filters['age_min']), fn ($query) => $query->where('age', '>=', $filters['age_min']))
+            ->when(isset($filters['age_max']), fn ($query) => $query->where('age', '<=', $filters['age_max']))
+            ->orderBy($sortBy, $sortDirection)
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return view('oku.index', ['okus' => $okus, 'stats' => $data->getStats(), 'filters' => $filters]);
     }
 
     public function create()
@@ -26,11 +47,47 @@ class OkuController extends Controller
         return view('oku.form', ['oku' => new Oku]);
     }
 
-    public function store(Request $request)
+    public function import(Request $request, OkuImportService $importer)
     {
-        $oku = Oku::create($this->validated($request));
+        $request->validate([
+            'import_file' => ['required', 'file', 'mimes:csv,txt,xlsx', 'max:10240'],
+        ]);
 
-        return redirect()->route('oku.show', $oku)->with('success', 'OKU record created.');
+        try {
+            $result = $importer->import(
+                $request->file('import_file')->getRealPath(),
+                $request->file('import_file')->getClientOriginalExtension(),
+            );
+        } catch (RuntimeException $exception) {
+            return back()->withErrors(['import_file' => $exception->getMessage()]);
+        }
+
+        return back()->with('import_result', $result);
+    }
+
+    public function importTemplate(OkuImportService $importer)
+    {
+        return response()->streamDownload(function () use ($importer) {
+            $output = fopen('php://output', 'wb');
+            fwrite($output, "\xEF\xBB\xBF");
+            fputcsv($output, $importer->templateHeaders());
+            fputcsv($output, ['NAMA PENUH', '900101115555', 'LELAKI', '36', 'BUJANG', 'ALAMAT PENUH', 'SEKOLAH MENENGAH', 'PH110500000001', 'FIZIKAL', 'TIDAK BEKERJA', 'PEMBANTU KEDAI', 'BANTUAN OKU TIDAK BEKERJA (BTB)']);
+            fclose($output);
+        }, 'templat_import_oku.csv', ['Content-Type' => 'text/csv; charset=UTF-8']);
+    }
+
+    public function store(SaveOkuRequest $request)
+    {
+        $oku = DB::transaction(function () use ($request) {
+            $data = $request->validated();
+            unset($data['oku_card_image'], $data['profile_photo']);
+            $oku = Oku::query()->create($data);
+            $this->storeUploadedDocuments($request, $oku);
+
+            return $oku;
+        });
+
+        return redirect()->route('oku.show', $oku)->with('success', 'Rekod OKU berjaya didaftarkan.');
     }
 
     public function show(Oku $oku, JobMatchingService $matching, OkuDataService $data)
@@ -43,16 +100,21 @@ class OkuController extends Controller
         return view('oku.form', compact('oku'));
     }
 
-    public function update(Request $request, Oku $oku)
+    public function update(SaveOkuRequest $request, Oku $oku)
     {
-        $oku->update($this->validated($request, $oku));
+        DB::transaction(function () use ($request, $oku): void {
+            $data = $request->validated();
+            unset($data['oku_card_image'], $data['profile_photo']);
+            $oku->update($data);
+            $this->storeUploadedDocuments($request, $oku);
+        });
 
-        return redirect()->route('oku.show', $oku)->with('success', 'OKU record updated.');
+        return redirect()->route('oku.show', $oku)->with('success', 'Rekod OKU berjaya dikemas kini.');
     }
 
     public function destroy(Oku $oku)
     {
-        $oku->delete();
+        Oku::query()->whereKey($oku->getKey())->delete();
 
         return redirect()->route('oku.index')->with('success', 'OKU record deleted.');
     }
@@ -62,17 +124,31 @@ class OkuController extends Controller
         return view('oku.find-jobs', ['oku' => $oku, 'matchingJobs' => $matching->findMatchingJobs($oku)]);
     }
 
-    private function validated(Request $request, ?Oku $oku = null): array
+    private function storeUploadedDocuments(SaveOkuRequest $request, Oku $oku): void
     {
-        return $request->validate([
-            'name' => 'required|string|max:255', 'ic_number' => ['required', 'string', 'max:20', Rule::unique('okus')->ignore($oku)],
-            'gender' => ['required', Rule::in(['Lelaki', 'Perempuan'])], 'age' => 'required|integer|min:1|max:120',
-            'marital_status' => ['required', Rule::in(['Berkahwin', 'Bujang', 'Duda', 'Janda'])], 'address' => 'required|string',
-            'education_level' => 'required|string|max:100', 'oku_card_number' => ['required', 'string', 'max:50', Rule::unique('okus')->ignore($oku)],
-            'oku_category' => ['required', Rule::in(['Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan'])],
-            'employment_status' => ['sometimes', Rule::in(['Bekerja', 'Tidak Bekerja', 'Sendiri'])],
-            'phone_number' => 'nullable|string|max:20', 'email' => 'nullable|email|max:255', 'has_smartphone' => 'sometimes|boolean',
-            'has_internet' => 'sometimes|boolean', 'emergency_contact_name' => 'nullable|string|max:255', 'emergency_contact_phone' => 'nullable|string|max:20', 'is_active' => 'sometimes|boolean',
-        ]);
+        if ($request->hasFile('oku_card_image')) {
+            $this->replacePrivateFile($oku, 'oku_card_image_path', $request->file('oku_card_image')->store("oku-documents/{$oku->id}/card", 'local'));
+            $oku->forceFill([
+                'verification_status' => 'Pending',
+                'verification_notes' => null,
+                'verified_at' => null,
+                'verified_by' => null,
+            ])->save();
+        }
+
+        if ($request->hasFile('profile_photo')) {
+            $this->replacePrivateFile($oku, 'profile_photo_path', $request->file('profile_photo')->store("oku-documents/{$oku->id}/profile", 'local'));
+        }
     }
+
+    private function replacePrivateFile(Oku $oku, string $attribute, string $newPath): void
+    {
+        $oldPath = $oku->getAttribute($attribute);
+        $oku->forceFill([$attribute => $newPath])->save();
+
+        if ($oldPath && $oldPath !== $newPath) {
+            Storage::disk('local')->delete($oldPath);
+        }
+    }
+
 }

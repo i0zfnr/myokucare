@@ -2,14 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployerIndexRequest;
 use App\Models\Employer;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class EmployerController extends Controller
 {
-    public function index()
+    public function index(EmployerIndexRequest $request)
     {
-        return view('employers.index', ['employers' => Employer::withCount('jobs')->latest()->paginate(15)]);
+        $filters = $request->validated();
+        $sortBy = $filters['sort_by'] ?? 'company_name';
+        $sortDirection = $filters['sort_direction'] ?? 'asc';
+        $perPage = (int) ($filters['per_page'] ?? $request->user()->preferences['default_page_size'] ?? 15);
+
+        $employers = Employer::query()
+            ->withCount(['jobs', 'activeJobs'])
+            ->when(filled($filters['search'] ?? null), function ($query) use ($filters) {
+                $term = $filters['search'];
+                $query->where(fn ($query) => $query
+                    ->where('company_name', 'like', "%{$term}%")
+                    ->orWhere('registration_number', 'like', "%{$term}%")
+                    ->orWhere('contact_person', 'like', "%{$term}%")
+                    ->orWhere('email', 'like', "%{$term}%"));
+            })
+            ->when(filled($filters['sector'] ?? null), fn ($query) => $query->where('industry_sector', $filters['sector']))
+            ->when(($filters['status'] ?? null) === 'active', fn ($query) => $query->where('is_active', true))
+            ->when(($filters['status'] ?? null) === 'inactive', fn ($query) => $query->where('is_active', false))
+            ->orderBy($sortBy, $sortDirection)
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return view('employers.index', [
+            'employers' => $employers,
+            'filters' => $filters,
+            'sectors' => Employer::query()->distinct()->orderBy('industry_sector')->pluck('industry_sector'),
+            'stats' => [
+                'total' => Employer::query()->count(),
+                'active' => Employer::query()->where('is_active', true)->count(),
+                'oku_friendly' => Employer::query()->where('has_oku_quota', true)->count(),
+                'active_jobs' => Job::query()->where('is_active', true)->count(),
+            ],
+        ]);
     }
 
     public function show(Employer $employer)
@@ -17,21 +51,37 @@ class EmployerController extends Controller
         return response()->json($employer->load('jobs'));
     }
 
+    public function create()
+    {
+        return view('employers.form', ['employer' => new Employer]);
+    }
+
+    public function edit(Employer $employer)
+    {
+        return view('employers.form', compact('employer'));
+    }
+
     public function store(Request $r)
     {
-        return response()->json(Employer::create($this->data($r)), 201);
+        $employer = Employer::query()->create($this->data($r));
+
+        return $r->expectsJson()
+            ? response()->json($employer, 201)
+            : redirect()->route('employers.index')->with('success', 'Majikan berjaya didaftarkan.');
     }
 
     public function update(Request $r, Employer $employer)
     {
         $employer->update($this->data($r, true));
 
-        return response()->json($employer);
+        return $r->expectsJson()
+            ? response()->json($employer)
+            : redirect()->route('employers.index')->with('success', 'Maklumat majikan berjaya dikemas kini.');
     }
 
     public function destroy(Employer $employer)
     {
-        $employer->delete();
+        Employer::query()->whereKey($employer->getKey())->delete();
 
         return response()->noContent();
     }
