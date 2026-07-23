@@ -1,0 +1,5 @@
+@extends('layout',['title'=>'Majikan'])
+@section('content')
+<div class="page-head"><div><p class="eyebrow">Rakan Pekerjaan</p><h2>Senarai Majikan</h2><p>Organisasi yang menawarkan peluang pekerjaan inklusif.</p></div></div>
+<section class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Syarikat</th><th>Sektor</th><th>Pegawai Dihubungi</th><th>Jawatan</th><th>Status</th></tr></thead><tbody>@forelse($employers as $employer)<tr><td><strong>{{ $employer->company_name }}</strong><br><span style="color:var(--muted)">{{ $employer->registration_number }}</span></td><td>{{ $employer->industry_sector }}</td><td>{{ $employer->contact_person }}<br>{{ $employer->email }}</td><td>{{ $employer->jobs_count }}</td><td><span class="badge">{{ $employer->is_active?'Aktif':'Tidak aktif' }}</span></td></tr>@empty<tr><td class="empty" colspan="5">Tiada majikan berdaftar.</td></tr>@endforelse</tbody></table></div></section><div class="pagination">{{ $employers->links() }}</div>
+@endsection

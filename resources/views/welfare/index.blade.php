@@ -1,0 +1,5 @@
+@extends('layout',['title'=>'Permohonan Kebajikan'])
+@section('content')
+<div class="page-head"><div><p class="eyebrow">Sokongan Kebajikan</p><h2>Permohonan Kebajikan</h2><p>Pantau proses semakan dan keputusan permohonan.</p></div></div>
+<section class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Pemohon</th><th>Jenis</th><th>Tarikh</th><th>Status</th><th>Semakan Seterusnya</th></tr></thead><tbody>@forelse($applications as $application)<tr><td><a href="{{ route('oku.show',$application->oku) }}">{{ $application->oku->name }}</a></td><td>{{ $application->application_type }}</td><td>{{ $application->application_date->format('d M Y') }}</td><td><span class="badge">{{ $application->status }}</span></td><td>{{ $application->next_review_date?->format('d M Y') ?? '—' }}</td></tr>@empty<tr><td class="empty" colspan="5">Tiada permohonan direkodkan.</td></tr>@endforelse</tbody></table></div></section><div class="pagination">{{ $applications->links() }}</div>
+@endsection
