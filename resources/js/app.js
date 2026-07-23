@@ -13,7 +13,7 @@ const installPanel = document.createElement('aside');
 installPanel.className = 'pwa-install-panel';
 installPanel.hidden = true;
 installPanel.innerHTML = `
-    <div class="pwa-install-icon" aria-hidden="true">M</div>
+    <div class="pwa-install-icon" aria-hidden="true"><img src="/images/myokucare-logo.png" alt=""></div>
     <div><strong>Pasang MyOKUcare</strong><span>Akses lebih pantas dari skrin utama telefon anda.</span></div>
     <button class="pwa-install-button" type="button">Pasang</button>
     <button class="pwa-install-close" type="button" aria-label="Tutup cadangan pemasangan">×</button>
@@ -128,3 +128,29 @@ const syncRoleLinkFields = () => {
 };
 managedRoleSelect?.addEventListener('change', syncRoleLinkFields);
 syncRoleLinkFields();
+
+document.querySelectorAll('[data-password-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+        const input = document.getElementById(button.getAttribute('aria-controls'));
+        if (!input) return;
+        const showing = input.type === 'text';
+        input.type = showing ? 'password' : 'text';
+        button.setAttribute('aria-pressed', String(!showing));
+        button.setAttribute('aria-label', showing ? 'Tunjukkan kata laluan' : 'Sembunyikan kata laluan');
+        input.focus({ preventScroll: true });
+    });
+});
+
+document.querySelector('[data-login-form]')?.addEventListener('submit', (event) => {
+    if (!event.currentTarget.checkValidity()) return;
+    const button = event.currentTarget.querySelector('[data-login-submit]');
+    const label = event.currentTarget.querySelector('[data-login-submit-label]');
+    if (!button || button.disabled) return;
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+    if (label) label.textContent = 'Sedang log masuk…';
+    const spinner = document.createElement('span');
+    spinner.className = 'login-spinner';
+    spinner.setAttribute('aria-hidden', 'true');
+    button.prepend(spinner);
+});

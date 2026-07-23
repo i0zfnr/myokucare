@@ -8,6 +8,7 @@
                 <a class="btn primary-light" href="{{ route('register') }}">Mulakan Pendaftaran</a>
                 <a class="btn outline-light" href="{{ route('login') }}">Saya Sudah Ada Akaun</a>
             </div>
+            <p class="hero-account-note">Satu halaman daftar untuk pengguna OKU, ahli keluarga dan majikan. Akses akan disesuaikan mengikut peranan.</p>
         </div>
         <div class="hero-panel" aria-hidden="true">
             <div class="preview">

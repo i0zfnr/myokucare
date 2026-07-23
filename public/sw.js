@@ -1,10 +1,11 @@
-const CACHE_VERSION = 'myokucare-v2-mobile';
+const CACHE_VERSION = 'myokucare-v4-rounded-favicon';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const OFFLINE_URL = '/offline.html';
 const PRECACHE = [
     OFFLINE_URL,
     '/manifest.webmanifest',
-    '/icons/myokucare-icon.svg',
+    '/images/myokucare-logo.png',
+    '/icons/favicon-64.png',
     '/icons/pwa-192.png',
     '/icons/pwa-512.png',
     '/icons/pwa-maskable-512.png',
@@ -39,6 +40,7 @@ self.addEventListener('fetch', (event) => {
 
     const isStaticAsset = url.pathname.startsWith('/build/')
         || url.pathname.startsWith('/icons/')
+        || url.pathname.startsWith('/images/')
         || url.pathname === '/manifest.webmanifest';
 
     if (isStaticAsset) {

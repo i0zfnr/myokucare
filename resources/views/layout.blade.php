@@ -23,6 +23,42 @@
     ];
     $nav = collect($allNav)->filter(fn($item) => !isset($item['roles']) || in_array($user->role, $item['roles'], true));
     $globalSearchRoute = $user->hasRole('super_admin','jkm_officer') ? 'oku.index' : 'jobs.index';
+    $pwaNavByRole = [
+        'super_admin'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Pengguna','route'=>'admin.users.index','active'=>'admin.users.*','icon'=>'users'],
+            ['label'=>'Audit','route'=>'admin.audit','active'=>'admin.audit','icon'=>'audit'],
+            ['label'=>'Tetapan','route'=>'admin.settings','active'=>'admin.settings*','icon'=>'settings'],
+        ],
+        'jkm_officer'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Rekod OKU','route'=>'oku.index','active'=>'oku.*','icon'=>'id-card'],
+            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
+            ['label'=>'Laporan','route'=>'reports.employment','active'=>'reports.*','icon'=>'employment-report'],
+        ],
+        'employer'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Majikan','route'=>'employers.index','active'=>'employers.*','icon'=>'employer'],
+            ['label'=>'Peluang','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
+        ],
+        'oku_user'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Profil','route'=>'career-profile.show','active'=>'career-profile.*','icon'=>'profile'],
+            ['label'=>'Kerja','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
+            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
+        ],
+        'family_member'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Kerja','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
+            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
+        ],
+        'viewer'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Pekerjaan','route'=>'reports.employment','active'=>'reports.employment','icon'=>'employment-report'],
+            ['label'=>'Kebajikan','route'=>'reports.welfare','active'=>'reports.welfare','icon'=>'welfare-report'],
+        ],
+    ];
+    $pwaNav = $pwaNavByRole[$user->role] ?? $pwaNavByRole['viewer'];
 @endphp
 <!doctype html>
 <html lang="ms" data-default-font-scale="{{ $preferences['font_scale'] }}" data-default-high-contrast="{{ $preferences['high_contrast_default']?'1':'0' }}" data-preferences-version="{{ sha1(json_encode($preferences)) }}" data-dashboard-refresh="{{ $preferences['dashboard_refresh_seconds'] }}">
@@ -40,7 +76,7 @@
 <div class="app-shell">
     <aside class="sidebar" id="sidebar">
         <a class="brand" href="{{ route('dashboard') }}">
-            <span class="brand-mark">M</span>
+            <span class="brand-mark"><img src="{{ asset('images/myokucare-logo.png') }}" alt=""></span>
             <span class="brand-copy"><strong>MyOKUcare</strong><small>Sistem Sokongan OKU</small></span>
         </a>
         <div class="sidebar-profile">
@@ -83,6 +119,15 @@
             @if(session('success'))<div class="notice">{{ session('success') }}</div>@endif
             @yield('content')
         </main>
+        <nav class="pwa-bottom-nav" aria-label="Navigasi aplikasi mudah alih" style="--pwa-nav-items:{{ count($pwaNav) }}">
+            @foreach($pwaNav as $item)
+                @php $isPwaActive=request()->routeIs($item['active']); @endphp
+                <a href="{{ route($item['route']) }}" class="{{ $isPwaActive?'active':'' }}" @if($isPwaActive) aria-current="page" @endif>
+                    <span aria-hidden="true"><x-dashboard-icon :name="$item['icon']"/></span>
+                    <small>{{ $item['label'] }}</small>
+                </a>
+            @endforeach
+        </nav>
     </div>
 </div>
 <script>
@@ -92,5 +137,9 @@
     backdrop?.addEventListener('click',()=>setSidebarOpen(false));
     sidebar?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setSidebarOpen(false)));
     document.addEventListener('keydown',event=>{if(event.key==='Escape'&&sidebar.classList.contains('open')){setSidebarOpen(false);menuButton?.focus()}});
+    const standaloneQuery=window.matchMedia('(display-mode: standalone)');
+    const syncStandaloneMode=()=>document.documentElement.classList.toggle('is-standalone',standaloneQuery.matches||window.navigator.standalone===true);
+    syncStandaloneMode();
+    standaloneQuery.addEventListener?.('change',syncStandaloneMode);
 </script>
 </body></html>

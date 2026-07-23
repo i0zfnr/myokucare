@@ -1,5 +1,5 @@
 <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
-<link rel="icon" type="image/svg+xml" href="{{ asset('icons/myokucare-icon.svg') }}">
+<link rel="icon" type="image/png" sizes="64x64" href="{{ asset('icons/favicon-64.png') }}">
 <link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}">
 <meta name="application-name" content="MyOKUcare">
 <meta name="apple-mobile-web-app-capable" content="yes">

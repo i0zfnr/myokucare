@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
@@ -83,7 +85,18 @@ class AuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
+        $throttleKey = Str::lower($credentials['email']).'|'.$request->ip();
+        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+
+            throw ValidationException::withMessages([
+                'email' => "Terlalu banyak cubaan log masuk. Sila cuba semula dalam {$seconds} saat.",
+            ]);
+        }
+
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+            RateLimiter::hit($throttleKey, 60);
+
             throw ValidationException::withMessages([
                 'email' => 'E-mel atau kata laluan tidak tepat.',
             ]);
@@ -97,6 +110,7 @@ class AuthController extends Controller
             ]);
         }
 
+        RateLimiter::clear($throttleKey);
         $request->session()->regenerate();
         $request->user()->forceFill(['last_login_at' => now()])->save();
 

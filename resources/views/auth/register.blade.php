@@ -11,7 +11,7 @@
 </head>
 <body>
 <main class="register-page">
-    <section class="register-side"><a class="register-brand" href="{{ route('welcome') }}"><span class="brand-mark">M</span><strong>MyOKUcare</strong></a><div class="register-message"><h1>Sertai komuniti MyOKUcare.</h1><p>Cipta akaun menggunakan e-mel anda. Akses sistem akan disesuaikan berdasarkan peranan yang dipilih.</p></div></section>
+    <section class="register-side"><a class="register-brand" href="{{ route('welcome') }}"><span class="brand-mark"><img src="{{ asset('images/myokucare-logo.png') }}" alt=""></span><strong>MyOKUcare</strong></a><div class="register-message"><h1>Sertai komuniti MyOKUcare.</h1><p>Cipta akaun menggunakan e-mel anda. Akses sistem akan disesuaikan berdasarkan peranan yang dipilih.</p></div></section>
     <section class="register-wrap"><a class="back-home" href="{{ route('welcome') }}">← Kembali ke laman utama</a><form class="register-form" method="post" action="{{ route('register.store') }}">@csrf
         <p class="eyebrow">Akaun Baharu</p><h2>Daftar MyOKUcare</h2><p>Lengkapkan maklumat berikut untuk mencipta akaun anda.</p>
         @if($errors->any())<div class="error">@foreach($errors->all() as $error)<div>{{ $error }}</div>@endforeach</div>@endif
