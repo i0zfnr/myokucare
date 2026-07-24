@@ -1,17 +1,22 @@
-@extends('layout',['title'=>'Pengurusan Pengguna'])
+@php
+$roleLabels=['super_admin'=>'Pentadbir','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU','family_member'=>'Ahli Keluarga','viewer'=>'Viewer'];
+$pageRole=$pageRole??null;
+$heading=$pageRole?'Pengguna '.$roleLabels[$pageRole]:'Pengurusan Pengguna';
+$filterAction=$pageRole?route('admin.users.role',$pageRole):route('admin.users.index');
+@endphp
+@extends('layout',['title'=>$heading])
 @section('content')
-@php $roleLabels=['super_admin'=>'Super Admin','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU','family_member'=>'Ahli Keluarga','viewer'=>'Viewer']; @endphp
-<div class="page-head"><div><p class="eyebrow">Pentadbiran Sistem</p><h2>Pengurusan Pengguna</h2><p>Urus akaun, peranan, pautan profil dan status akses sistem.</p></div><a class="btn btn-primary" href="{{ route('admin.users.create') }}">Daftar Pengguna</a></div>
+<div class="page-head"><div><p class="eyebrow">Pentadbiran Sistem</p><h2>{{ $heading }}</h2><p>{{ $pageRole?'Urus akaun dan status akses untuk peranan '.$roleLabels[$pageRole].'.':'Urus akaun, peranan, pautan profil dan status akses sistem.' }}</p></div><a class="btn btn-primary" href="{{ route('admin.users.create',['role'=>$pageRole]) }}">Daftar Pengguna</a></div>
 <section class="user-stat-grid" aria-label="Ringkasan pengguna">
-@foreach([['Jumlah akaun',$stats['total'],'total'],['Akaun aktif',$stats['active'],'active'],['Kakitangan',$stats['staff'],'staff'],['Tidak aktif',$stats['inactive'],'inactive']] as [$label,$value,$tone])
+@foreach([[$pageRole?'Jumlah '.$roleLabels[$pageRole]:'Jumlah akaun',$stats['total'],'total'],['Akaun aktif',$stats['active'],'active'],['Profil dipautkan',$stats['linked'],'staff'],['Tidak aktif',$stats['inactive'],'inactive']] as [$label,$value,$tone])
 <article class="panel user-stat {{ $tone }}"><span>{{ $label }}</span><strong>{{ number_format($value) }}</strong></article>
 @endforeach
 </section>
-<form class="panel user-filter" method="get" action="{{ route('admin.users.index') }}" role="search">
+<form class="panel user-filter {{ $pageRole?'role-locked':'' }}" method="get" action="{{ $filterAction }}" role="search">
     <div class="form-group user-search"><label for="user-search">Cari pengguna</label><input class="field" id="user-search" name="search" type="search" maxlength="100" value="{{ $filters['search']??'' }}" placeholder="Nama atau alamat e-mel"></div>
-    <div class="form-group"><label for="user-role">Peranan</label><select class="select" id="user-role" name="role"><option value="">Semua peranan</option>@foreach($roleLabels as $value=>$label)<option value="{{ $value }}" @selected(($filters['role']??'')===$value)>{{ $label }}</option>@endforeach</select></div>
+    @unless($pageRole)<div class="form-group"><label for="user-role">Peranan</label><select class="select" id="user-role" name="role"><option value="">Semua peranan</option>@foreach($roleLabels as $value=>$label)<option value="{{ $value }}" @selected(($filters['role']??'')===$value)>{{ $label }}</option>@endforeach</select></div>@endunless
     <div class="form-group"><label for="user-status">Status</label><select class="select" id="user-status" name="status"><option value="">Semua status</option><option value="active" @selected(($filters['status']??'')==='active')>Aktif</option><option value="inactive" @selected(($filters['status']??'')==='inactive')>Tidak aktif</option></select></div>
-    <button class="btn btn-primary" type="submit">Tapis</button>@if(request()->query())<a class="btn" href="{{ route('admin.users.index') }}">Kosongkan</a>@endif
+    <button class="btn btn-primary" type="submit">Tapis</button>@if(request()->query())<a class="btn" href="{{ $filterAction }}">Kosongkan</a>@endif
 </form>
 <div class="result-summary"><span><strong>{{ $users->total() }}</strong> akaun ditemui</span><a href="{{ route('admin.audit') }}">Lihat audit aktiviti</a></div>
 <section class="panel user-table-panel"><div class="table-wrap"><table class="data-table user-table"><thead><tr><th>Pengguna</th><th>Peranan</th><th>Profil dipautkan</th><th>Log masuk terakhir</th><th>Status</th><th><span class="sr-only">Tindakan</span></th></tr></thead><tbody>

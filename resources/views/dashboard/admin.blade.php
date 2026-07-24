@@ -1,4 +1,4 @@
-@extends('layout',['title'=>'Dashboard Super Admin'])
+@extends('layout',['title'=>'Dashboard Pentadbir'])
 @section('content')
 @php
     $metrics=[
@@ -7,11 +7,11 @@
         ['label'=>'Majikan Berdaftar','value'=>$totalEmployers,'key'=>'total_employers','icon'=>'employer','tone'=>'amber','caption'=>'Organisasi berdaftar'],
         ['label'=>'Jawatan Aktif','value'=>$openJobs,'key'=>'open_jobs','icon'=>'briefcase','tone'=>'green','caption'=>'Peluang sedang dibuka'],
     ];
-    $roleLabels=['super_admin'=>'Super Admin','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU','family_member'=>'Ahli Keluarga','viewer'=>'Viewer'];
+    $roleLabels=['super_admin'=>'Pentadbir','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU','family_member'=>'Ahli Keluarga','viewer'=>'Viewer'];
     $roleIcons=['super_admin'=>'settings','jkm_officer'=>'profile','employer'=>'employer','oku_user'=>'id-card','family_member'=>'users','viewer'=>'employment-report'];
 @endphp
 <div class="page-head admin-dashboard-head">
-    <div><p class="eyebrow">Pentadbiran Sistem</p><h2>Selamat datang, Super Admin</h2><p>Pantau pengguna, organisasi dan operasi keseluruhan MyOKUcare.</p></div>
+    <div><p class="eyebrow">Pentadbiran Sistem</p><h2>Selamat datang, Pentadbir</h2><p>Pantau pengguna, organisasi dan operasi keseluruhan MyOKUcare.</p></div>
     <div class="page-actions"><a class="btn" href="{{ route('admin.users.index') }}">Urus Pengguna</a><a class="btn btn-primary" href="{{ route('oku.create') }}">Daftar OKU Baharu</a></div>
 </div>
 

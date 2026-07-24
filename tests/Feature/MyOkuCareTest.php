@@ -23,7 +23,7 @@ class MyOkuCareTest extends TestCase
         $this->actingAs(User::factory()->create(['role' => 'super_admin', 'is_active' => true]));
         $this->get('/dashboard')
             ->assertOk()
-            ->assertSee('Selamat datang, Super Admin')
+            ->assertSee('Selamat datang, Pentadbir')
             ->assertSee('aria-current="page"', false)
             ->assertSee('action="'.route('oku.index').'"', false)
             ->assertSee('aria-expanded="false"', false)
@@ -114,7 +114,7 @@ class MyOkuCareTest extends TestCase
             'is_active' => '1',
             'password' => 'Secure123',
             'password_confirmation' => 'Secure123',
-        ])->assertRedirect(route('admin.users.index'));
+        ])->assertRedirect(route('admin.users.role', 'jkm_officer'));
 
         $created = User::query()->where('email', 'pegawai.baharu@example.test')->firstOrFail();
         $this->assertSame('jkm_officer', $created->role);
@@ -146,6 +146,38 @@ class MyOkuCareTest extends TestCase
 
         $this->get(route('admin.audit', ['date_from' => today()->addDay()->format('Y-m-d')]))
             ->assertSessionHasErrors('date_from');
+    }
+
+    public function test_pentadbir_can_open_role_specific_user_pages_from_an_automatic_sidebar_dropdown(): void
+    {
+        $admin = User::factory()->create([
+            'name' => 'Pentadbir Utama',
+            'role' => 'super_admin',
+            'is_active' => true,
+        ]);
+        User::factory()->create([
+            'name' => 'Pegawai Dalam Senarai',
+            'role' => 'jkm_officer',
+            'is_active' => true,
+        ]);
+        User::factory()->create([
+            'name' => 'Majikan Tidak Dipaparkan',
+            'role' => 'employer',
+            'is_active' => true,
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('admin.users.role', 'jkm_officer'))
+            ->assertOk()
+            ->assertSee('Pengguna Pegawai JKM')
+            ->assertSee('Pegawai Dalam Senarai')
+            ->assertDontSee('Majikan Tidak Dipaparkan')
+            ->assertSee('Pengguna OKU')
+            ->assertSee('Ahli Keluarga');
+
+        $this->get(route('dashboard'))
+            ->assertOk()
+            ->assertSee('Pentadbiran');
     }
 
     public function test_employer_directory_filters_sorts_and_shows_live_summary(): void

@@ -42,7 +42,7 @@ Complete testing, authentication, notifications, security review and production 
 Priority: Critical
 
 1. Create test accounts for every role:
-   - Super Admin
+   - Pentadbir
    - JKM Officer
    - Employer
    - OKU User

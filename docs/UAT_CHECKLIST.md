@@ -15,7 +15,7 @@ Test on Android, iPhone, tablet, laptop and desktop where available.
 
 ## Role Access
 
-- [ ] Super Admin sees only authorised modules
+- [ ] Pentadbir sees only authorised modules
 - [ ] JKM officer sees operational modules
 - [ ] Employer sees employer/job modules
 - [ ] OKU user sees personal profile/job/welfare modules

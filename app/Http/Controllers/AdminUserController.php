@@ -17,7 +17,7 @@ class AdminUserController extends Controller
 {
     private const ROLES = ['super_admin', 'jkm_officer', 'employer', 'oku_user', 'family_member', 'viewer'];
 
-    public function index(Request $request)
+    public function index(Request $request, ?string $pageRole = null)
     {
         $filters = $request->validate([
             'search' => ['nullable', 'string', 'max:100'],
@@ -34,16 +34,29 @@ class AdminUserController extends Controller
             ->when(($filters['status'] ?? null) === 'inactive', fn ($query) => $query->where('is_active', false))
             ->orderBy('name')->paginate(15)->withQueryString();
 
+        $statQuery = User::query()->when($pageRole, fn ($query) => $query->where('role', $pageRole));
+
         return view('admin.users.index', [
             'users' => $users,
             'filters' => $filters,
+            'pageRole' => $pageRole,
             'stats' => [
-                'total' => User::query()->count(),
-                'active' => User::query()->where('is_active', true)->count(),
-                'staff' => User::query()->whereIn('role', ['super_admin', 'jkm_officer'])->count(),
-                'inactive' => User::query()->where('is_active', false)->count(),
+                'total' => (clone $statQuery)->count(),
+                'active' => (clone $statQuery)->where('is_active', true)->count(),
+                'linked' => (clone $statQuery)->where(fn ($query) => $query
+                    ->whereNotNull('oku_id')
+                    ->orWhereNotNull('employer_id'))->count(),
+                'inactive' => (clone $statQuery)->where('is_active', false)->count(),
             ],
         ]);
+    }
+
+    public function roleIndex(Request $request, string $role)
+    {
+        abort_unless(in_array($role, self::ROLES, true), 404);
+        $request->merge(['role' => $role]);
+
+        return $this->index($request, $role);
     }
 
     public function create()
@@ -62,7 +75,7 @@ class AdminUserController extends Controller
         $user = User::query()->create($data);
         $this->log($request, $user, 'user_created', ['role' => $user->role, 'is_active' => $user->is_active]);
 
-        return redirect()->route('admin.users.index')->with('success', 'Akaun pengguna berjaya dicipta.');
+        return redirect()->route('admin.users.role', $user->role)->with('success', 'Akaun pengguna berjaya dicipta.');
     }
 
     public function update(Request $request, User $user)
@@ -77,7 +90,7 @@ class AdminUserController extends Controller
         $changes = collect($user->only(array_keys($before)))->filter(fn ($value, $key) => $value != $before[$key])->all();
         $this->log($request, $user, isset($data['password']) ? 'user_updated_password_reset' : 'user_updated', $changes);
 
-        return redirect()->route('admin.users.index')->with('success', 'Akaun pengguna berjaya dikemas kini.');
+        return redirect()->route('admin.users.role', $user->role)->with('success', 'Akaun pengguna berjaya dikemas kini.');
     }
 
     public function audit(AuditFilterRequest $request, AuditService $service)
@@ -160,7 +173,7 @@ class AdminUserController extends Controller
             throw ValidationException::withMessages(['role' => 'Anda tidak boleh menurunkan peranan atau menyahaktifkan akaun sendiri.']);
         }
         if ($removesAdmin && User::query()->where('role', 'super_admin')->where('is_active', true)->count() <= 1) {
-            throw ValidationException::withMessages(['role' => 'Sistem mesti mempunyai sekurang-kurangnya seorang Super Admin aktif.']);
+            throw ValidationException::withMessages(['role' => 'Sistem mesti mempunyai sekurang-kurangnya seorang Pentadbir aktif.']);
         }
     }
 

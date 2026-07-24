@@ -32,7 +32,7 @@ Before changing code:
 
 | Role | Purpose |
 |---|---|
-| `super_admin` | Complete administration, users, audit and system reports |
+| `super_admin` | Pentadbir: complete administration, users, audit and system reports |
 | `jkm_officer` | OKU records, employers, jobs, welfare and reports |
 | `employer` | Employer and job management |
 | `oku_user` | Career profile, Kad OKU verification, job and welfare access |
@@ -54,7 +54,7 @@ All roles log in using e-mail and their own password. Dashboard routing is autom
 - Job matching and interest workflow
 - Welfare application, status and review scheduling
 - Employment and welfare reports with exports
-- Super Admin user management, profile, settings and audit activity
+- Pentadbir user management, profile, settings and audit activity
 - Responsive mobile interface and compact mobile layouts
 - Fixed shared topbar and overlay mobile sidebar
 - PWA manifest, service worker, offline page and install prompt

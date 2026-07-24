@@ -17,7 +17,7 @@ class MyOkuCareSeeder extends Seeder
         Job::firstOrCreate(['employer_id' => $employer->id, 'title' => 'Data Entry Assistant'], ['description' => 'Maintain and verify digital records.', 'requirements' => 'Basic computer skills and attention to detail.', 'oku_category_suitable' => 'Semua', 'salary_min' => 1800, 'salary_max' => 2300, 'location' => 'Cyberjaya', 'employment_type' => 'Sepenuh Masa', 'application_deadline' => now()->addMonths(2)]);
 
         $accounts = [
-            ['name' => 'Super Admin', 'email' => 'admin@myokucare.test', 'role' => 'super_admin'],
+            ['name' => 'Pentadbir', 'email' => 'admin@myokucare.test', 'role' => 'super_admin'],
             ['name' => 'Pegawai JKM', 'email' => 'pegawai@myokucare.test', 'role' => 'jkm_officer'],
             ['name' => 'Wakil Majikan', 'email' => 'majikan@myokucare.test', 'role' => 'employer', 'employer_id' => $employer->id],
             ['name' => $oku->name, 'email' => 'oku@myokucare.test', 'role' => 'oku_user', 'oku_id' => $oku->id],

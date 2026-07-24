@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('admin')->name('admin.')->middleware('role:super_admin')->group(function () {
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+        Route::get('/users/peranan/{role}', [AdminUserController::class, 'roleIndex'])
+            ->whereIn('role', ['super_admin', 'jkm_officer', 'employer', 'oku_user', 'family_member', 'viewer'])
+            ->name('users.role');
         Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
         Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
         Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');

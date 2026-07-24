@@ -16,12 +16,21 @@
         ['section'=>'Kebajikan','label'=>'Permohonan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare','roles'=>['super_admin','jkm_officer','oku_user','family_member']],
         ['section'=>'Laporan','label'=>'Statistik Pekerjaan','route'=>'reports.employment','active'=>'reports.employment','icon'=>'employment-report','roles'=>['super_admin','jkm_officer','viewer']],
         ['section'=>'Laporan','label'=>'Statistik Kebajikan','route'=>'reports.welfare','active'=>'reports.welfare','icon'=>'welfare-report','roles'=>['super_admin','jkm_officer','viewer']],
-        ['section'=>'Pentadbiran','label'=>'Pengurusan Pengguna','route'=>'admin.users.index','active'=>'admin.users.*','icon'=>'users','roles'=>['super_admin']],
-        ['section'=>'Pentadbiran','label'=>'Audit Aktiviti','route'=>'admin.audit','active'=>'admin.audit','icon'=>'audit','roles'=>['super_admin']],
+        ['section'=>'Pentadbiran','label'=>'Pentadbiran','group'=>'administration','icon'=>'users','roles'=>['super_admin']],
         ['section'=>'Akaun','label'=>'Profil Saya','route'=>'admin.profile','active'=>'admin.profile*','icon'=>'profile','roles'=>['super_admin','jkm_officer']],
         ['section'=>'Akaun','label'=>'Tetapan','route'=>'admin.settings','active'=>'admin.settings*','icon'=>'settings','roles'=>['super_admin','jkm_officer']],
     ];
     $nav = collect($allNav)->filter(fn($item) => !isset($item['roles']) || in_array($user->role, $item['roles'], true));
+    $adminNav = [
+        ['label'=>'Semua Pengguna','route'=>'admin.users.index','icon'=>'users'],
+        ['label'=>'Pentadbir','role'=>'super_admin','icon'=>'settings'],
+        ['label'=>'Pegawai JKM','role'=>'jkm_officer','icon'=>'profile'],
+        ['label'=>'Viewer','role'=>'viewer','icon'=>'employment-report'],
+        ['label'=>'Majikan','role'=>'employer','icon'=>'employer'],
+        ['label'=>'Pengguna OKU','role'=>'oku_user','icon'=>'id-card'],
+        ['label'=>'Ahli Keluarga','role'=>'family_member','icon'=>'users'],
+        ['label'=>'Audit Aktiviti','route'=>'admin.audit','icon'=>'audit'],
+    ];
     $globalSearchRoute = $user->hasRole('super_admin','jkm_officer') ? 'oku.index' : 'jobs.index';
     $pwaNavByRole = [
         'super_admin'=>[
@@ -89,6 +98,29 @@
                 @if($section !== $item['section'])
                     <div class="nav-label">{{ $item['section'] }}</div>
                     @php $section=$item['section']; @endphp
+                @endif
+                @if(isset($item['group']) && $item['group']==='administration')
+                    @php $adminOpen=request()->routeIs('admin.users.*','admin.audit'); @endphp
+                    <details class="nav-dropdown" @if($adminOpen) open @endif>
+                        <summary class="nav-link {{ $adminOpen?'active':'' }}">
+                            <span class="nav-icon" aria-hidden="true"><x-dashboard-icon name="users"/></span>
+                            <span>Pentadbiran</span><b aria-hidden="true"></b>
+                        </summary>
+                        <div class="nav-submenu">
+                            @foreach($adminNav as $adminItem)
+                                @php
+                                    $href=isset($adminItem['role'])?route('admin.users.role',$adminItem['role']):route($adminItem['route']);
+                                    $subActive=isset($adminItem['role'])
+                                        ? request()->routeIs('admin.users.role')&&request()->route('role')===$adminItem['role']
+                                        : request()->routeIs($adminItem['route']);
+                                @endphp
+                                <a class="{{ $subActive?'active':'' }}" href="{{ $href }}" @if($subActive) aria-current="page" @endif>
+                                    <span aria-hidden="true"><x-dashboard-icon :name="$adminItem['icon']"/></span>{{ $adminItem['label'] }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </details>
+                    @continue
                 @endif
                 @php $isActive=request()->routeIs($item['active']); @endphp
                 <a class="nav-link {{ $isActive?'active':'' }}" href="{{ route($item['route']) }}" @if($isActive) aria-current="page" @endif><span class="nav-icon" aria-hidden="true"><x-dashboard-icon :name="$item['icon']"/></span><span>{{ $item['label'] }}</span></a>
