@@ -1,6 +1,6 @@
 @extends('layout',['title'=>'Audit Aktiviti'])
 @section('content')
-<div class="page-head"><div><p class="eyebrow">Keselamatan Sistem</p><h2>Audit Aktiviti Pengguna</h2><p>Jejak perubahan akaun yang dilakukan oleh Pentadbir.</p></div><div class="page-actions"><a class="btn" href="{{ route('admin.audit.export',$filters) }}">Eksport CSV</a><a class="btn btn-primary" href="{{ route('admin.users.index') }}">Pengurusan Pengguna</a></div></div>
+<div class="page-head"><div><p class="eyebrow">Keselamatan Sistem</p><h2>Audit Aktiviti Pengguna</h2><p>Jejak perubahan akaun yang dilakukan oleh Admin System.</p></div><div class="page-actions"><a class="btn" href="{{ route('admin.audit.export',$filters) }}">Eksport CSV</a><a class="btn btn-primary" href="{{ route('admin.users.index') }}">Pengurusan Pengguna</a></div></div>
 
 <section class="audit-stat-grid" aria-label="Statistik log audit">
 @foreach([['Jumlah aktiviti',$statistics['total'],'total'],['Hari ini',$statistics['today'],'today'],['Minggu ini',$statistics['week'],'week'],['Perlu perhatian',$statistics['warning'],'warning']] as [$label,$value,$tone])

@@ -7,17 +7,17 @@
         ['label'=>'Majikan Berdaftar','value'=>$totalEmployers,'key'=>'total_employers','icon'=>'employer','tone'=>'amber','caption'=>'Organisasi berdaftar'],
         ['label'=>'Jawatan Aktif','value'=>$openJobs,'key'=>'open_jobs','icon'=>'briefcase','tone'=>'green','caption'=>'Peluang sedang dibuka'],
     ];
-    $roleLabels=['super_admin'=>'Pentadbir','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU','family_member'=>'Ahli Keluarga','viewer'=>'Viewer'];
-    $roleIcons=['super_admin'=>'settings','jkm_officer'=>'profile','employer'=>'employer','oku_user'=>'id-card','family_member'=>'users','viewer'=>'employment-report'];
+    $roleLabels=['super_admin'=>'Admin System','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU'];
+    $roleIcons=['super_admin'=>'settings','jkm_officer'=>'profile','employer'=>'employer','oku_user'=>'id-card'];
 @endphp
 <div class="page-head admin-dashboard-head">
-    <div><p class="eyebrow">Pentadbiran Sistem</p><h2>Selamat datang, Pentadbir</h2><p>Pantau pengguna, organisasi dan operasi keseluruhan MyOKUcare.</p></div>
+    <div><p class="eyebrow">Pentadbiran Sistem</p><h2>Selamat datang, Admin System</h2><p>Pantau pengguna, organisasi dan operasi keseluruhan MyOKUcare.</p></div>
     <div class="page-actions"><a class="btn" href="{{ route('admin.users.index') }}">Urus Pengguna</a><a class="btn btn-primary" href="{{ route('oku.create') }}">Daftar OKU Baharu</a></div>
 </div>
 
-<section class="metric-grid professional-metrics admin-metrics" aria-label="Statistik pentadbiran" data-live-dashboard data-statistics-url="{{ route('dashboard.statistics') }}">
+<section class="metric-grid professional-metrics admin-metrics stagger-children" aria-label="Statistik pentadbiran" data-live-dashboard data-statistics-url="{{ route('dashboard.statistics') }}">
 @foreach($metrics as $metric)
-    <article class="metric-card metric-{{ $metric['tone'] }}">
+    <article class="metric-card metric-{{ $metric['tone'] }} widget-hover">
         <div class="metric-top"><span class="metric-icon" aria-hidden="true"><x-dashboard-icon :name="$metric['icon']"/></span><span class="metric-status"><i></i>Data semasa</span></div>
         <div class="metric-content"><span>{{ $metric['label'] }}</span><strong data-stat="{{ $metric['key'] }}">{{ number_format($metric['value']) }}</strong><small>{{ $metric['caption'] }}</small></div>
     </article>
@@ -25,7 +25,7 @@
 </section>
 
 <section class="admin-dashboard-grid">
-    <article class="panel professional-panel admin-role-panel">
+    <article class="panel professional-panel admin-role-panel card-lift">
         <div class="panel-head"><div><p class="panel-kicker">Akses Sistem</p><h3>Pengguna Mengikut Peranan</h3><p>Taburan semua akaun berdaftar mengikut tahap akses.</p></div><a class="panel-action" href="{{ route('admin.users.index') }}">Lihat semua →</a></div>
         <div class="admin-role-list">
         @forelse($roleLabels as $role=>$label)
@@ -41,8 +41,8 @@
         </div>
     </article>
 
-    <aside class="panel professional-panel admin-action-panel">
-        <div class="panel-head"><div><p class="panel-kicker">Pintasan</p><h3>Tindakan Pentadbir</h3><p>Akses pantas kepada fungsi utama sistem.</p></div></div>
+    <aside class="panel professional-panel admin-action-panel card-lift">
+        <div class="panel-head"><div><p class="panel-kicker">Pintasan</p><h3>Tindakan Admin System</h3><p>Akses pantas kepada fungsi utama sistem.</p></div></div>
         <div class="admin-action-list">
             @foreach([
                 ['route'=>'admin.users.index','icon'=>'users','title'=>'Pengurusan Pengguna','copy'=>'Urus akaun, peranan dan status akses'],

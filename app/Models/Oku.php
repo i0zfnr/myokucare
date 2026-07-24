@@ -11,11 +11,11 @@ class Oku extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'ic_number', 'gender', 'age', 'marital_status', 'address', 'education_level', 'oku_card_number', 'oku_category', 'employment_status', 'job_name', 'assistance_type', 'career_summary', 'skills', 'availability_status', 'resume_path', 'oku_card_image_path', 'verification_status', 'verification_notes', 'verified_at', 'verified_by', 'phone_number', 'email', 'has_smartphone', 'has_internet', 'emergency_contact_name', 'emergency_contact_phone', 'profile_photo_path', 'is_active'];
+    protected $fillable = ['name', 'ic_number', 'gender', 'age', 'marital_status', 'address', 'education_level', 'oku_card_number', 'oku_category', 'employment_status', 'job_name', 'sektor_pekerjaan', 'assistance_type', 'jenis_bantuan', 'career_summary', 'skills', 'availability_status', 'resume_path', 'oku_card_image_path', 'verification_status', 'verification_notes', 'verified_at', 'verified_by', 'phone_number', 'email', 'has_smartphone', 'has_internet', 'emergency_contact_name', 'emergency_contact_phone', 'profile_photo_path', 'is_active'];
 
     protected function casts(): array
     {
-        return ['age' => 'integer', 'has_smartphone' => 'boolean', 'has_internet' => 'boolean', 'is_active' => 'boolean', 'verified_at' => 'datetime'];
+        return ['age' => 'integer', 'has_smartphone' => 'boolean', 'has_internet' => 'boolean', 'is_active' => 'boolean', 'verified_at' => 'datetime', 'jenis_bantuan' => 'array'];
     }
 
     public function employments()

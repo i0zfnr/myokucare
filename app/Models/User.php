@@ -51,12 +51,11 @@ class User extends Authenticatable
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
-            'super_admin' => 'Pentadbir',
+            'super_admin' => 'Admin System',
             'jkm_officer' => 'Pegawai JKM',
             'employer' => 'Majikan',
             'oku_user' => 'Pengguna OKU',
-            'family_member' => 'Ahli Keluarga',
-            default => 'Viewer',
+            default => 'Pengguna OKU',
         };
     }
 }

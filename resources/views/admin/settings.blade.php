@@ -1,4 +1,4 @@
-@extends('layout',['title'=>'Tetapan Pentadbir'])
+@extends('layout',['title'=>'Tetapan Admin System'])
 @section('content')
 <div class="page-head"><div><p class="eyebrow">Konfigurasi Kakitangan</p><h2>Tetapan Sistem</h2><p>Sesuaikan paparan, kemas kini data dan pemberitahuan untuk akaun anda.</p></div></div>
 <form class="admin-settings-form" method="post" action="{{ route('admin.settings.update') }}">@csrf @method('PUT')

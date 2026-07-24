@@ -31,7 +31,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'role' => ['required', Rule::in(['employer', 'oku_user', 'family_member'])],
+            'role' => ['required', Rule::in(['employer', 'oku_user'])],
             'password' => ['required', 'confirmed', Password::min(8)->letters()->numbers()],
             'ic_number' => [$okuRequired, 'nullable', 'string', 'max:20', 'unique:okus,ic_number'],
             'gender' => [$okuRequired, 'nullable', Rule::in(['Lelaki', 'Perempuan'])],
@@ -41,7 +41,10 @@ class AuthController extends Controller
             'phone_number' => [$okuRequired, 'nullable', 'string', 'max:20'],
             'education_level' => [$okuRequired, 'nullable', 'string', 'max:100'],
             'oku_card_number' => [$okuRequired, 'nullable', 'string', 'max:50', 'unique:okus,oku_card_number'],
-            'oku_category' => [$okuRequired, 'nullable', Rule::in(['Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan'])],
+            'oku_category' => [$okuRequired, 'nullable', Rule::in(['Fizikal', 'Penglihatan', 'Pendengaran', 'Pertuturan', 'Pembelajaran', 'Mental', 'Pelbagai'])],
+            'sektor_pekerjaan' => [$okuRequired, 'nullable', Rule::in(['Sektor Awam', 'Sektor Swasta', 'Bekerja Sendiri', 'Tidak Bekerja'])],
+            'jenis_bantuan' => ['nullable', 'array'],
+            'jenis_bantuan.*' => ['nullable', Rule::in(['EPOKU', 'BTB', 'BPT', 'BAT', 'Lain-lain', 'Tiada'])],
         ]);
 
         DB::transaction(function () use ($data): void {
@@ -59,6 +62,8 @@ class AuthController extends Controller
                     'education_level' => $data['education_level'],
                     'oku_card_number' => $data['oku_card_number'],
                     'oku_category' => $data['oku_category'],
+                    'sektor_pekerjaan' => $data['sektor_pekerjaan'] ?? null,
+                    'jenis_bantuan' => $data['jenis_bantuan'] ?? null,
                     'availability_status' => 'Mencari Kerja',
                     'verification_status' => 'Pending',
                 ]);

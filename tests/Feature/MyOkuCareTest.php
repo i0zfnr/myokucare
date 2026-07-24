@@ -23,7 +23,7 @@ class MyOkuCareTest extends TestCase
         $this->actingAs(User::factory()->create(['role' => 'super_admin', 'is_active' => true]));
         $this->get('/dashboard')
             ->assertOk()
-            ->assertSee('Selamat datang, Pentadbir')
+            ->assertSee('Selamat datang, Admin System')
             ->assertSee('aria-current="page"', false)
             ->assertSee('action="'.route('oku.index').'"', false)
             ->assertSee('aria-expanded="false"', false)
@@ -100,6 +100,11 @@ class MyOkuCareTest extends TestCase
     {
         $admin = User::factory()->create(['role' => 'super_admin', 'is_active' => true]);
         $officer = User::factory()->create(['role' => 'jkm_officer', 'is_active' => true]);
+        $oku = Oku::query()->create([
+            'name' => 'Test OKU', 'ic_number' => 'ADMIN-TEST-IC-1', 'gender' => 'Lelaki', 'age' => 30,
+            'marital_status' => 'Bujang', 'address' => 'Test', 'education_level' => 'SPM',
+            'oku_card_number' => 'ADMIN-TEST-OKU-1', 'oku_category' => 'Fizikal',
+        ]);
 
         $this->actingAs($officer)->get(route('admin.users.index'))->assertForbidden();
         $this->actingAs($admin)->get(route('admin.users.index'))
@@ -127,7 +132,8 @@ class MyOkuCareTest extends TestCase
         $this->put(route('admin.users.update', $admin), [
             'name' => $admin->name,
             'email' => $admin->email,
-            'role' => 'viewer',
+            'role' => 'oku_user',
+            'oku_id' => $oku->id,
             'is_active' => '0',
         ])->assertSessionHasErrors('role');
         $this->assertTrue($admin->fresh()->is_active);
@@ -146,12 +152,23 @@ class MyOkuCareTest extends TestCase
 
         $this->get(route('admin.audit', ['date_from' => today()->addDay()->format('Y-m-d')]))
             ->assertSessionHasErrors('date_from');
+
+        $this->delete(route('admin.users.destroy', $admin))->assertSessionHasErrors('role');
+        $this->assertDatabaseHas('users', ['id' => $admin->id]);
+
+        $targetId = $created->id;
+        $this->delete(route('admin.users.destroy', $targetId))->assertRedirect();
+        $this->assertDatabaseMissing('users', ['id' => $targetId]);
+        $this->assertDatabaseHas('activity_logs', [
+            'actor_id' => $admin->id,
+            'action' => 'user_deleted',
+        ]);
     }
 
     public function test_pentadbir_can_open_role_specific_user_pages_from_an_automatic_sidebar_dropdown(): void
     {
         $admin = User::factory()->create([
-            'name' => 'Pentadbir Utama',
+            'name' => 'Admin System Utama',
             'role' => 'super_admin',
             'is_active' => true,
         ]);
@@ -172,8 +189,7 @@ class MyOkuCareTest extends TestCase
             ->assertSee('Pengguna Pegawai JKM')
             ->assertSee('Pegawai Dalam Senarai')
             ->assertDontSee('Majikan Tidak Dipaparkan')
-            ->assertSee('Pengguna OKU')
-            ->assertSee('Ahli Keluarga');
+            ->assertSee('Pengguna OKU');
 
         $this->get(route('dashboard'))
             ->assertOk()
@@ -426,7 +442,7 @@ class MyOkuCareTest extends TestCase
                 'oku_category' => $record['category'], 'employment_status' => $record['status'],
             ]);
         }
-        $this->actingAs(User::factory()->create(['role' => 'viewer', 'is_active' => true]));
+        $this->actingAs(User::factory()->create(['role' => 'jkm_officer', 'is_active' => true]));
 
         $this->get('/reports/employment?category=Fizikal&gender=Perempuan')
             ->assertOk()
@@ -466,7 +482,7 @@ class MyOkuCareTest extends TestCase
                 'notes' => 'Catatan sulit pemohon.',
             ]);
         }
-        $this->actingAs(User::factory()->create(['role' => 'viewer', 'is_active' => true]));
+        $this->actingAs(User::factory()->create(['role' => 'jkm_officer', 'is_active' => true]));
 
         $this->get('/reports/welfare?category=Fizikal')
             ->assertOk()
@@ -484,7 +500,9 @@ class MyOkuCareTest extends TestCase
         $this->assertStringNotContainsString('Nama Sulit Kebajikan', $csv);
         $this->assertStringNotContainsString('Catatan sulit pemohon', $csv);
 
-        $this->get('/reports/export/welfare')->assertForbidden();
+        $this->get('/reports/export/welfare')
+            ->assertOk()
+            ->assertDownload();
         $this->get('/reports/welfare?status=TidakSah')->assertSessionHasErrors('status');
     }
 
@@ -654,7 +672,7 @@ class MyOkuCareTest extends TestCase
 
     public function test_every_supported_role_can_log_in_with_email_and_password(): void
     {
-        foreach (['super_admin', 'jkm_officer', 'employer', 'oku_user', 'family_member', 'viewer'] as $role) {
+        foreach (['super_admin', 'jkm_officer', 'employer', 'oku_user'] as $role) {
             $user = User::factory()->create([
                 'email' => $role.'@example.test',
                 'password' => 'Secret123!',
@@ -688,6 +706,7 @@ class MyOkuCareTest extends TestCase
             'education_level' => 'SPM',
             'oku_card_number' => 'REGISTER-OKU-1',
             'oku_category' => 'Fizikal',
+            'sektor_pekerjaan' => 'Tidak Bekerja',
             'password' => 'Secret123!',
             'password_confirmation' => 'Secret123!',
         ])->assertRedirect('/login');
@@ -714,12 +733,10 @@ class MyOkuCareTest extends TestCase
     public function test_each_role_receives_its_own_dashboard(): void
     {
         $dashboards = [
-            'super_admin' => 'Pentadbiran Sistem',
+            'super_admin' => 'Admin System',
             'jkm_officer' => 'Operasi JKM',
             'employer' => 'Portal Majikan',
             'oku_user' => 'Ruang Peribadi',
-            'family_member' => 'Sokongan Keluarga',
-            'viewer' => 'Analitik Read-Only',
         ];
 
         foreach ($dashboards as $role => $expectedText) {

@@ -8,13 +8,16 @@
     <meta name="description" content="Log masuk ke MyOKUcare menggunakan e-mel dan kata laluan akaun anda.">
     @include('partials.pwa-head')
     <title>Log Masuk — MyOKUcare</title>
-    @vite(['resources/css/app.css', 'resources/css/auth.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/auth.css', 'resources/css/animate.css', 'resources/js/app.js'])
 </head>
 <body>
 <a class="skip-link" href="#login-form">Langkau ke borang log masuk</a>
 <main class="login-page">
     <section class="login-brand" aria-labelledby="brand-heading">
-        <div class="login-copy">
+        <div class="login-blob login-blob-1"></div>
+        <div class="login-blob login-blob-2"></div>
+        <div class="login-blob login-blob-3"></div>
+        <div class="login-copy login-brand-content">
             <span class="login-logo"><img src="{{ asset('images/myokucare-logo.png') }}" alt=""></span>
             <h1 id="brand-heading">Sokongan inklusif, dalam satu sistem.</h1>
             <p>MyOKUcare menghubungkan pengurusan OKU, peluang pekerjaan dan bantuan kebajikan untuk setiap peranan yang terlibat.</p>
@@ -28,7 +31,7 @@
     <section class="login-form-wrap" aria-labelledby="login-heading">
         <a class="btn welcome-button" href="{{ route('welcome') }}" aria-label="Kembali ke laman utama">← Kembali ke Laman Utama</a>
 
-        <form id="login-form" class="login-form" method="post" action="{{ route('login.store') }}" data-login-form aria-label="Borang log masuk">
+        <form id="login-form" class="login-form login-form-box" method="post" action="{{ route('login.store') }}" data-login-form aria-label="Borang log masuk">
             @csrf
             <p class="eyebrow">Selamat Kembali</p>
             <h2 id="login-heading">Log masuk MyOKUcare</h2>
@@ -85,7 +88,7 @@
                 <span>Ingat saya pada peranti ini</span>
             </label>
 
-            <button class="btn btn-primary login-submit" type="submit" data-login-submit>
+            <button class="btn btn-primary login-submit btn-ripple" type="submit" data-login-submit>
                 <span data-login-submit-label>Log Masuk</span>
             </button>
 

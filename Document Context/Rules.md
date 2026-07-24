@@ -4,7 +4,7 @@
 
 1. Every account has one unique email and one password known only to its owner.
 2. Passwords are stored only as secure hashes.
-3. Public registration may create only `employer`, `oku_user`, or `family_member`.
+3. Public registration may create only `employer` or `oku_user`.
 4. `super_admin` and `jkm_officer` accounts require authorised creation.
 5. Inactive accounts cannot authenticate or continue protected requests.
 6. A successful login regenerates the session and records `last_login_at`.

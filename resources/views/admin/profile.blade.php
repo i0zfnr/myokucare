@@ -1,4 +1,4 @@
-@extends('layout',['title'=>'Profil Pentadbir'])
+@extends('layout',['title'=>'Profil Admin System'])
 @section('content')
 <div class="page-head"><div><p class="eyebrow">Akaun Kakitangan</p><h2>Profil Saya</h2><p>Kemaskini identiti log masuk dan keselamatan akaun anda.</p></div></div>
 <div class="admin-account-grid">

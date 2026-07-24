@@ -12,10 +12,10 @@
         ['section'=>'Pengurusan OKU','label'=>'Daftar OKU','route'=>'oku.create','active'=>'oku.create','icon'=>'add-record','roles'=>['super_admin','jkm_officer']],
         ['section'=>'Profil Saya','label'=>'Profil Kerjaya','route'=>'career-profile.show','active'=>'career-profile.*','icon'=>'profile','roles'=>['oku_user']],
         ['section'=>'Pekerjaan','label'=>'Majikan','route'=>'employers.index','active'=>'employers.*','icon'=>'employer','roles'=>['super_admin','jkm_officer','employer']],
-        ['section'=>'Pekerjaan','label'=>'Peluang Kerja','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs','roles'=>['super_admin','jkm_officer','employer','oku_user','family_member']],
-        ['section'=>'Kebajikan','label'=>'Permohonan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare','roles'=>['super_admin','jkm_officer','oku_user','family_member']],
-        ['section'=>'Laporan','label'=>'Statistik Pekerjaan','route'=>'reports.employment','active'=>'reports.employment','icon'=>'employment-report','roles'=>['super_admin','jkm_officer','viewer']],
-        ['section'=>'Laporan','label'=>'Statistik Kebajikan','route'=>'reports.welfare','active'=>'reports.welfare','icon'=>'welfare-report','roles'=>['super_admin','jkm_officer','viewer']],
+        ['section'=>'Pekerjaan','label'=>'Peluang Kerja','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs','roles'=>['super_admin','jkm_officer','employer','oku_user']],
+        ['section'=>'Kebajikan','label'=>'Permohonan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare','roles'=>['super_admin','jkm_officer','oku_user']],
+        ['section'=>'Laporan','label'=>'Statistik Pekerjaan','route'=>'reports.employment','active'=>'reports.employment','icon'=>'employment-report','roles'=>['super_admin','jkm_officer']],
+        ['section'=>'Laporan','label'=>'Statistik Kebajikan','route'=>'reports.welfare','active'=>'reports.welfare','icon'=>'welfare-report','roles'=>['super_admin','jkm_officer']],
         ['section'=>'Pentadbiran','label'=>'Pentadbiran','group'=>'administration','icon'=>'users','roles'=>['super_admin']],
         ['section'=>'Akaun','label'=>'Profil Saya','route'=>'admin.profile','active'=>'admin.profile*','icon'=>'profile','roles'=>['super_admin','jkm_officer']],
         ['section'=>'Akaun','label'=>'Tetapan','route'=>'admin.settings','active'=>'admin.settings*','icon'=>'settings','roles'=>['super_admin','jkm_officer']],
@@ -23,12 +23,10 @@
     $nav = collect($allNav)->filter(fn($item) => !isset($item['roles']) || in_array($user->role, $item['roles'], true));
     $adminNav = [
         ['label'=>'Semua Pengguna','route'=>'admin.users.index','icon'=>'users'],
-        ['label'=>'Pentadbir','role'=>'super_admin','icon'=>'settings'],
+        ['label'=>'Admin System','role'=>'super_admin','icon'=>'settings'],
         ['label'=>'Pegawai JKM','role'=>'jkm_officer','icon'=>'profile'],
-        ['label'=>'Viewer','role'=>'viewer','icon'=>'employment-report'],
         ['label'=>'Majikan','role'=>'employer','icon'=>'employer'],
         ['label'=>'Pengguna OKU','role'=>'oku_user','icon'=>'id-card'],
-        ['label'=>'Ahli Keluarga','role'=>'family_member','icon'=>'users'],
         ['label'=>'Audit Aktiviti','route'=>'admin.audit','icon'=>'audit'],
     ];
     $globalSearchRoute = $user->hasRole('super_admin','jkm_officer') ? 'oku.index' : 'jobs.index';
@@ -39,35 +37,8 @@
             ['label'=>'Audit','route'=>'admin.audit','active'=>'admin.audit','icon'=>'audit'],
             ['label'=>'Tetapan','route'=>'admin.settings','active'=>'admin.settings*','icon'=>'settings'],
         ],
-        'jkm_officer'=>[
-            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
-            ['label'=>'Rekod OKU','route'=>'oku.index','active'=>'oku.*','icon'=>'id-card'],
-            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
-            ['label'=>'Laporan','route'=>'reports.employment','active'=>'reports.*','icon'=>'employment-report'],
-        ],
-        'employer'=>[
-            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
-            ['label'=>'Majikan','route'=>'employers.index','active'=>'employers.*','icon'=>'employer'],
-            ['label'=>'Peluang','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
-        ],
-        'oku_user'=>[
-            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
-            ['label'=>'Profil','route'=>'career-profile.show','active'=>'career-profile.*','icon'=>'profile'],
-            ['label'=>'Kerja','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
-            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
-        ],
-        'family_member'=>[
-            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
-            ['label'=>'Kerja','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
-            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
-        ],
-        'viewer'=>[
-            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
-            ['label'=>'Pekerjaan','route'=>'reports.employment','active'=>'reports.employment','icon'=>'employment-report'],
-            ['label'=>'Kebajikan','route'=>'reports.welfare','active'=>'reports.welfare','icon'=>'welfare-report'],
-        ],
     ];
-    $pwaNav = $pwaNavByRole[$user->role] ?? $pwaNavByRole['viewer'];
+    $pwaNav = $pwaNavByRole[$user->role] ?? [];
 @endphp
 <!doctype html>
 <html lang="ms" data-default-font-scale="{{ $preferences['font_scale'] }}" data-default-high-contrast="{{ $preferences['high_contrast_default']?'1':'0' }}" data-preferences-version="{{ sha1(json_encode($preferences)) }}" data-dashboard-refresh="{{ $preferences['dashboard_refresh_seconds'] }}">
@@ -78,7 +49,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('partials.pwa-head')
     <title>{{ $pageTitle }} — MyOKUcare</title>
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @vite(['resources/css/app.css','resources/css/animate.css','resources/js/app.js'])
 </head>
 <body class="{{ $preferences['compact_sidebar']?'compact-sidebar':'' }}">
 <a class="skip-link" href="#main">Terus ke kandungan</a>
@@ -136,7 +107,7 @@
         <header class="topbar">
             <div class="topbar-left"><button class="menu-btn" id="menuButton" aria-label="Buka menu" aria-controls="sidebar" aria-expanded="false">☰</button><div class="topbar-copy"><h1>{{ $pageTitle }}</h1><p>Pengurusan komuniti yang inklusif dan tersusun</p></div></div>
             <div class="topbar-actions">
-                @unless($user->role==='viewer')
+                @unless(!$user->hasRole('super_admin','jkm_officer','employer','oku_user'))
                 <form class="search" method="get" action="{{ route($globalSearchRoute) }}" role="search"><span aria-hidden="true">⌕</span><input name="search" type="search" maxlength="100" placeholder="{{ $user->hasRole('super_admin','jkm_officer')?'Cari rekod OKU...':'Cari peluang kerja...' }}" aria-label="{{ $user->hasRole('super_admin','jkm_officer')?'Cari rekod OKU':'Cari peluang kerja' }}"></form>
                 @endunless
                 <div class="accessibility-tools" aria-label="Tetapan paparan">

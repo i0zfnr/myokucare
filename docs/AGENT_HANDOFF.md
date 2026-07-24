@@ -36,8 +36,6 @@ Before changing code:
 | `jkm_officer` | OKU records, employers, jobs, welfare and reports |
 | `employer` | Employer and job management |
 | `oku_user` | Career profile, Kad OKU verification, job and welfare access |
-| `family_member` | Job and welfare support access |
-| `viewer` | Read-only reporting |
 
 All roles log in using e-mail and their own password. Dashboard routing is automatic based on role.
 

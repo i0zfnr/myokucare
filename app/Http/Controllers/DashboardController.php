@@ -23,9 +23,7 @@ class DashboardController extends Controller
             'super_admin' => $this->admin($service),
             'jkm_officer' => $this->jkm($service),
             'employer' => $this->employer($user),
-            'oku_user' => $this->oku($user),
-            'family_member' => $this->family($user),
-            default => $this->viewer($service),
+            default => $this->oku($user),
         };
     }
 
@@ -99,27 +97,6 @@ class DashboardController extends Controller
             'welfareApplications' => $oku?->welfareApplications()->latest()->limit(5)->get() ?? collect(),
             'activeEmployment' => $oku?->activeEmployment()->with('job.employer')->first(),
             'matchingJobs' => $oku ? app(JobMatchingService::class)->getSmartRecommendations($oku, 4) : collect(),
-        ]);
-    }
-
-    private function family(User $user)
-    {
-        $oku = $user->oku;
-
-        return view('dashboard.family', [
-            'oku' => $oku,
-            'welfareApplications' => $oku?->welfareApplications()->latest()->limit(5)->get() ?? collect(),
-            'interests' => $oku?->jobInterests()->with('job.employer')->latest()->limit(5)->get() ?? collect(),
-            'activeEmployment' => $oku?->activeEmployment()->with('job.employer')->first(),
-        ]);
-    }
-
-    private function viewer(OkuDataService $service)
-    {
-        return view('dashboard.viewer', [
-            'stats' => $service->dashboard(),
-            'totalEmployers' => Employer::query()->where('is_active', true)->count('*'),
-            'openJobs' => $this->openJobsCount(),
         ]);
     }
 

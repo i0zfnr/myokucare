@@ -37,12 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->middleware('role:super_admin')->group(function () {
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
         Route::get('/users/peranan/{role}', [AdminUserController::class, 'roleIndex'])
-            ->whereIn('role', ['super_admin', 'jkm_officer', 'employer', 'oku_user', 'family_member', 'viewer'])
+            ->whereIn('role', ['super_admin', 'jkm_officer', 'employer', 'oku_user'])
             ->name('users.role');
         Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
         Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
         Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
         Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
         Route::get('/audit', [AdminUserController::class, 'audit'])->name('audit');
         Route::get('/audit/export', [AdminUserController::class, 'exportAudit'])->middleware('throttle:10,1')->name('audit.export');
     });
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index')
-        ->middleware('role:super_admin,jkm_officer,employer,oku_user,family_member');
+        ->middleware('role:super_admin,jkm_officer,employer,oku_user');
     Route::post('/jobs/{job}/interest', [JobController::class, 'expressInterest'])
         ->middleware('role:oku_user')
         ->name('jobs.interest');
@@ -76,7 +77,7 @@ Route::middleware('auth')->group(function () {
         Route::apiResource('jobs', JobController::class)->except('index');
     });
 
-    Route::prefix('welfare')->name('welfare.')->middleware('role:super_admin,jkm_officer,oku_user,family_member')->group(function () {
+    Route::prefix('welfare')->name('welfare.')->middleware('role:super_admin,jkm_officer,oku_user')->group(function () {
         Route::get('/', [WelfareController::class, 'index'])->name('index');
         Route::get('/create', [WelfareController::class, 'create'])->name('create');
         Route::post('/', [WelfareController::class, 'store'])->name('store');
@@ -85,7 +86,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/{welfareApplication}/schedule-review', [WelfareController::class, 'scheduleReview'])->name('schedule-review')->middleware('role:super_admin,jkm_officer');
     });
 
-    Route::middleware('role:super_admin,jkm_officer,viewer')->group(function () {
+    Route::middleware('role:super_admin,jkm_officer')->group(function () {
         Route::get('/reports/employment', [ReportController::class, 'employmentStats'])->name('reports.employment');
         Route::get('/reports/employment/export', [ReportController::class, 'exportEmployment'])
             ->middleware('throttle:10,1')

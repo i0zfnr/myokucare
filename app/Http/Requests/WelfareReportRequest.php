@@ -9,7 +9,7 @@ class WelfareReportRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()?->hasRole('super_admin', 'jkm_officer', 'viewer') === true;
+        return $this->user()?->hasRole('super_admin', 'jkm_officer') === true;
     }
 
     public function rules(): array

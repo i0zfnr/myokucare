@@ -26,7 +26,7 @@ Authentication and role identity.
 | name | varchar | Display name |
 | email | varchar | Unique login |
 | password | varchar | Password hash |
-| role | enum | `super_admin`, `jkm_officer`, `employer`, `oku_user`, `family_member`, `viewer` |
+| role | enum | `super_admin`, `jkm_officer`, `employer`, `oku_user` |
 | employer_id | foreign key, nullable | Employer account link |
 | oku_id | foreign key, nullable | OKU/family link |
 | is_active | boolean | Authentication gate |

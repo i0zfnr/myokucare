@@ -2,7 +2,7 @@
 
 ## Design intent
 
-The interface must feel trustworthy, inclusive, calm, and easy to navigate. It supports users with different levels of digital literacy and may be accessed by OKU users, family members, employers, JKM officers, and report viewers.
+The interface must feel trustworthy, inclusive, calm, and easy to navigate. It supports users with different levels of digital literacy and may be accessed by OKU users, employers, and JKM officers.
 
 ## Brand
 

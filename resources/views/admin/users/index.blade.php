@@ -1,5 +1,5 @@
 @php
-$roleLabels=['super_admin'=>'Pentadbir','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU','family_member'=>'Ahli Keluarga','viewer'=>'Viewer'];
+$roleLabels=['super_admin'=>'Admin System','jkm_officer'=>'Pegawai JKM','employer'=>'Majikan','oku_user'=>'Pengguna OKU'];
 $pageRole=$pageRole??null;
 $heading=$pageRole?'Pengguna '.$roleLabels[$pageRole]:'Pengurusan Pengguna';
 $filterAction=$pageRole?route('admin.users.role',$pageRole):route('admin.users.index');
@@ -26,7 +26,7 @@ $filterAction=$pageRole?route('admin.users.role',$pageRole):route('admin.users.i
 <td data-label="Profil">@if($managedUser->employer)<strong>{{ $managedUser->employer->company_name }}</strong>@elseif($managedUser->oku)<strong>{{ $managedUser->oku->name }}</strong><small>{{ $managedUser->oku->oku_card_number }}</small>@else<span class="muted-value">Tiada pautan</span>@endif</td>
 <td data-label="Log masuk">{{ $managedUser->last_login_at?->format('d/m/Y H:i')??'Belum pernah' }}</td>
 <td data-label="Status"><span class="status-badge {{ $managedUser->is_active?'is-active':'is-inactive' }}"><span></span>{{ $managedUser->is_active?'Aktif':'Tidak aktif' }}</span></td>
-<td data-label="Tindakan"><div class="table-actions"><a href="{{ route('admin.users.edit',$managedUser) }}">Sunting</a></div></td>
+<td data-label="Tindakan"><div class="table-actions"><a href="{{ route('admin.users.edit',$managedUser) }}">Sunting</a><form class="inline-form" method="post" action="{{ route('admin.users.destroy',$managedUser) }}" onsubmit="return confirm('Padamkan akaun {{ $managedUser->name }}? Tindakan ini tidak boleh dibatalkan.')">@csrf @method('DELETE')<button type="submit" class="btn-link danger">Padam</button></form></div></td>
 </tr>@empty<tr><td class="empty" colspan="6">Tiada akaun pengguna ditemui.</td></tr>@endforelse
 </tbody></table></div></section>
 <div class="pagination">{{ $users->links('components.pagination') }}</div>

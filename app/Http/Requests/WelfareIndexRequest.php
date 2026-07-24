@@ -9,7 +9,7 @@ class WelfareIndexRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()?->hasRole('super_admin', 'jkm_officer', 'oku_user', 'family_member') === true;
+        return $this->user()?->hasRole('super_admin', 'jkm_officer', 'oku_user') === true;
     }
 
     public function rules(): array

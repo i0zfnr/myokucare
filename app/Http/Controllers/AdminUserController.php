@@ -15,7 +15,7 @@ use Illuminate\Validation\ValidationException;
 
 class AdminUserController extends Controller
 {
-    private const ROLES = ['super_admin', 'jkm_officer', 'employer', 'oku_user', 'family_member', 'viewer'];
+    private const ROLES = ['super_admin', 'jkm_officer', 'employer', 'oku_user'];
 
     public function index(Request $request, ?string $pageRole = null)
     {
@@ -76,6 +76,22 @@ class AdminUserController extends Controller
         $this->log($request, $user, 'user_created', ['role' => $user->role, 'is_active' => $user->is_active]);
 
         return redirect()->route('admin.users.role', $user->role)->with('success', 'Akaun pengguna berjaya dicipta.');
+    }
+
+    public function destroy(Request $request, User $user)
+    {
+        if ($request->user()->is($user)) {
+            throw ValidationException::withMessages(['role' => 'Anda tidak boleh memadam akaun sendiri.']);
+        }
+
+        if ($user->role === 'super_admin' && User::query()->where('role', 'super_admin')->where('is_active', true)->count() <= 1) {
+            throw ValidationException::withMessages(['role' => 'Sistem mesti mempunyai sekurang-kurangnya seorang Admin System aktif.']);
+        }
+
+        $this->log($request, $user, 'user_deleted', ['role' => $user->role, 'email' => $user->email]);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'Akaun pengguna berjaya dipadam.');
     }
 
     public function update(Request $request, User $user)
@@ -155,13 +171,13 @@ class AdminUserController extends Controller
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user)],
             'role' => ['required', Rule::in(self::ROLES)],
             'employer_id' => ['nullable', 'required_if:role,employer', 'exists:employers,id'],
-            'oku_id' => ['nullable', 'required_if:role,oku_user,family_member', 'exists:okus,id'],
+            'oku_id' => ['nullable', 'required_if:role,oku_user', 'exists:okus,id'],
             'is_active' => ['required', 'boolean'],
             'password' => [$required, 'nullable', 'confirmed', Password::min(8)->letters()->numbers()],
         ]);
 
         $data['employer_id'] = $data['role'] === 'employer' ? ($data['employer_id'] ?? null) : null;
-        $data['oku_id'] = in_array($data['role'], ['oku_user', 'family_member'], true) ? ($data['oku_id'] ?? null) : null;
+        $data['oku_id'] = $data['role'] === 'oku_user' ? ($data['oku_id'] ?? null) : null;
 
         return $data;
     }
@@ -173,7 +189,7 @@ class AdminUserController extends Controller
             throw ValidationException::withMessages(['role' => 'Anda tidak boleh menurunkan peranan atau menyahaktifkan akaun sendiri.']);
         }
         if ($removesAdmin && User::query()->where('role', 'super_admin')->where('is_active', true)->count() <= 1) {
-            throw ValidationException::withMessages(['role' => 'Sistem mesti mempunyai sekurang-kurangnya seorang Pentadbir aktif.']);
+            throw ValidationException::withMessages(['role' => 'Sistem mesti mempunyai sekurang-kurangnya seorang Admin System aktif.']);
         }
     }
 
