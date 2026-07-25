@@ -4,10 +4,10 @@
     <div class="hero-blob hero-blob-3"></div>
     <div class="hero-inner">
         <div class="hero-copy hero-fade-group">
-            <span class="hero-tag">Platform Digital JKM · Pekerjaan Inklusif · Kebajikan</span>
+            <span class="hero-tag">Prototaip Digital · Pekerjaan Inklusif · Kebajikan</span>
             <div class="hero-system-name">MyOKUcare</div>
             <h1 id="hero-heading">Memperkasakan komuniti OKU melalui pekerjaan dan sokongan digital.</h1>
-            <p>MyOKUcare adalah platform digital Jabatan Kebajikan Masyarakat Malaysia untuk pengurusan data OKU, padanan pekerjaan yang sesuai, dan permohonan bantuan kebajikan — semua dalam satu sistem yang selamat dan mudah dicapai.</p>
+            <p>MyOKUcare ialah prototaip platform digital yang menyatukan pengurusan data OKU, padanan pekerjaan yang sesuai dan permohonan bantuan kebajikan dalam satu sistem yang mudah dicapai.</p>
             <div class="hero-buttons">
                 <a class="btn primary-light btn-ripple" href="{{ route('register') }}">Daftar Percuma</a>
                 <a class="btn outline-light btn-ripple btn-ripple-outline" href="{{ route('login') }}">Log Masuk</a>
@@ -17,9 +17,9 @@
                 <span><x-dashboard-icon name="briefcase"/> Majikan</span>
                 <span><x-dashboard-icon name="government"/> Pegawai JKM</span>
             </div>
-            <p class="hero-account-note">Satu pendaftaran untuk individu OKU, ahli keluarga, majikan dan pegawai JKM. Akses dan paparan akan disesuaikan mengikut peranan anda.</p>
+            <p class="hero-account-note">Pendaftaran awam tersedia untuk individu OKU dan majikan. Akaun pegawai disediakan oleh pentadbir yang diberi kuasa.</p>
             <div class="pwa-hero-footer">
-                <span>Diselia oleh JKM Malaysia • Data Selamat & Terpelihara</span>
+                <span>Direka untuk menyokong perkhidmatan OKU • Data dilindungi</span>
             </div>
         </div>
         <div class="hero-panel hero-float" aria-hidden="true">

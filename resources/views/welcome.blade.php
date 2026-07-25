@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#FF6565">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="MyOKUcare — Platform digital JKM untuk pengurusan data OKU, padanan pekerjaan inklusif, dan permohonan kebajikan dalam satu sistem selamat dan mudah dicapai.">
+    <meta name="description" content="MyOKUcare — Prototaip platform digital untuk pengurusan data OKU, padanan pekerjaan inklusif, dan permohonan kebajikan dalam satu sistem mudah dicapai.">
     <meta property="og:title" content="MyOKUcare — Platform Digital Sokongan OKU">
-    <meta property="og:description" content="Diselia oleh JKM, MyOKUcare menyatukan data OKU, pekerjaan, dan kebajikan dalam satu platform inklusif.">
+    <meta property="og:description" content="MyOKUcare menyatukan data OKU, pekerjaan, dan kebajikan dalam satu prototaip platform inklusif.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ asset('images/myokucare-logo.png') }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="MyOKUcare — Platform Digital Sokongan OKU">
-    <meta name="twitter:description" content="Diselia oleh JKM, MyOKUcare menyatukan data OKU, pekerjaan, dan kebajikan dalam satu platform inklusif.">
+    <meta name="twitter:description" content="MyOKUcare menyatukan data OKU, pekerjaan, dan kebajikan dalam satu prototaip platform inklusif.">
     @include('partials.pwa-head')
     <title>MyOKUcare — Platform Digital Sokongan OKU</title>
     @vite(['resources/css/app.css', 'resources/css/landing.css', 'resources/css/animate.css', 'resources/js/app.js'])
@@ -29,7 +29,7 @@
                 <span class="brand-mark"><img src="{{ asset('images/myokucare-logo.png') }}" alt=""></span>
                 <div>
                     <strong>MyOKUcare</strong>
-                    <small>Platform Digital JKM</small>
+                    <small>Platform Digital Sokongan OKU</small>
                 </div>
             </div>
             <button class="mobile-drawer-close" type="button" aria-label="Tutup menu">✕</button>
@@ -88,7 +88,7 @@
                     <span class="step-number" aria-hidden="true">1</span>
                     <div class="step-icon card-lift-icon" aria-hidden="true"><x-dashboard-icon name="add-record"/></div>
                     <h3>Daftar Akaun</h3>
-                    <p>Buat akaun percuma mengikut peranan anda — OKU, majikan atau pegawai JKM. Proses cepat dan mudah.</p>
+                    <p>Buat akaun percuma sebagai individu OKU atau majikan. Akaun pentadbiran disediakan secara berasingan.</p>
                 </article>
                 <article class="step-card card-lift card-lift-border">
                     <span class="step-number" aria-hidden="true">2</span>
@@ -125,7 +125,7 @@
                     Terbitkan jawatan kosong, urus calon OKU, dan pantau kepelbagaian tenaga kerja dalam organisasi anda.
                 </x-landing.feature-card>
                 <x-landing.feature-card icon="employment-report" title="Laporan & Analitik">
-                    Statistik masa nyata, carta prestasi, dan laporan terperinci untuk pengurusan program OKU yang lebih baik.
+                    Statistik semasa, carta prestasi dan laporan terperinci untuk pengurusan program OKU yang lebih baik.
                 </x-landing.feature-card>
                 <x-landing.feature-card icon="settings" title="Aksesibiliti Menyeluruh">
                     Antara muka mesra pembaca skrin, sokongan kontras tinggi, navigasi papan kekunci, dan PWA untuk capaian luar talian.
@@ -134,7 +134,7 @@
             <div class="feature-highlights reveal">
                 <div class="highlight-item">
                     <span class="highlight-icon" aria-hidden="true">✓</span>
-                    <div><strong>Diselia oleh JKM Malaysia</strong><small>Platform rasmi di bawah pengurusan JKM untuk kesahihan dan kebolehpercayaan data.</small></div>
+                    <div><strong>Berpandukan Keperluan JKM</strong><small>Prototaip ini dibangunkan berdasarkan keperluan pengurusan dan sokongan komuniti OKU.</small></div>
                 </div>
                 <div class="highlight-item">
                     <span class="highlight-icon" aria-hidden="true">✓</span>
@@ -146,7 +146,7 @@
                 </div>
                 <div class="highlight-item">
                     <span class="highlight-icon" aria-hidden="true">✓</span>
-                    <div><strong>Pelbagai Peranan</strong><small>Paparan khusus untuk OKU, majikan, keluarga dan pegawai JKM — semua dalam satu platform.</small></div>
+                    <div><strong>Akses Mengikut Peranan</strong><small>Paparan khusus untuk pengguna OKU, majikan dan pegawai yang diberi kuasa.</small></div>
                 </div>
             </div>
         </section>
@@ -180,7 +180,7 @@
             <div class="accessibility-copy">
                 <p class="eyebrow">Akses untuk semua</p>
                 <h2 id="accessibility-heading">Direka supaya lebih mudah dilihat, didengar dan digunakan</h2>
-                <p>MyOKUcare mematuhi piawaian aksesibiliti WCAG 2.1. Antara muka menyokong pembaca skrin, navigasi papan kekunci, pelarasan saiz teks dan paparan kontras tinggi — kerana akses digital adalah hak semua.</p>
+                <p>MyOKUcare direka dengan sasaran WCAG 2.2 AA. Antara muka menyokong struktur semantik, navigasi papan kekunci, pelarasan saiz teks dan paparan kontras tinggi.</p>
             </div>
             <ul class="accessibility-list stagger-children">
                 <li class="card-lift"><x-dashboard-icon name="profile" class="icon-bounce" /><span><strong>Struktur semantik</strong><small>Label, heading dan susunan kandungan yang mesra pembaca skrin serta navigasi logik.</small></span></li>
@@ -201,11 +201,11 @@
             <div class="faq-list stagger-children">
                 <details class="faq-item" open>
                     <summary><span>Apa itu MyOKUcare?</span><span aria-hidden="true">+</span></summary>
-                    <p>MyOKUcare adalah platform digital di bawah seliaan JKM Malaysia yang menyatukan pengurusan data OKU, padanan pekerjaan inklusif, dan permohonan bantuan kebajikan dalam satu sistem yang selamat dan mudah dicapai.</p>
+                    <p>MyOKUcare ialah prototaip platform digital yang menyatukan pengurusan data OKU, padanan pekerjaan inklusif dan permohonan bantuan kebajikan dalam satu sistem yang mudah dicapai.</p>
                 </details>
                 <details class="faq-item">
                     <summary><span>Siapa yang boleh menggunakan MyOKUcare?</span><span aria-hidden="true">+</span></summary>
-                    <p>MyOKUcare dibuka kepada individu OKU, ahli keluarga atau penjaga, majikan yang mencari bakat inklusif, dan pegawai JKM yang menguruskan program sokongan OKU.</p>
+                    <p>Pendaftaran awam tersedia kepada individu OKU dan majikan. Akaun pegawai dan pentadbir hanya disediakan oleh pihak yang diberi kuasa.</p>
                 </details>
                 <details class="faq-item">
                     <summary><span>Adakah MyOKUcare percuma?</span><span aria-hidden="true">+</span></summary>
@@ -223,7 +223,7 @@
                 <div class="announcement-copy">
                     <p class="eyebrow">Pengumuman</p>
                     <h2 id="announcement-heading">MyOKUcare kini menyokong pendaftaran OKU secara digital</h2>
-                    <p>Individu OKu kini boleh mendaftar dan mengemukakan dokumen secara dalam talian tanpa perlu hadir ke pejabat JKM. Semua proses pengesahan boleh dilakukan melalui platform.</p>
+                    <p>Individu OKU boleh mendaftar secara dalam talian dan melengkapkan dokumen sokongan melalui profil selepas log masuk. Status pengesahan boleh dipantau melalui platform.</p>
                     <a href="{{ route('register') }}" class="announcement-link">Ketahui Lebih Lanjut →</a>
                 </div>
             </div>
@@ -231,22 +231,22 @@
 
         <section id="trust" class="trust-section" aria-labelledby="trust-heading">
             <div class="section-title reveal">
-                <p class="eyebrow">Kredibiliti & Amanah</p>
-                <h2 id="trust-heading">Diselia dan diuruskan oleh agensi kerajaan</h2>
-                <p>MyOKUcare beroperasi di bawah seliaan rasmi Jabatan Kebajikan Masyarakat Malaysia demi memastikan integriti dan kebolehpercayaan perkhidmatan.</p>
+                <p class="eyebrow">Konteks & Piawaian</p>
+                <h2 id="trust-heading">Dibangunkan untuk menyokong perkhidmatan kebajikan</h2>
+                <p>MyOKUcare ialah prototaip yang memerlukan ujian, pengesahan dan kelulusan formal sebelum digunakan sebagai perkhidmatan rasmi.</p>
             </div>
             <div class="trust-badges stagger-children">
                 <div class="trust-badge card-lift">
                     <span class="trust-emblem card-lift-icon" aria-hidden="true">⚙</span>
-                    <div><strong>Jabatan Kebajikan Masyarakat</strong><small>Kementerian Pembangunan Wanita, Keluarga dan Masyarakat</small></div>
+                    <div><strong>Konteks Perkhidmatan JKM</strong><small>Direka berdasarkan aliran pengurusan OKU, pekerjaan dan kebajikan</small></div>
                 </div>
                 <div class="trust-badge card-lift">
                     <span class="trust-emblem card-lift-icon" aria-hidden="true">🛡</span>
-                    <div><strong>Platform Digital Kerajaan</strong><small>Mematuhi piawaian keselamatan dan aksesibiliti sektor awam</small></div>
+                    <div><strong>Prototaip Digital</strong><small>Sedia untuk penilaian, ujian pengguna dan penambahbaikan sebelum pelaksanaan</small></div>
                 </div>
                 <div class="trust-badge card-lift">
                     <span class="trust-emblem card-lift-icon" aria-hidden="true">✓</span>
-                    <div><strong>Piawaian WCAG 2.1</strong><small>Mematuhi garis panduan aksesibiliti kandungan web antarabangsa</small></div>
+                    <div><strong>Sasaran WCAG 2.2 AA</strong><small>Direka menuju garis panduan aksesibiliti kandungan web antarabangsa</small></div>
                 </div>
             </div>
         </section>
@@ -260,7 +260,7 @@
             <div class="footer-brand">
                 <span class="footer-logo" aria-hidden="true"><img src="{{ asset('images/myokucare-logo.png') }}" alt="" loading="lazy"></span>
                 <strong>MyOKUcare</strong>
-                <p>Platform digital sokongan OKU di bawah seliaan JKM Malaysia. Menyatukan data, pekerjaan dan kebajikan dalam satu sistem inklusif.</p>
+                <p>Prototaip platform digital sokongan OKU yang menyatukan data, pekerjaan dan kebajikan dalam satu sistem inklusif.</p>
             </div>
             <div class="footer-links footer-accordion">
                 <button class="footer-accordion-trigger" aria-expanded="false" aria-controls="footer-section-services">
@@ -291,9 +291,9 @@
                     <span class="footer-chevron" aria-hidden="true">▼</span>
                 </button>
                 <div id="footer-section-contact" class="footer-accordion-panel" role="region" aria-labelledby="footer-heading-contact">
-                    <span class="footer-contact">Jabatan Kebajikan Masyarakat Malaysia</span>
+                    <span class="footer-contact">Rujukan perkhidmatan: Jabatan Kebajikan Masyarakat Malaysia</span>
                     <a class="footer-contact" href="tel:+601800883555" aria-label="Hubungi 1800-88-3555">Talian: 1800-88-3555</a>
-                    <a class="footer-contact" href="mailto:myokucare@jkm.gov.my" aria-label="E-mel myokucare@jkm.gov.my">E-mel: myokucare@jkm.gov.my</a>
+                    <span class="footer-contact">Saluran khusus MyOKUcare akan diumumkan selepas kelulusan rasmi.</span>
                     <a class="footer-contact" href="https://maps.google.com/?q=Jabatan+Kebajikan+Masyarakat+Malaysia+KPWKM" target="_blank" rel="noopener" aria-label="Buka lokasi di Google Maps">Pejabat: Aras 12, Blok B, Menara KPWKM</a>
                 </div>
             </div>

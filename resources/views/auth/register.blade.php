@@ -19,19 +19,21 @@
 <a class="skip-link" href="#register-form">Langkau ke borang pendaftaran</a>
 <main class="register-page">
     <section class="register-side" aria-labelledby="register-brand-heading">
-        <div class="register-blob-1"></div>
-        <div class="register-blob-2"></div>
-        <a class="register-brand" href="{{ route('welcome') }}">
-            <span class="brand-mark"><img src="{{ asset('images/myokucare-logo.png') }}" alt=""></span>
-            <strong>MyOKUcare</strong>
-        </a>
-        <div class="register-message">
-            <h1 id="register-brand-heading">Sertai komuniti MyOKUcare.</h1>
-            <p>Cipta akaun menggunakan e-mel anda. Akses sistem akan disesuaikan berdasarkan peranan yang dipilih.</p>
-            <div class="register-benefits" aria-label="Kelebihan sistem">
-                <span>Diselia JKM Malaysia</span>
-                <span>Percuma sepenuhnya</span>
-                <span>Data selamat & terpelihara</span>
+        <div class="register-side-inner">
+            <div class="register-blob-1"></div>
+            <div class="register-blob-2"></div>
+            <a class="register-brand" href="{{ route('welcome') }}">
+                <span class="brand-mark"><img src="{{ asset('images/myokucare-logo.png') }}" alt=""></span>
+                <strong>MyOKUcare</strong>
+            </a>
+            <div class="register-message">
+                <h1 id="register-brand-heading">Sertai komuniti MyOKUcare.</h1>
+                <p>Cipta akaun menggunakan e-mel anda. Akses sistem akan disesuaikan berdasarkan peranan yang dipilih.</p>
+                <div class="register-benefits" aria-label="Kelebihan sistem">
+                    <span>Diselia JKM Malaysia</span>
+                    <span>Percuma sepenuhnya</span>
+                    <span>Data selamat & terpelihara</span>
+                </div>
             </div>
         </div>
     </section>
@@ -124,7 +126,7 @@
 
             {{-- Step 2: Maklumat OKU --}}
             <div class="step-panel" id="step-2-panel" role="tabpanel" aria-labelledby="step-2-tab" data-step="2" hidden>
-                <section class="oku-signup-fields" id="okuSignupFields" @if(old('role')!=='oku_user') hidden @endif aria-label="Maklumat pendaftaran OKU">
+                <section class="oku-signup-fields" id="okuSignupFields" aria-label="Maklumat pendaftaran OKU">
                     <div class="signup-section-title">
                         <strong>Maklumat Pendaftaran OKU</strong>
                         <span>Sistem akan menyemak kelengkapan dan rekod pendua sebelum akaun diwujudkan.</span>
@@ -228,7 +230,7 @@
 
                 <div class="step-actions step-actions-2">
                     <button class="btn btn-secondary step-back" type="button" data-step-back>← Kembali</button>
-                    <button class="btn btn-primary login-submit btn-ripple" type="submit" id="registerSubmitBtn">
+                    <button class="btn btn-primary register-submit btn-ripple" type="submit" id="registerSubmitBtn">
                         <span class="submit-label">Cipta Akaun</span>
                         <span class="submit-spinner" hidden aria-hidden="true"></span>
                     </button>
