@@ -6,6 +6,11 @@
     <meta name="theme-color" content="#FF6565">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Log masuk ke MyOKUcare menggunakan e-mel dan kata laluan akaun anda.">
+    <meta property="og:title" content="Log Masuk — MyOKUcare">
+    <meta property="og:description" content="Log masuk ke MyOKUcare — platform digital JKM untuk pengurusan data OKU, padanan pekerjaan inklusif, dan permohonan kebajikan.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/myokucare-logo.png') }}">
     @include('partials.pwa-head')
     <title>Log Masuk — MyOKUcare</title>
     @vite(['resources/css/app.css', 'resources/css/auth.css', 'resources/css/animate.css', 'resources/js/app.js'])
@@ -29,7 +34,7 @@
     </section>
 
     <section class="login-form-wrap" aria-labelledby="login-heading">
-        <a class="btn welcome-button" href="{{ route('welcome') }}" aria-label="Kembali ke laman utama">← Kembali ke Laman Utama</a>
+        <a class="btn-ghost welcome-button" href="{{ route('welcome') }}" aria-label="Kembali ke laman utama">← Kembali ke Laman Utama</a>
 
         <form id="login-form" class="login-form login-form-box" method="post" action="{{ route('login.store') }}" data-login-form aria-label="Borang log masuk">
             @csrf

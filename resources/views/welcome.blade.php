@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ms" data-default-font-scale="100" data-default-high-contrast="0" data-preferences-version="0" data-dashboard-refresh="10">
+<html lang="ms" data-default-font-scale="100" data-default-high-contrast="0" data-preferences-version="0" data-dashboard-refresh="{{ config('app.dashboard_refresh_interval', 10) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,8 @@
     <meta property="og:description" content="Diselia oleh JKM, MyOKUcare menyatukan data OKU, pekerjaan, dan kebajikan dalam satu platform inklusif.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="{{ asset('images/myokucare-logo.png') }}">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="MyOKUcare — Platform Digital Sokongan OKU">
     <meta name="twitter:description" content="Diselia oleh JKM, MyOKUcare menyatukan data OKU, pekerjaan, dan kebajikan dalam satu platform inklusif.">
     @include('partials.pwa-head')
@@ -24,17 +25,53 @@
     <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
     <aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Menu navigasi">
         <div class="mobile-drawer-head">
-            <strong>Menu</strong>
+            <div class="drawer-brand">
+                <span class="brand-mark"><img src="{{ asset('images/myokucare-logo.png') }}" alt=""></span>
+                <div>
+                    <strong>MyOKUcare</strong>
+                    <small>Platform Digital JKM</small>
+                </div>
+            </div>
             <button class="mobile-drawer-close" type="button" aria-label="Tutup menu">✕</button>
         </div>
-        <nav class="mobile-drawer-body" aria-label="Navigasi utama">
-            <a class="mobile-drawer-link" href="#features">Perkhidmatan</a>
-            <a class="mobile-drawer-link" href="#how-it-works">Cara Berfungsi</a>
-            <a class="mobile-drawer-link" href="#audience">Pengguna</a>
-            <a class="mobile-drawer-link" href="#faq">Soalan</a>
-            <a class="mobile-drawer-link" href="{{ route('login') }}">Log Masuk</a>
-            <a class="mobile-drawer-link" href="{{ route('register') }}">Daftar Akaun</a>
-        </nav>
+        <div class="mobile-drawer-body">
+            <p class="drawer-section-label">Halaman Utama</p>
+            <nav class="mobile-drawer-nav" aria-label="Navigasi utama">
+                <a class="mobile-drawer-link" href="#features">
+                    <x-dashboard-icon name="dashboard"/>
+                    <span>Perkhidmatan</span>
+                </a>
+                <a class="mobile-drawer-link" href="#how-it-works">
+                    <x-dashboard-icon name="audit"/>
+                    <span>Cara Berfungsi</span>
+                </a>
+                <a class="mobile-drawer-link" href="#audience">
+                    <x-dashboard-icon name="users"/>
+                    <span>Pengguna</span>
+                </a>
+                <a class="mobile-drawer-link" href="#faq">
+                    <x-dashboard-icon name="welfare"/>
+                    <span>Soalan F.A.Q</span>
+                </a>
+            </nav>
+            <div class="drawer-divider"></div>
+            <p class="drawer-section-label">Kawalan Paparan</p>
+            <div class="mobile-drawer-accessibility" role="toolbar" aria-label="Kawalan paparan">
+                <button type="button" data-font-action="decrease" aria-label="Kecilkan teks">A− Kecil</button>
+                <button type="button" data-font-action="increase" aria-label="Besarkan teks">A+ Besar</button>
+                <button type="button" data-contrast-toggle aria-label="Tukar mod kontras">◐ Kontras</button>
+            </div>
+        </div>
+        <div class="mobile-drawer-footer">
+            <a class="drawer-btn drawer-btn-login" href="{{ route('login') }}">
+                <x-dashboard-icon name="profile"/>
+                <span>Log Masuk</span>
+            </a>
+            <a class="drawer-btn drawer-btn-register" href="{{ route('register') }}">
+                <x-dashboard-icon name="add-record"/>
+                <span>Daftar Akaun</span>
+            </a>
+        </div>
     </aside>
     <main id="main-content" tabindex="-1">
         <x-landing.hero />

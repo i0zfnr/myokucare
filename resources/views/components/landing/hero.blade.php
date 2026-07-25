@@ -12,7 +12,15 @@
                 <a class="btn primary-light btn-ripple" href="{{ route('register') }}">Daftar Percuma</a>
                 <a class="btn outline-light btn-ripple btn-ripple-outline" href="{{ route('login') }}">Log Masuk</a>
             </div>
+            <div class="pwa-hero-roles" aria-label="Peranan pengguna">
+                <span><x-dashboard-icon name="users"/> OKU & Waris</span>
+                <span><x-dashboard-icon name="briefcase"/> Majikan</span>
+                <span><x-dashboard-icon name="government"/> Pegawai JKM</span>
+            </div>
             <p class="hero-account-note">Satu pendaftaran untuk individu OKU, ahli keluarga, majikan dan pegawai JKM. Akses dan paparan akan disesuaikan mengikut peranan anda.</p>
+            <div class="pwa-hero-footer">
+                <span>Diselia oleh JKM Malaysia • Data Selamat & Terpelihara</span>
+            </div>
         </div>
         <div class="hero-panel hero-float" aria-hidden="true">
             <div class="preview">

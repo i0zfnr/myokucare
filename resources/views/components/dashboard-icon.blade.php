@@ -81,4 +81,9 @@
             <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/>
         </svg>
         @break
+    @case('government')
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18M4 18V9l8-4 8 4v9M9 14h6M9 18h6"/>
+        </svg>
+        @break
 @endswitch
