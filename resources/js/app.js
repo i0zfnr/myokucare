@@ -213,18 +213,32 @@ document.querySelector('[data-login-form]')?.addEventListener('submit', (event) 
 })();
 
 /* ── Dashboard Sidebar Mobile Toggle ── */
+/* NOTE: Primary open/close logic is in layout.blade.php via setSidebarOpen().
+   This handler adds outside-click dismissal and ensures body.sidebar-open is always in sync. */
 (() => {
-    const menuBtn = document.querySelector('.menu-btn');
-    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuButton');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('backdrop');
     if (!menuBtn || !sidebar) return;
-    menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+
+    const closeSidebar = () => {
+        document.body.classList.remove('sidebar-open');
+        sidebar.classList.remove('open');
+        backdrop?.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+    };
+
+    /* Outside-click dismissal on mobile */
     document.addEventListener('click', (e) => {
-        if (window.innerWidth > 430) return;
-        if (!sidebar.classList.contains('open')) return;
+        if (window.innerWidth > 760) return;
+        if (!document.body.classList.contains('sidebar-open')) return;
         if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
-            sidebar.classList.remove('open');
+            closeSidebar();
         }
     });
+
+    /* Backdrop click (belt-and-suspenders alongside layout.blade.php) */
+    backdrop?.addEventListener('click', closeSidebar);
 })();
 
 /* ══════════════════════════════════════════════════
