@@ -46,6 +46,7 @@
                 <button type="button" data-font-action="increase" aria-label="{{ __('accessibility.increase_text') }}">A+</button>
                 <button type="button" data-contrast-toggle aria-label="{{ __('accessibility.high_contrast') }}" aria-pressed="false">◐</button>
             </div>
+            <a class="btn guideline-home-link" href="{{ route('welcome') }}">← {{ __('nav.main') }}</a>
             <a class="btn guideline-account-link" href="{{ auth()->check() ? route('dashboard') : route('login') }}">
                 {{ auth()->check() ? __('guideline.dashboard') : __('login') }}
             </a>

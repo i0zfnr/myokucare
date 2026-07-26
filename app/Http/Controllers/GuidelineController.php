@@ -22,9 +22,17 @@ class GuidelineController extends Controller
         $userRole = $request->user()?->role;
         $role = in_array($requestedRole, self::ROLES, true)
             ? $requestedRole
-            : (in_array($userRole, self::ROLES, true) ? $userRole : 'oku_user');
+            : match ($userRole) {
+                'employer', 'oku_user', 'jkm_officer' => $userRole,
+                'super_admin' => 'jkm_officer',
+                default => 'oku_user',
+            };
 
-        return view('guideline.show', [
+        $view = $request->user() && ! $request->boolean('onboarding')
+            ? 'guideline.authenticated'
+            : 'guideline.show';
+
+        return view($view, [
             'role' => $role,
             'roles' => self::ROLES,
             'languages' => [

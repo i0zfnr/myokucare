@@ -23,9 +23,25 @@ class GuidelineTest extends TestCase
         $this->get(route('guideline.show'))
             ->assertOk()
             ->assertSee('Selamat datang ke MyOKUcare')
+            ->assertSee(route('welcome'))
+            ->assertSee('Utama')
             ->assertSee('Pengguna OKU')
             ->assertSee('Majikan')
             ->assertSee('Pegawai JKM');
+    }
+
+    public function test_authenticated_admin_sees_guideline_inside_normal_application_layout(): void
+    {
+        $admin = User::factory()->create(['role' => 'super_admin']);
+
+        $this->actingAs($admin)->get(route('guideline.show'))
+            ->assertOk()
+            ->assertSee('class="app-shell"', false)
+            ->assertSee('class="sidebar"', false)
+            ->assertSee('guideline-authenticated', false)
+            ->assertSee('Pegawai JKM')
+            ->assertSee(route('welcome'))
+            ->assertDontSee('guideline-header', false);
     }
 
     public function test_each_role_has_an_accurate_guideline(): void
