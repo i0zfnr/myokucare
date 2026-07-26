@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ms" data-default-font-scale="100" data-default-high-contrast="0" data-preferences-version="0" data-dashboard-refresh="{{ config('app.dashboard_refresh_interval', 10) }}">
+<html lang="{{ app()->getLocale() }}" data-default-font-scale="100" data-default-high-contrast="0" data-preferences-version="0" data-dashboard-refresh="{{ config('app.dashboard_refresh_interval', 10) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,6 +44,10 @@
                 <a class="mobile-drawer-link" href="#how-it-works">
                     <x-dashboard-icon name="audit"/>
                     <span>Cara Berfungsi</span>
+                </a>
+                <a class="mobile-drawer-link" href="{{ route('guideline.show') }}">
+                    <x-dashboard-icon name="audit"/>
+                    <span>{{ __('guideline.nav') }}</span>
                 </a>
                 <a class="mobile-drawer-link" href="#audience">
                     <x-dashboard-icon name="users"/>
@@ -102,6 +106,24 @@
                     <h3>Akses Perkhidmatan</h3>
                     <p>Teroka peluang pekerjaan, mohon bantuan kebajikan, urus rekod dan pantau statistik dalam satu dashboard.</p>
                 </article>
+            </div>
+        </section>
+
+        <section class="guideline-preview-section" aria-labelledby="guideline-preview-heading">
+            <div class="guideline-preview-copy reveal">
+                <p class="eyebrow">{{ __('guideline.welcome_eyebrow') }}</p>
+                <h2 id="guideline-preview-heading">{{ __('guideline.welcome_section_title') }}</h2>
+                <p>{{ __('guideline.welcome_section_text') }}</p>
+                <a class="btn btn-primary" href="{{ route('guideline.show') }}">{{ __('guideline.view_button') }} →</a>
+            </div>
+            <div class="guideline-preview-roles stagger-children" aria-label="{{ __('guideline.choose_role') }}">
+                @foreach(['oku_user' => 'profile', 'employer' => 'briefcase', 'jkm_officer' => 'government'] as $guideRole => $guideIcon)
+                    <a href="{{ route('guideline.show', ['role' => $guideRole]) }}">
+                        <span aria-hidden="true"><x-dashboard-icon :name="$guideIcon"/></span>
+                        <strong>{{ __("guideline.role.{$guideRole}") }}</strong>
+                        <small>{{ __("guideline.role.{$guideRole}_text") }}</small>
+                    </a>
+                @endforeach
             </div>
         </section>
 

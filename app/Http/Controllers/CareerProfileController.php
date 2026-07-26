@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Oku;
+use App\Services\PermissionService;
+use App\Services\UserContentTranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +18,7 @@ class CareerProfileController extends Controller
         return view('career-profile.show', ['oku' => $request->user()->oku]);
     }
 
-    public function save(Request $request)
+    public function save(Request $request, UserContentTranslationService $translations)
     {
         $user = $request->user();
         $oku = $user->oku;
@@ -66,6 +68,8 @@ class CareerProfileController extends Controller
                 $this->replacePrivateFile($oku, 'resume_path', $request->file('resume')->store("oku-documents/{$oku->id}/resume", 'local'));
             }
         });
+        $translations->capture($user, $oku, 'career_summary', $data['career_summary'] ?? null);
+        $translations->capture($user, $oku, 'skills', $data['skills'] ?? null);
 
         return redirect()->route('career-profile.show')->with('success', 'Profil kerjaya anda berjaya dikemas kini.');
     }
@@ -81,8 +85,9 @@ class CareerProfileController extends Controller
         return Storage::disk('local')->download($path);
     }
 
-    public function staffDocument(Request $request, Oku $oku, string $type): StreamedResponse
+    public function staffDocument(Request $request, Oku $oku, string $type, PermissionService $permissions): StreamedResponse
     {
+        $permissions->authorize($request->user(), 'identity_document.view');
         abort_unless(in_array($type, ['card', 'resume'], true), 404);
         $path = $type === 'card' ? $oku->oku_card_image_path : $oku->resume_path;
         abort_unless($path && Storage::disk('local')->exists($path), 404);

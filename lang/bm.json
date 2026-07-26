@@ -1,0 +1,195 @@
+{
+  "login": "Log Masuk",
+  "logout": "Log Keluar",
+  "settings": "Tetapan",
+  "language": "Bahasa",
+  "language.title": "Pilihan Bahasa",
+  "language.description": "Pilih bahasa yang paling mudah untuk anda. Perubahan digunakan serta-merta.",
+  "language.current": "Bahasa semasa",
+  "language.change": "Tukar bahasa",
+  "language.save": "Simpan pilihan bahasa",
+  "language.saved": "Pilihan bahasa berjaya disimpan.",
+  "language.bm": "Bahasa Melayu",
+  "language.en": "English",
+  "language.zh_cn": "中文（简体）",
+  "nav.main": "Utama",
+  "nav.dashboard": "Dashboard",
+  "nav.oku_management": "Pengurusan OKU",
+  "nav.oku_records": "Rekod OKU",
+  "nav.register_oku": "Daftar OKU",
+  "nav.identity_review": "Semakan Identiti",
+  "nav.my_profile": "Profil Saya",
+  "nav.career_profile": "Profil Kerjaya",
+  "nav.employment": "Pekerjaan",
+  "nav.employers": "Majikan",
+  "nav.jobs": "Peluang Kerja",
+  "nav.employment_records": "Rekod Pekerjaan",
+  "nav.welfare": "Kebajikan",
+  "nav.applications": "Permohonan",
+  "nav.reports": "Laporan",
+  "nav.employment_statistics": "Statistik Pekerjaan",
+  "nav.welfare_statistics": "Statistik Kebajikan",
+  "nav.exports": "Eksport & Laporan",
+  "nav.administration": "Pentadbiran",
+  "nav.account": "Akaun",
+  "nav.all_users": "Semua Pengguna",
+  "nav.activity_audit": "Audit Aktiviti",
+  "nav.feature_controls": "Kawalan Ciri",
+  "nav.deleted_records": "Rekod Dipadam",
+  "system.support": "Sistem Sokongan OKU",
+  "system.tagline": "Pengurusan komuniti yang inklusif dan tersusun",
+  "accessibility.skip": "Terus ke kandungan",
+  "accessibility.help_title": "Perlukan bantuan?",
+  "accessibility.help_text": "Rujuk panduan sistem dan sokongan aksesibiliti.",
+  "accessibility.open_menu": "Buka menu",
+  "accessibility.display_settings": "Tetapan paparan",
+  "accessibility.decrease_text": "Kecilkan saiz teks",
+  "accessibility.increase_text": "Besarkan saiz teks",
+  "accessibility.high_contrast": "Tukar mod kontras tinggi",
+  "notification": "Notifikasi",
+  "search.oku_placeholder": "Cari rekod OKU...",
+  "search.oku": "Cari rekod OKU",
+  "search.jobs_placeholder": "Cari peluang kerja...",
+  "search.jobs": "Cari peluang kerja",
+  "export.title": "Eksport & Laporan",
+  "export.description": "Semua eksport direkod, disimpan secara peribadi dan tamat tempoh selepas 24 jam.",
+  "export.report_type": "Jenis laporan",
+  "export.format": "Format",
+  "export.purpose": "Tujuan eksport",
+  "export.language": "Bahasa laporan",
+  "export.content_mode": "Paparan kandungan pengguna",
+  "export.original": "Bahasa asal",
+  "export.translated": "Terjemahan",
+  "export.dual": "Dwibahasa",
+  "export.generate": "Jana eksport",
+  "export.generated": "Laporan berjaya dijana.",
+  "export.reference": "Rujukan",
+  "export.records": "Rekod",
+  "export.status": "Status",
+  "export.expires": "Tamat",
+  "export.download": "Muat turun",
+  "export.none": "Tiada eksport dijana.",
+  "export.report.oku_users": "Laporan Maklumat Pekerja OKU",
+  "export.report.employers": "Laporan Maklumat Majikan",
+  "export.report.employment_relationships": "Laporan Hubungan Pekerjaan OKU",
+  "export.generated_by": "Dijana oleh",
+  "export.organisation": "Organisasi",
+  "export.generated_at": "Dijana pada",
+  "export.applied_filters": "Penapis digunakan",
+  "export.no_filters": "Tiada",
+  "export.record_summary": "Ringkasan rekod",
+  "export.confidential": "SULIT - UNTUK KEGUNAAN YANG DIBENARKAN SAHAJA",
+  "export.page": "Halaman",
+  "field.name": "Nama",
+  "field.masked_nric": "NRIC Bertopeng",
+  "field.full_nric": "NRIC",
+  "field.oku_registration_number": "No. Pendaftaran OKU",
+  "field.oku_category": "Kategori OKU",
+  "field.employer_name": "Majikan",
+  "field.registration_number": "No. Pendaftaran Syarikat",
+  "field.contact": "Maklumat Hubungan",
+  "field.address": "Alamat",
+  "field.industry": "Industri",
+  "field.job_title": "Jawatan",
+  "field.department": "Jabatan",
+  "field.start_date": "Tarikh Mula",
+  "field.end_date": "Tarikh Tamat",
+  "field.employment_status": "Status",
+  "field.verification_status": "Pengesahan",
+  "field.salary": "Gaji",
+  "field.supervisor": "Penyelia",
+  "value.not_included": "Tidak disertakan",
+  "value.not_available": "Tidak tersedia",
+  "translation.translated_view": "Paparan Terjemahan",
+  "translation.original_text": "Teks Asal",
+  "translation.detected_language": "Bahasa Dikesan",
+  "translation.confidence": "Keyakinan Terjemahan",
+  "translation.pending": "Terjemahan automatik belum tersedia. Teks asal dikekalkan untuk semakan.",
+  "validation.invalid_language": "Sila pilih bahasa yang disokong."
+  ,"role.super_admin": "Admin Sistem"
+  ,"role.jkm_officer": "Pegawai JKM"
+  ,"role.employer": "Majikan"
+  ,"role.oku_user": "Pengguna OKU"
+  ,"field.career_summary": "Ringkasan Kerjaya"
+  ,"guideline.nav": "Panduan Sistem"
+  ,"guideline.page_title": "Panduan Penggunaan MyOKUcare"
+  ,"guideline.eyebrow": "Panduan mudah"
+  ,"guideline.welcome_title": "Selamat datang ke MyOKUcare"
+  ,"guideline.welcome_text": "Platform ini membantu pengguna OKU, majikan dan pegawai JKM mengurus maklumat pekerjaan dan kebajikan dengan lebih teratur."
+  ,"guideline.choose_role": "Pilih peranan anda"
+  ,"guideline.choose_role_text": "Pilih kad yang sesuai untuk melihat langkah dan fungsi yang berkaitan dengan anda."
+  ,"guideline.role.oku_user": "Pengguna OKU"
+  ,"guideline.role.oku_user_text": "Lengkapkan profil, hantar dokumen, cari peluang kerja dan urus permohonan kebajikan."
+  ,"guideline.role.employer": "Majikan"
+  ,"guideline.role.employer_text": "Lihat rekod organisasi yang dipautkan, urus peluang kerja dan eksport maklumat yang dibenarkan."
+  ,"guideline.role.jkm_officer": "Pegawai JKM"
+  ,"guideline.role.jkm_officer_text": "Semak pengesahan, urus rekod OKU dan majikan serta jana laporan."
+  ,"guideline.steps_title": "Langkah penggunaan"
+  ,"guideline.steps_intro": "Ikuti langkah ini satu demi satu. Anda boleh kembali ke panduan ini pada bila-bila masa."
+  ,"guideline.oku.1_title": "Cipta akaun atau log masuk"
+  ,"guideline.oku.1_text": "Daftar sebagai pengguna OKU atau gunakan akaun yang telah disediakan."
+  ,"guideline.oku.2_title": "Lengkapkan profil"
+  ,"guideline.oku.2_text": "Semak maklumat peribadi, kategori OKU, pendidikan dan maklumat hubungan."
+  ,"guideline.oku.3_title": "Muat naik Kad OKU"
+  ,"guideline.oku.3_text": "Tambahkan imej Kad OKU melalui halaman Profil Kerjaya."
+  ,"guideline.oku.4_title": "Muat naik MyKad"
+  ,"guideline.oku.4_text": "Jika ciri pengesahan diaktifkan, muat naik bahagian hadapan dan belakang MyKad dengan jelas."
+  ,"guideline.oku.5_title": "Tunggu semakan"
+  ,"guideline.oku.5_text": "Pantau status pengesahan. Anda akan diminta menghantar semula dokumen jika perlu."
+  ,"guideline.oku.6_title": "Gunakan ciri pekerjaan dan kebajikan"
+  ,"guideline.oku.6_text": "Lihat peluang kerja, rekod minat dan urus permohonan kebajikan anda."
+  ,"guideline.oku.7_title": "Eksport dokumen apabila diperlukan"
+  ,"guideline.oku.7_text": "Jana eksport yang dibenarkan untuk rekod anda. Setiap eksport direkod dan mempunyai tempoh tamat."
+  ,"guideline.employer.1_title": "Cipta akaun majikan"
+  ,"guideline.employer.1_text": "Daftar menggunakan e-mel organisasi anda dan log masuk."
+  ,"guideline.employer.2_title": "Dapatkan pautan organisasi"
+  ,"guideline.employer.2_text": "Pentadbir yang diberi kuasa perlu memautkan akaun anda kepada rekod majikan."
+  ,"guideline.employer.3_title": "Semak maklumat organisasi"
+  ,"guideline.employer.3_text": "Lihat organisasi, pekerja dan rekod pekerjaan dalam skop akses anda."
+  ,"guideline.employer.4_title": "Urus peluang pekerjaan"
+  ,"guideline.employer.4_text": "Selepas akaun dipautkan, cipta dan kemas kini jawatan kosong organisasi anda."
+  ,"guideline.employer.5_title": "Pantau rekod pekerjaan"
+  ,"guideline.employer.5_text": "Semak hubungan pekerjaan yang dibenarkan untuk organisasi anda."
+  ,"guideline.employer.6_title": "Eksport dokumentasi"
+  ,"guideline.employer.6_text": "Jana laporan organisasi atau pekerjaan mengikut kebenaran akaun anda."
+  ,"guideline.officer.1_title": "Log masuk dengan akaun pegawai"
+  ,"guideline.officer.1_text": "Gunakan akaun yang disediakan oleh pentadbir yang diberi kuasa."
+  ,"guideline.officer.2_title": "Semak pengesahan tertunda"
+  ,"guideline.officer.2_text": "Buka senarai semakan identiti dan periksa dokumen mengikut kebenaran anda."
+  ,"guideline.officer.3_title": "Urus rekod OKU"
+  ,"guideline.officer.3_text": "Cari, cipta dan kemas kini rekod OKU yang berkaitan."
+  ,"guideline.officer.4_title": "Urus majikan dan pekerjaan"
+  ,"guideline.officer.4_text": "Kemas kini rekod majikan, jawatan dan hubungan pekerjaan."
+  ,"guideline.officer.5_title": "Proses permohonan kebajikan"
+  ,"guideline.officer.5_text": "Semak status kes, rekod keputusan dan jadualkan semakan susulan."
+  ,"guideline.officer.6_title": "Jana laporan"
+  ,"guideline.officer.6_text": "Lihat statistik pekerjaan dan kebajikan serta eksport laporan yang dibenarkan."
+  ,"guideline.support_title": "Perlukan bantuan?"
+  ,"guideline.support_text": "Gunakan Soalan Lazim di halaman utama atau hubungi pentadbir sistem anda jika akses peranan tidak tepat."
+  ,"guideline.view_faq": "Lihat Soalan Lazim"
+  ,"guideline.login": "Terus ke Log Masuk"
+  ,"guideline.dashboard": "Kembali ke Dashboard"
+  ,"guideline.complete": "Saya Faham"
+  ,"guideline.replay": "Lihat Tutorial Lagi"
+  ,"guideline.language_title": "Pilih bahasa"
+  ,"guideline.language_text": "Anda boleh menukar Bahasa Melayu, English atau 中文 pada bila-bila masa."
+  ,"guideline.previous": "Sebelumnya"
+  ,"guideline.next": "Seterusnya"
+  ,"guideline.skip": "Langkau tutorial"
+  ,"guideline.get_started": "Mula Sekarang"
+  ,"guideline.slide_progress": "Slaid :current daripada :total"
+  ,"guideline.onboarding.1_title": "Selamat Datang"
+  ,"guideline.onboarding.1_text": "MyOKUcare membantu anda mengurus maklumat OKU, pekerjaan dan kebajikan dalam satu tempat."
+  ,"guideline.onboarding.2_title": "Pengesahan Selamat"
+  ,"guideline.onboarding.2_text": "Pengguna OKU boleh menghantar Kad OKU dan, apabila diperlukan, MyKad untuk semakan selamat."
+  ,"guideline.onboarding.3_title": "Urus Maklumat Pekerjaan"
+  ,"guideline.onboarding.3_text": "Lihat peluang kerja, organisasi, pekerja dan dokumen mengikut peranan serta kebenaran anda."
+  ,"guideline.onboarding.4_title": "Pilih Bahasa Anda"
+  ,"guideline.onboarding.4_text": "Gunakan Bahasa Melayu, English atau 中文（简体） dan tukar pilihan pada bila-bila masa."
+  ,"guideline.onboarding.5_title": "Sedia untuk Bermula"
+  ,"guideline.onboarding.5_text": "Panduan boleh dibuka semula melalui menu Panduan Sistem selepas anda log masuk."
+  ,"guideline.welcome_eyebrow": "Panduan penggunaan"
+  ,"guideline.welcome_section_title": "Ketahui cara menggunakan MyOKUcare"
+  ,"guideline.welcome_section_text": "Pilih peranan anda dan ikuti arahan visual yang ringkas sebelum log masuk."
+  ,"guideline.view_button": "Panduan Penggunaan"
+}

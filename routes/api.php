@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\OkuApiController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1/oku')->name('api.oku.')->group(function () {
+Route::prefix('v1/oku')->name('api.oku.')->middleware(['auth:sanctum', 'role:oku_user'])->group(function () {
     Route::get('/data', [OkuApiController::class, 'getOkuData'])->name('data');
     Route::get('/matching-jobs', [OkuApiController::class, 'getMatchingJobs'])->name('matching-jobs');
     Route::get('/job-recommendations', [OkuApiController::class, 'getJobRecommendations'])->name('job-recommendations');

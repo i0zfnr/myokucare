@@ -59,7 +59,10 @@
             <article class="panel career-section">
                 <div class="section-heading"><span>03</span><div><h3>Profil Kerjaya</h3><p>Pendidikan, kemahiran dan résumé untuk padanan kerja</p></div></div>
                 <div class="form-grid">
-                    <div class="form-group"><label for="education_level">Pendidikan tertinggi</label><input class="field" id="education_level" name="education_level" value="{{ old('education_level', $oku?->education_level) }}" required></div>
+                    <x-education-level-field
+                        :value="old('education_level', $oku?->education_level)"
+                        :error="$errors->first('education_level')"
+                    />
                     <div class="form-group"><label for="availability_status">Status ketersediaan</label><select class="select" id="availability_status" name="availability_status" required>@foreach(['Mencari Kerja','Sudah Bekerja','Tidak Tersedia'] as $value)<option @selected(old('availability_status',$oku?->availability_status ?? 'Mencari Kerja')===$value)>{{ $value }}</option>@endforeach</select></div>
                     <div class="form-group full"><label for="career_summary">Ringkasan kerjaya</label><textarea class="textarea" id="career_summary" name="career_summary" rows="4" placeholder="Ceritakan pengalaman dan jenis pekerjaan yang anda cari...">{{ old('career_summary', $oku?->career_summary) }}</textarea></div>
                     <div class="form-group full"><label for="skills">Kemahiran</label><textarea class="textarea" id="skills" name="skills" rows="3" placeholder="Contoh: Microsoft Office, khidmat pelanggan, reka bentuk grafik">{{ old('skills', $oku?->skills) }}</textarea></div>

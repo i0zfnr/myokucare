@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Oku;
 use App\Models\User;
+use App\Services\FeatureManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -59,6 +60,7 @@ class AuthController extends Controller
                     'marital_status' => $data['marital_status'],
                     'address' => $data['address'],
                     'phone_number' => $data['phone_number'],
+                    'profile_reviewed_at' => now(),
                     'education_level' => $data['education_level'],
                     'oku_card_number' => $data['oku_card_number'],
                     'oku_category' => $data['oku_category'],
@@ -83,7 +85,7 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Pendaftaran berjaya. Sila log masuk dan muat naik gambar Kad OKU anda.');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, FeatureManager $features)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -118,6 +120,11 @@ class AuthController extends Controller
         RateLimiter::clear($throttleKey);
         $request->session()->regenerate();
         $request->user()->forceFill(['last_login_at' => now()])->save();
+
+        if ($features->identityVerificationEnabled() && $request->user()->role === 'oku_user' && $request->user()->oku && ! $request->user()->hasVerifiedMyKad()) {
+            return redirect()->route('identity-verification.show')
+                ->with('warning', 'Sila lengkapkan pengesahan MyKad untuk menggunakan sistem.');
+        }
 
         if ($request->user()->role === 'oku_user' && ! $request->user()->oku?->oku_card_image_path) {
             return redirect()->route('career-profile.show')

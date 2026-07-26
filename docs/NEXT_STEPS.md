@@ -246,6 +246,12 @@ Acceptance criteria:
 
 Start Phase 1 using `docs/UAT_CHECKLIST.md`. Do not add another major feature until the first UAT round identifies the client's actual remaining needs.
 
+## Planned Accessibility Function
+
+The proposed OKU Accessibility Assistant is documented in `docs/PLANNED_ACCESSIBILITY_ASSISTANT.md`.
+
+It includes read-aloud controls, printable information, text sizing, high contrast, keyboard support, and a later Easy Language function. This is a planned function and must be validated with JKM representatives and users with different disabilities before implementation. It should be scheduled after the first UAT round unless accessibility testing identifies a release-blocking issue.
+
 ## Definition of Complete
 
 MyOKUcare is 100% complete when:

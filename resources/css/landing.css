@@ -72,6 +72,18 @@
 .step-card h3 { margin:0 0 12px; font-size:20px; }
 .step-card p { margin:0; color:var(--muted); font-size:14px; line-height:1.7; }
 
+.guideline-preview-section { width:min(1320px,calc(100% - 64px)); margin:0 auto 80px; padding:42px 46px; display:grid; grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr); align-items:center; gap:44px; border:1px solid #ffd7ce; border-radius:22px; background:linear-gradient(135deg,#fff8f5,#fff); }
+.guideline-preview-copy h2 { margin:8px 0 13px; font-size:clamp(28px,2.5vw,40px); letter-spacing:-.035em; }
+.guideline-preview-copy>p:not(.eyebrow) { margin:0 0 22px; color:var(--muted); font-size:14px; line-height:1.65; }
+.guideline-preview-copy .btn { min-height:48px; padding:0 20px; }
+.guideline-preview-roles { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.guideline-preview-roles a { min-height:168px; padding:20px 18px; display:flex; flex-direction:column; border:1px solid var(--line); border-radius:15px; color:var(--ink); background:#fff; text-decoration:none; box-shadow:0 10px 28px rgba(23,32,51,.04); transition:transform .2s ease,box-shadow .2s ease; }
+.guideline-preview-roles a:hover { transform:translateY(-3px); box-shadow:0 16px 36px rgba(23,32,51,.09); }
+.guideline-preview-roles a>span { width:42px; height:42px; display:grid; place-items:center; margin-bottom:15px; border-radius:12px; color:var(--primary-dark); background:var(--primary-soft); }
+.guideline-preview-roles svg { width:21px; height:21px; }
+.guideline-preview-roles strong { font-size:14px; }
+.guideline-preview-roles small { margin-top:7px; color:var(--muted); font-size:11px; line-height:1.5; }
+
 .welcome-section { width:min(1320px,calc(100% - 64px)); margin:0 auto; padding:0 0 80px; }
 .feature-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
 .feature-card { position:relative; min-height:180px; padding:27px; border:1px solid var(--line); border-radius:18px; background:#fff; box-shadow:0 16px 44px rgba(23,32,51,.06); transition:transform .2s ease,box-shadow .2s ease; }
@@ -184,12 +196,13 @@
     .footer-grid { grid-template-columns:1fr 1fr; }
 }
 @media (max-width:900px) {
-    .public-nav,.hero-inner,.welcome-section,.steps-section,.accessibility-section,.audience-section,.faq-section,.announcement-section,.trust-section,.welcome-cta { width:min(720px,calc(100% - 40px)); }
+    .public-nav,.hero-inner,.welcome-section,.steps-section,.guideline-preview-section,.accessibility-section,.audience-section,.faq-section,.announcement-section,.trust-section,.welcome-cta { width:min(720px,calc(100% - 40px)); }
     .public-section-links { display:none; }
     .hero-inner { grid-template-columns:1fr; gap:42px; }
     .welcome-hero { min-height:auto; }
     .hero-panel { max-width:620px; }
     .steps-track { grid-template-columns:1fr; }
+    .guideline-preview-section { grid-template-columns:1fr; padding:36px; }
     .feature-cards { grid-template-columns:1fr; }
     .feature-card { min-height:0; }
     .accessibility-section { grid-template-columns:1fr; gap:32px; padding:40px; }
@@ -199,7 +212,7 @@
     .welcome-cta { align-items:flex-start; flex-direction:column; }
 }
 @media (max-width:600px) {
-    .public-nav,.hero-inner,.welcome-section,.steps-section,.accessibility-section,.audience-section,.faq-section,.announcement-section,.trust-section,.welcome-cta { width:calc(100% - 32px); }
+    .public-nav,.hero-inner,.welcome-section,.steps-section,.guideline-preview-section,.accessibility-section,.audience-section,.faq-section,.announcement-section,.trust-section,.welcome-cta { width:calc(100% - 32px); }
     .public-nav { height:62px; }
     .public-brand small,.public-actions .login-link,.public-accessibility [data-font-action="decrease"] { display:none; }
     .public-right-group { margin-left:auto; }
@@ -220,6 +233,12 @@
     .section-title p { font-size:13px; line-height:1.5; }
     .steps-section { padding:36px 0 0; }
     .steps-track { gap:12px; }
+    .guideline-preview-section { margin-bottom:32px; padding:22px 18px; gap:24px; }
+    .guideline-preview-copy h2 { font-size:24px; }
+    .guideline-preview-roles { grid-template-columns:1fr; gap:8px; }
+    .guideline-preview-roles a { min-height:0; padding:14px; display:grid; grid-template-columns:38px 1fr; column-gap:12px; }
+    .guideline-preview-roles a>span { width:38px; height:38px; grid-row:1 / 3; margin:0; }
+    .guideline-preview-roles small { margin-top:3px; }
     .step-card { padding:22px 18px 20px; }
     .step-icon { width:44px; height:44px; margin:0 auto 14px; }
     .step-icon svg { width:20px; height:20px; }
@@ -286,7 +305,7 @@
     .scroll-top { width:38px; height:38px; right:14px; bottom:16px; font-size:16px; }
 }
 @media (max-width:430px) {
-    .public-nav,.hero-inner,.welcome-section,.steps-section,.accessibility-section,.audience-section,.faq-section,.announcement-section,.trust-section,.welcome-cta { width:calc(100% - 20px); }
+    .public-nav,.hero-inner,.welcome-section,.steps-section,.guideline-preview-section,.accessibility-section,.audience-section,.faq-section,.announcement-section,.trust-section,.welcome-cta { width:calc(100% - 20px); }
     .public-brand>span:last-child small { display:none; }
     .public-brand>span:last-child strong { font-size:15px; }
     .hero-inner { margin:68px auto 20px; }

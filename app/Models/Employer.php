@@ -11,7 +11,7 @@ class Employer extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['company_name', 'registration_number', 'address', 'industry_sector', 'contact_person', 'phone_number', 'email', 'website', 'company_description', 'number_of_employees', 'has_oku_quota', 'is_active', 'logo_path'];
+    protected $fillable = ['company_name', 'registration_number', 'address', 'industry_sector', 'contact_person', 'phone_number', 'email', 'website', 'company_description', 'number_of_employees', 'has_oku_quota', 'is_active', 'logo_path', 'deleted_by_user_id', 'deletion_reason', 'deletion_notes', 'previous_status', 'restored_at', 'restored_by_user_id', 'restore_reason'];
 
     protected function casts(): array
     {
@@ -26,6 +26,16 @@ class Employer extends Model
     public function activeJobs()
     {
         return $this->hasMany(Job::class)->where('is_active', true);
+    }
+
+    public function employments()
+    {
+        return $this->hasMany(OkuEmployment::class);
+    }
+
+    public function okuWorkers()
+    {
+        return $this->belongsToMany(Oku::class, 'oku_employments')->withPivot(['status', 'start_date', 'end_date']);
     }
 
     public function scopeActive(Builder $query): Builder

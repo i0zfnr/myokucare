@@ -48,9 +48,15 @@
 <section class="panel form-section" aria-labelledby="oku-title">
 <div class="form-section-head"><span aria-hidden="true">02</span><div><h3 id="oku-title">Pendaftaran OKU</h3><p>Maklumat kad, kategori, pendidikan dan bantuan.</p></div></div>
 <div class="form-grid">
-@foreach(['oku_card_number'=>['Nombor kad OKU',50],'education_level'=>['Tahap pendidikan',100]] as $field=>[$label,$max])
+@foreach(['oku_card_number'=>['Nombor kad OKU',50]] as $field=>[$label,$max])
 <div class="form-group"><label for="{{ $field }}">{{ $label }} <span class="required-mark">*</span></label><input class="field @error($field) is-invalid @enderror" id="{{ $field }}" name="{{ $field }}" value="{{ $value($field) }}" maxlength="{{ $max }}" required aria-required="true" @error($field) aria-invalid="true" aria-describedby="{{ $field }}-error" @enderror>@error($field)<span class="field-error" id="{{ $field }}-error">{{ $message }}</span>@enderror</div>
 @endforeach
+<x-education-level-field
+    label="Tahap pendidikan"
+    :value="$value('education_level')"
+    required-label='<span class="required-mark">*</span>'
+    :error="$errors->first('education_level')"
+/>
 <div class="form-group"><label for="oku_category">Kategori OKU <span class="required-mark">*</span></label><select class="select @error('oku_category') is-invalid @enderror" id="oku_category" name="oku_category" required aria-required="true"><option value="">Pilih kategori</option>@foreach(['Fizikal','Penglihatan','Pendengaran','Pertuturan','Pembelajaran','Mental','Pelbagai'] as $option)<option value="{{ $option }}" @selected($value('oku_category')===$option)>{{ $option }}</option>@endforeach</select>@error('oku_category')<span class="field-error">{{ $message }}</span>@enderror</div>
 <div class="form-group"><label for="assistance_type">Jenis bantuan (teks)</label><input class="field @error('assistance_type') is-invalid @enderror" id="assistance_type" name="assistance_type" value="{{ $value('assistance_type') }}" maxlength="255" placeholder="Jika berkenaan">@error('assistance_type')<span class="field-error">{{ $message }}</span>@enderror</div>
 <div class="form-group full"><label>Jenis bantuan (pilihan)</label><div style="display:flex;flex-wrap:wrap;gap:8px">@foreach(['EPOKU'=>'Elaun Pekerja OKU','BTB'=>'Bantuan OKU Tidak Berupaya Bekerja','BPT'=>'Bantuan Penjagaan OKU Terlantar','BAT'=>'Bantuan Alat Sokongan/Tiruan','Lain-lain'=>'Lain-lain','Tiada'=>'Tiada'] as $val=>$label)<label class="check-option" style="margin:0!important"><input name="jenis_bantuan[]" type="checkbox" value="{{ $val }}" @if(is_array($value('jenis_bantuan',[]))&&in_array($val,$value('jenis_bantuan',[]),true)) checked @endif><span>{{ $label }}</span></label>@endforeach</div></div>

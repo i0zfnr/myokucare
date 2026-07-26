@@ -176,11 +176,12 @@
                                 </select>
                                 <p class="field-error" id="marital-status-error" role="alert"></p>
                             </div>
-                            <div class="form-group">
-                                <label for="education_level">Pendidikan tertinggi <span class="required-note">Wajib</span></label>
-                                <input class="field oku-required" id="education_level" name="education_level" value="{{ old('education_level') }}" required aria-required="true" placeholder="Cth: SPM, Diploma, Ijazah" aria-describedby="education-level-error" aria-invalid="{{ $errors->has('education_level') ? 'true' : 'false' }}">
-                                <p class="field-error" id="education-level-error" role="alert"></p>
-                            </div>
+                            <x-education-level-field
+                                :value="old('education_level')"
+                                required-label='<span class="required-note">Wajib</span>'
+                                select-class="oku-required"
+                                :error="$errors->first('education_level')"
+                            />
                         </div>
                         <div class="form-row-2">
                             <div class="form-group">
@@ -462,6 +463,8 @@
         var active = roleSelect && roleSelect.value === 'oku_user';
         if (okuFields) okuFields.hidden = !active;
         okuRequired.forEach(function(field) { field.required = active; });
+        var educationChoice = okuFields ? okuFields.querySelector('[data-education-level-choice]') : null;
+        if (educationChoice) educationChoice.dispatchEvent(new Event('change'));
         if (!active && currentStep === 2) showStep(1);
     }
 

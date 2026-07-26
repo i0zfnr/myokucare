@@ -15,6 +15,11 @@
             <div><dt>Kategori OKU</dt><dd>{{ $application->oku->oku_category }}</dd></div>
             <div><dt>Tarikh permohonan</dt><dd>{{ $application->application_date->format('d/m/Y') }}</dd></div>
             <div class="full"><dt>Penerangan keperluan</dt><dd>{{ $application->notes ?: 'Tiada penerangan tambahan.' }}</dd></div>
+            @if($isStaff && ($translation=$application->translations->firstWhere('field_name','notes')))
+            <div class="full"><dt>{{ __('translation.translated_view') }}</dt><dd>{{ app()->getLocale()==='en' ? ($translation->translated_text_en ?: __('translation.pending')) : ($translation->translated_text_bm ?: __('translation.pending')) }}</dd></div>
+            <div class="full"><dt>{{ __('translation.original_text') }} ({{ $translation->original_language }})</dt><dd>{{ $translation->original_text }}</dd></div>
+            <div><dt>{{ __('translation.confidence') }}</dt><dd>{{ number_format((float)$translation->translation_confidence*100) }}%</dd></div>
+            @endif
             @if($application->rejection_reason)<div class="full rejection-note"><dt>Sebab penolakan</dt><dd>{{ $application->rejection_reason }}</dd></div>@endif
         </dl>
     </article>

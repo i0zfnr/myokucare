@@ -1,0 +1,12 @@
+@extends('layout',['title'=>__('export.title')])
+@section('content')
+<div class="page-head"><div><p class="eyebrow">{{ __('nav.reports') }}</p><h2>{{ __('export.title') }}</h2><p>{{ __('export.description') }}</p></div></div>
+<form class="panel form-section" method="post" action="{{ route('exports.store') }}">@csrf<div class="form-grid">
+<div class="form-group"><label>{{ __('export.report_type') }}</label><select class="select" name="report_type">@foreach($types as $type)<option value="{{ $type }}">{{ __('export.report.'.strtolower($type)) }}</option>@endforeach</select></div>
+<div class="form-group"><label>{{ __('export.format') }}</label><select class="select" name="format">@foreach($formats as $format)<option>{{ $format }}</option>@endforeach</select></div>
+<div class="form-group"><label>{{ __('export.language') }}</label><select class="select" name="language"><option value="BM">Bahasa Melayu</option><option value="EN">English</option><option value="ZH_CN">中文（简体）</option></select></div>
+<div class="form-group"><label>{{ __('export.content_mode') }}</label><select class="select" name="content_mode"><option value="TRANSLATED">{{ __('export.translated') }}</option><option value="ORIGINAL">{{ __('export.original') }}</option><option value="DUAL">{{ __('export.dual') }}</option></select></div>
+<div class="form-group full"><label>{{ __('export.purpose') }}</label><select class="select" name="purpose" required>@foreach($purposes as $purpose)<option>{{ $purpose }}</option>@endforeach</select></div>
+</div><div class="form-actions"><button class="btn btn-primary">{{ __('export.generate') }}</button></div></form>
+<section class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Rujukan</th><th>Jenis</th><th>Format</th><th>Rekod</th><th>Status</th><th>Tamat</th><th></th></tr></thead><tbody>@forelse($exports as $export)<tr><td>{{ $export->id }}</td><td>{{ $export->export_type }}</td><td>{{ $export->format }}</td><td>{{ $export->record_count }}</td><td>{{ $export->status }}</td><td>{{ $export->expires_at->format('d/m/Y H:i') }}</td><td>@if($export->status==='READY'&&!$export->expires_at->isPast())<a href="{{ URL::temporarySignedRoute('exports.download',$export->expires_at,['export'=>$export]) }}">Muat turun</a>@endif</td></tr>@empty<tr><td colspan="7" class="empty">Tiada eksport dijana.</td></tr>@endforelse</tbody></table></div></section>{{ $exports->links() }}
+@endsection

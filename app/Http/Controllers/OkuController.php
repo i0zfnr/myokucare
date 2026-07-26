@@ -8,6 +8,9 @@ use App\Models\Oku;
 use App\Services\JobMatchingService;
 use App\Services\OkuDataService;
 use App\Services\OkuImportService;
+use App\Services\PermissionService;
+use App\Services\RecordAuditService;
+use App\Services\RecordLifecycleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -76,8 +79,9 @@ class OkuController extends Controller
         }, 'templat_import_oku.csv', ['Content-Type' => 'text/csv; charset=UTF-8']);
     }
 
-    public function store(SaveOkuRequest $request)
+    public function store(SaveOkuRequest $request, PermissionService $permissions, RecordAuditService $audit)
     {
+        $permissions->authorize($request->user(), 'oku_user.create');
         $oku = DB::transaction(function () use ($request) {
             $data = $request->validated();
             unset($data['oku_card_image'], $data['profile_photo']);
@@ -86,6 +90,7 @@ class OkuController extends Controller
 
             return $oku;
         });
+        $audit->log($request, $oku, 'CREATED', [], $oku->toArray());
 
         return redirect()->route('oku.show', $oku)->with('success', 'Rekod OKU berjaya didaftarkan.');
     }
@@ -100,21 +105,24 @@ class OkuController extends Controller
         return view('oku.form', compact('oku'));
     }
 
-    public function update(SaveOkuRequest $request, Oku $oku)
+    public function update(SaveOkuRequest $request, Oku $oku, PermissionService $permissions, RecordAuditService $audit)
     {
+        $permissions->authorize($request->user(), 'oku_user.update');
+        $before = $oku->toArray();
         DB::transaction(function () use ($request, $oku): void {
             $data = $request->validated();
             unset($data['oku_card_image'], $data['profile_photo']);
             $oku->update($data);
             $this->storeUploadedDocuments($request, $oku);
         });
+        $audit->log($request, $oku, 'UPDATED', $before, $oku->fresh()->toArray());
 
         return redirect()->route('oku.show', $oku)->with('success', 'Rekod OKU berjaya dikemas kini.');
     }
 
-    public function destroy(Oku $oku)
+    public function destroy(Request $request, Oku $oku, RecordLifecycleService $lifecycle)
     {
-        Oku::query()->whereKey($oku->getKey())->delete();
+        $lifecycle->softDelete($request, $oku, 'oku_user.delete', $oku->name);
 
         return redirect()->route('oku.index')->with('success', 'OKU record deleted.');
     }
@@ -150,5 +158,4 @@ class OkuController extends Controller
             Storage::disk('local')->delete($oldPath);
         }
     }
-
 }

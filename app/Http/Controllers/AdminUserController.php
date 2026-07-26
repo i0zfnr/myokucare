@@ -8,6 +8,7 @@ use App\Models\Employer;
 use App\Models\Oku;
 use App\Models\User;
 use App\Services\AuditService;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -159,6 +160,7 @@ class AdminUserController extends Controller
             'roles' => self::ROLES,
             'employers' => Employer::query()->active()->orderBy('company_name')->get(['id', 'company_name']),
             'okus' => Oku::query()->active()->orderBy('name')->get(['id', 'name', 'oku_card_number']),
+            'permissions' => PermissionService::ALL,
         ]);
     }
 
@@ -174,10 +176,15 @@ class AdminUserController extends Controller
             'oku_id' => ['nullable', 'required_if:role,oku_user', 'exists:okus,id'],
             'is_active' => ['required', 'boolean'],
             'password' => [$required, 'nullable', 'confirmed', Password::min(8)->letters()->numbers()],
+            'permissions' => ['nullable', 'array'],
+            'permissions.*' => ['string', Rule::in(PermissionService::ALL)],
         ]);
 
         $data['employer_id'] = $data['role'] === 'employer' ? ($data['employer_id'] ?? null) : null;
         $data['oku_id'] = $data['role'] === 'oku_user' ? ($data['oku_id'] ?? null) : null;
+        $data['permissions'] = $data['role'] === 'super_admin' || ! $request->has('permissions')
+            ? null
+            : array_values($data['permissions']);
 
         return $data;
     }

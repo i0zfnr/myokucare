@@ -142,7 +142,10 @@ Delivery channel must respect user preference and consent.
 - Larger-text compatibility
 - High-contrast text
 - Malay-first wording
-- Future voice and multilingual support
+- Planned OKU Accessibility Assistant with user-controlled read aloud and print support
+- Future Easy Language and multilingual support
+- Spoken information must also remain available as visible text
+- Detailed planned requirements: `docs/PLANNED_ACCESSIBILITY_ASSISTANT.md`
 
 ## Non-functional requirements
 

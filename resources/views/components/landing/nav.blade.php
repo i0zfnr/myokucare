@@ -11,6 +11,7 @@
     <nav class="public-section-links" aria-label="Bahagian halaman">
         <a href="#features">Perkhidmatan</a>
         <a href="#how-it-works">Cara Berfungsi</a>
+        <a href="{{ route('guideline.show') }}">{{ __('guideline.nav') }}</a>
         <a href="#audience">Pengguna</a>
         <a href="#faq">Soalan</a>
     </nav>

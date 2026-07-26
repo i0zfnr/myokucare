@@ -11,11 +11,18 @@ class Oku extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'ic_number', 'gender', 'age', 'marital_status', 'address', 'education_level', 'oku_card_number', 'oku_category', 'employment_status', 'job_name', 'sektor_pekerjaan', 'assistance_type', 'jenis_bantuan', 'career_summary', 'skills', 'availability_status', 'resume_path', 'oku_card_image_path', 'verification_status', 'verification_notes', 'verified_at', 'verified_by', 'phone_number', 'email', 'has_smartphone', 'has_internet', 'emergency_contact_name', 'emergency_contact_phone', 'profile_photo_path', 'is_active'];
+    protected $fillable = ['name', 'ic_number', 'gender', 'age', 'marital_status', 'address', 'education_level', 'oku_card_number', 'oku_category', 'employment_status', 'job_name', 'sektor_pekerjaan', 'assistance_type', 'jenis_bantuan', 'career_summary', 'skills', 'availability_status', 'resume_path', 'oku_card_image_path', 'verification_status', 'verification_notes', 'verified_at', 'verified_by', 'phone_number', 'profile_reviewed_at', 'email', 'has_smartphone', 'has_internet', 'emergency_contact_name', 'emergency_contact_phone', 'profile_photo_path', 'is_active', 'disability_export_consent', 'deleted_by_user_id', 'deletion_reason', 'deletion_notes', 'previous_status', 'restored_at', 'restored_by_user_id', 'restore_reason'];
 
     protected function casts(): array
     {
-        return ['age' => 'integer', 'has_smartphone' => 'boolean', 'has_internet' => 'boolean', 'is_active' => 'boolean', 'verified_at' => 'datetime', 'jenis_bantuan' => 'array'];
+        return ['age' => 'integer', 'has_smartphone' => 'boolean', 'has_internet' => 'boolean', 'is_active' => 'boolean', 'disability_export_consent' => 'boolean', 'verified_at' => 'datetime', 'profile_reviewed_at' => 'datetime', 'restored_at' => 'datetime', 'jenis_bantuan' => 'array'];
+    }
+
+    public function isProfileReviewDue(): bool
+    {
+        $lastReview = $this->profile_reviewed_at ?? $this->created_at;
+
+        return ! $lastReview || $lastReview->copy()->addMonthsNoOverflow(3)->isPast();
     }
 
     public function employments()
@@ -41,6 +48,16 @@ class Oku extends Model
     public function activeEmployment()
     {
         return $this->hasOne(OkuEmployment::class)->where('status', 'Active')->latestOfMany();
+    }
+
+    public function employers()
+    {
+        return $this->belongsToMany(Employer::class, 'oku_employments')->withPivot(['status', 'start_date', 'end_date']);
+    }
+
+    public function translations()
+    {
+        return $this->morphMany(UserSubmissionTranslation::class, 'translatable');
     }
 
     public function scopeActive(Builder $query): Builder

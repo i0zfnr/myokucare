@@ -5,18 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployerIndexRequest;
 use App\Models\Employer;
 use App\Models\Job;
+use App\Services\PermissionService;
+use App\Services\RecordAccessService;
+use App\Services\RecordAuditService;
+use App\Services\RecordLifecycleService;
 use Illuminate\Http\Request;
 
 class EmployerController extends Controller
 {
-    public function index(EmployerIndexRequest $request)
+    public function index(EmployerIndexRequest $request, RecordAccessService $access)
     {
         $filters = $request->validated();
         $sortBy = $filters['sort_by'] ?? 'company_name';
         $sortDirection = $filters['sort_direction'] ?? 'asc';
         $perPage = (int) ($filters['per_page'] ?? $request->user()->preferences['default_page_size'] ?? 15);
 
-        $employers = Employer::query()
+        $baseQuery = $access->employers($request->user());
+        $employers = (clone $baseQuery)
             ->withCount(['jobs', 'activeJobs'])
             ->when(filled($filters['search'] ?? null), function ($query) use ($filters) {
                 $term = $filters['search'];
@@ -36,54 +41,66 @@ class EmployerController extends Controller
         return view('employers.index', [
             'employers' => $employers,
             'filters' => $filters,
-            'sectors' => Employer::query()->distinct()->orderBy('industry_sector')->pluck('industry_sector'),
+            'sectors' => (clone $baseQuery)->distinct()->orderBy('industry_sector')->pluck('industry_sector'),
             'stats' => [
-                'total' => Employer::query()->count(),
-                'active' => Employer::query()->where('is_active', true)->count(),
-                'oku_friendly' => Employer::query()->where('has_oku_quota', true)->count(),
-                'active_jobs' => Job::query()->where('is_active', true)->count(),
+                'total' => (clone $baseQuery)->count(),
+                'active' => (clone $baseQuery)->where('is_active', true)->count(),
+                'oku_friendly' => (clone $baseQuery)->where('has_oku_quota', true)->count(),
+                'active_jobs' => Job::query()->whereIn('employer_id', (clone $baseQuery)->select('id'))->where('is_active', true)->count(),
             ],
         ]);
     }
 
-    public function show(Employer $employer)
+    public function show(Request $request, Employer $employer, RecordAccessService $access)
     {
-        return response()->json($employer->load('jobs'));
+        $access->authorizeEmployer($request->user(), $employer);
+        $employer->load(['jobs', 'employments.oku']);
+
+        return $request->expectsJson() ? response()->json($employer) : view('employers.show', compact('employer'));
     }
 
-    public function create()
+    public function create(Request $request, PermissionService $permissions)
     {
+        $permissions->authorize($request->user(), 'employer.create');
+
         return view('employers.form', ['employer' => new Employer]);
     }
 
-    public function edit(Employer $employer)
+    public function edit(Request $request, Employer $employer, PermissionService $permissions)
     {
+        $permissions->authorize($request->user(), 'employer.update');
+
         return view('employers.form', compact('employer'));
     }
 
-    public function store(Request $r)
+    public function store(Request $r, PermissionService $permissions, RecordAuditService $audit)
     {
+        $permissions->authorize($r->user(), 'employer.create');
         $employer = Employer::query()->create($this->data($r));
+        $audit->log($r, $employer, 'CREATED', [], $employer->toArray());
 
         return $r->expectsJson()
             ? response()->json($employer, 201)
             : redirect()->route('employers.index')->with('success', 'Majikan berjaya didaftarkan.');
     }
 
-    public function update(Request $r, Employer $employer)
+    public function update(Request $r, Employer $employer, PermissionService $permissions, RecordAuditService $audit)
     {
+        $permissions->authorize($r->user(), 'employer.update');
+        $before = $employer->toArray();
         $employer->update($this->data($r, true));
+        $audit->log($r, $employer, 'UPDATED', $before, $employer->toArray());
 
         return $r->expectsJson()
             ? response()->json($employer)
             : redirect()->route('employers.index')->with('success', 'Maklumat majikan berjaya dikemas kini.');
     }
 
-    public function destroy(Employer $employer)
+    public function destroy(Request $request, Employer $employer, RecordLifecycleService $lifecycle)
     {
-        Employer::query()->whereKey($employer->getKey())->delete();
+        $lifecycle->softDelete($request, $employer, 'employer.delete', $employer->company_name);
 
-        return response()->noContent();
+        return $request->expectsJson() ? response()->noContent() : redirect()->route('employers.index')->with('success', 'Majikan telah dipadam secara lembut.');
     }
 
     private function data(Request $r, bool $partial = false): array

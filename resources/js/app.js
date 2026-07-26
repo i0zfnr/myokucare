@@ -1,10 +1,36 @@
 import DashboardLive from './modules/dashboard-live';
+import Guideline from './modules/guideline';
+import IdentityVerification from './modules/identity-verification';
 
 /* ── PWA ── */
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').catch(() => {});
     });
+}
+const standaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+document.documentElement.classList.toggle('is-standalone', standaloneMode);
+const guidelineVersion = document.querySelector('meta[name="guideline-version"]')?.content;
+const guidelineCompletedByUser = document.querySelector('meta[name="guideline-completed"]')?.content === '1';
+const guidelineAuthenticated = document.querySelector('meta[name="guideline-authenticated"]')?.content === '1';
+const guidelineTrackUrl = document.querySelector('meta[name="guideline-track-url"]')?.content;
+const guidelineStorageKey = guidelineVersion ? `myokucare-guideline-v${guidelineVersion}` : null;
+if (guidelineStorageKey && guidelineCompletedByUser) localStorage.setItem(guidelineStorageKey, '1');
+if (guidelineStorageKey && guidelineAuthenticated && !guidelineCompletedByUser
+    && localStorage.getItem(guidelineStorageKey) === '1' && guidelineTrackUrl) {
+    fetch(guidelineTrackUrl, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+        },
+        body: JSON.stringify({ action: 'COMPLETED', device_type: standaloneMode ? 'PWA' : 'WEB' }),
+    }).catch(() => {});
+}
+if (standaloneMode && guidelineStorageKey && window.location.pathname !== '/guideline'
+    && localStorage.getItem(guidelineStorageKey) !== '1' && !guidelineCompletedByUser) {
+    window.location.replace('/guideline?onboarding=1&source=pwa');
 }
 let pendingInstallPrompt;
 const installPanel = document.createElement('aside');
@@ -55,6 +81,12 @@ window.addEventListener('offline', updateConnectionStatus);
 const liveDashboard = document.querySelector('[data-live-dashboard]');
 const dashboardRefresh = Number(document.documentElement.dataset.dashboardRefresh || 10) * 1000;
 if (liveDashboard) new DashboardLive(liveDashboard, dashboardRefresh).init();
+
+const identityVerification = document.querySelector('[data-identity-verification]');
+if (identityVerification) new IdentityVerification(identityVerification).init();
+
+const guideline = document.querySelector('[data-guideline]');
+if (guideline) new Guideline(guideline).init();
 
 /* ── Font Scale + Contrast ── */
 const displayScales = [100, 112.5, 125, 137.5];

@@ -9,7 +9,7 @@ class EmployerIndexRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()?->hasRole('super_admin', 'jkm_officer', 'employer') === true;
+        return $this->user()?->hasRole('super_admin', 'jkm_officer', 'employer', 'oku_user') === true;
     }
 
     public function rules(): array

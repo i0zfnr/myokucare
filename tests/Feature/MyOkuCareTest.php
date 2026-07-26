@@ -815,7 +815,8 @@ class MyOkuCareTest extends TestCase
             'location' => 'Selangor',
         ]);
 
-        $this->getJson('/api/v1/oku/matching-jobs?oku_id='.$oku->id)
+        $user = User::factory()->create(['role' => 'oku_user', 'oku_id' => $oku->id]);
+        $this->actingAs($user, 'sanctum')->getJson('/api/v1/oku/matching-jobs')
             ->assertOk()
             ->assertJsonPath('0.title', 'Accessible Role')
             ->assertJsonPath('0.match_score', 80);

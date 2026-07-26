@@ -5,30 +5,35 @@ namespace App\Http\Controllers;
 use App\Http\Requests\WelfareIndexRequest;
 use App\Models\Oku;
 use App\Models\WelfareApplication;
+use App\Services\UserContentTranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class WelfareController extends Controller
 {
-    public function index(WelfareIndexRequest $request)
+    public function index(WelfareIndexRequest $request, UserContentTranslationService $translations)
     {
         $filters = $request->validated();
         $sortBy = $filters['sort_by'] ?? 'application_date';
         $sortDirection = $filters['sort_direction'] ?? 'desc';
         $isStaff = $request->user()->hasRole('super_admin', 'jkm_officer');
         $okuId = $isStaff ? null : $request->user()->oku_id;
+        $translatedIds = filled($filters['search'] ?? null)
+            ? $translations->matchingRecordIds(WelfareApplication::class, $filters['search'])
+            : collect();
 
         $scope = fn () => WelfareApplication::query()
             ->when(! $isStaff, fn ($query) => $query->where('oku_id', $okuId ?? 0));
 
         $applications = $scope()
             ->with(['oku:id,name,oku_card_number', 'reviewer:id,name'])
-            ->when(filled($filters['search'] ?? null), function ($query) use ($filters) {
+            ->when(filled($filters['search'] ?? null), function ($query) use ($filters, $translatedIds) {
                 $term = $filters['search'];
                 $query->where(fn ($query) => $query
                     ->where('application_type', 'like', "%{$term}%")
                     ->orWhere('notes', 'like', "%{$term}%")
+                    ->orWhereIn('id', $translatedIds)
                     ->orWhereHas('oku', fn ($query) => $query->where('name', 'like', "%{$term}%")->orWhere('oku_card_number', 'like', "%{$term}%")));
             })
             ->when(filled($filters['status'] ?? null), fn ($query) => $query->where('status', $filters['status']))
@@ -79,7 +84,7 @@ class WelfareController extends Controller
             : view('welfare.show', compact('application', 'isStaff'));
     }
 
-    public function store(Request $r)
+    public function store(Request $r, UserContentTranslationService $translations)
     {
         $isStaff = $r->user()->hasRole('super_admin', 'jkm_officer');
         $data = $r->validate([
@@ -95,6 +100,7 @@ class WelfareController extends Controller
         }
 
         $application = WelfareApplication::query()->create($data);
+        $translations->capture($r->user(), $application, 'notes', $data['notes'] ?? null);
 
         return $r->expectsJson()
             ? response()->json($application, 201)
