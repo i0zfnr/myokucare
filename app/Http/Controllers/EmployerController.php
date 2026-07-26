@@ -15,6 +15,12 @@ class EmployerController extends Controller
 {
     public function index(EmployerIndexRequest $request, RecordAccessService $access)
     {
+        if ($request->user()->hasRole('employer')) {
+            abort_unless($request->user()->employer_id, 403, 'EMPLOYER_PROFILE_NOT_LINKED');
+
+            return redirect()->route('employers.show', $request->user()->employer_id);
+        }
+
         $filters = $request->validated();
         $sortBy = $filters['sort_by'] ?? 'company_name';
         $sortDirection = $filters['sort_direction'] ?? 'asc';

@@ -12,7 +12,7 @@
         ['section'=>__('nav.oku_management'),'label'=>__('nav.register_oku'),'route'=>'oku.create','active'=>'oku.create','icon'=>'add-record','roles'=>['super_admin','jkm_officer']],
         ['section'=>__('nav.oku_management'),'label'=>__('nav.identity_review'),'route'=>'identity-reviews.index','active'=>'identity-reviews.*','icon'=>'audit','roles'=>['super_admin','jkm_officer']],
         ['section'=>__('nav.my_profile'),'label'=>__('nav.career_profile'),'route'=>'career-profile.show','active'=>'career-profile.*','icon'=>'profile','roles'=>['oku_user']],
-        ['section'=>__('nav.employment'),'label'=>__('nav.employers'),'route'=>'employers.index','active'=>'employers.*','icon'=>'employer','roles'=>['super_admin','jkm_officer','employer']],
+        ['section'=>__('nav.employment'),'label'=>$user->hasRole('employer')?__('nav.company_profile'):__('nav.employers'),'route'=>'employers.index','active'=>'employers.*','icon'=>'employer','roles'=>['super_admin','jkm_officer','employer']],
         ['section'=>__('nav.employment'),'label'=>__('nav.jobs'),'route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs','roles'=>['super_admin','jkm_officer','employer','oku_user']],
         ['section'=>__('nav.employment'),'label'=>__('nav.employment_records'),'route'=>'employments.index','active'=>'employments.*','icon'=>'employment-report','roles'=>['super_admin','jkm_officer','employer','oku_user']],
         ['section'=>__('nav.welfare'),'label'=>__('nav.applications'),'route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare','roles'=>['super_admin','jkm_officer','oku_user']],

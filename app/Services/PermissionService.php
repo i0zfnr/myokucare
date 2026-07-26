@@ -23,7 +23,7 @@ class PermissionService
             'employer.export', 'oku_user.export', 'employment.export', 'report.generate',
         ],
         'oku_user' => ['employer.view', 'employer.export', 'employment.view', 'employment.export'],
-        'employer' => ['oku_user.view', 'oku_user.export', 'employment.view', 'employment.export'],
+        'employer' => ['employer.view', 'oku_user.view', 'oku_user.export', 'employment.view', 'employment.export'],
     ];
 
     public function permissions(User $user): array

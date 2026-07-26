@@ -34,6 +34,18 @@ class RoleBasedRecordsAndExportTest extends TestCase
         $this->actingAs($user)->get(route('employments.show', $oku->employments()->first()))->assertForbidden();
     }
 
+    public function test_employer_can_open_own_employer_page_but_not_another_company(): void
+    {
+        [, $employer] = $this->records();
+        $otherEmployer = $this->employer('Other');
+        $user = User::factory()->create(['role' => 'employer', 'employer_id' => $employer->id]);
+
+        $this->actingAs($user)->get(route('employers.index'))
+            ->assertRedirect(route('employers.show', $employer));
+        $this->get(route('employers.show', $employer))->assertOk();
+        $this->get(route('employers.show', $otherEmployer))->assertForbidden();
+    }
+
     public function test_csv_export_is_private_audited_and_masks_nric(): void
     {
         Storage::fake('local');
