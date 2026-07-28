@@ -10,6 +10,11 @@
 - [ ] `APP_DEBUG=false`
 - [ ] Correct `APP_URL`
 - [ ] Strong `APP_KEY`
+- [ ] `SESSION_DRIVER=database`
+- [ ] `SESSION_SECURE_COOKIE=true`
+- [ ] `SESSION_HTTP_ONLY=true`
+- [ ] `SESSION_SAME_SITE=lax`
+- [ ] Session encryption and approved idle/remembered-session lifetimes confirmed
 - [ ] Production mail settings
 - [ ] Database backup completed
 - [ ] Upload storage backup completed
@@ -38,6 +43,8 @@ php artisan test
 - [ ] Welcome, login and registration load
 - [ ] Every role reaches the correct dashboard
 - [ ] Inactive users cannot log in
+- [ ] Deactivated users with existing web/API sessions are immediately blocked
+- [ ] PWA does not cache authenticated pages, API responses or recovery secrets
 - [ ] OKU record CRUD works
 - [ ] CSV/XLSX import works
 - [ ] Kad OKU upload and review works

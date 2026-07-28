@@ -3,10 +3,8 @@
 namespace App\Services\Identity;
 
 use App\Contracts\OkuVerificationProvider;
-use App\Models\ExtractedField;
 use App\Models\IdentityComparison;
 use App\Models\ManualReview;
-use App\Models\QrScanResult;
 use App\Models\VerificationDocument;
 use App\Models\VerificationSession;
 use Illuminate\Support\Facades\DB;
@@ -23,47 +21,23 @@ class VerificationWorkflowService
 
     public function process(VerificationSession $session, array $input): VerificationSession
     {
-        DB::transaction(function () use ($session, $input): void {
-            foreach ($input['documents'] as $type => $ocrInput) {
-                $document = $session->documents()->where('document_type', $type)->first();
-                if (! $document) {
-                    continue;
-                }
+        DB::transaction(function () use ($session): void {
+            // Browser-provided OCR text, confidence scores and QR payloads are
+            // untrusted. Until a server-side provider is configured, JKM must
+            // review the uploaded documents before the account is verified.
+            $session->documents()->each(function (VerificationDocument $document): void {
                 $document->fields()->delete();
-                $fields = $this->ocr->extract(
-                    (string) ($ocrInput['text'] ?? ''),
-                    (float) ($ocrInput['confidence'] ?? 0),
-                    $type,
-                );
-                foreach ($fields as $name => $field) {
-                    ExtractedField::query()->create([
-                        'document_id' => $document->id,
-                        'field_name' => $name,
-                        'encrypted_value' => $field['value'],
-                        'masked_value' => $name === 'nric' ? $this->normalizer->maskNric($field['value']) : null,
-                        'confidence' => $field['confidence'],
-                        'source' => ! empty($ocrInput['edited']) ? 'USER_EDITED' : 'OCR',
-                    ]);
-                }
-            }
-
-            if (filled(data_get($input, 'qr.payload'))) {
-                $document = $session->documents()->whereIn('document_type', ['oku_back', 'oku_front'])->first();
-                if ($document) {
-                    $payload = $input['qr']['payload'];
-                    $payloadType = $this->qr->classify($payload);
-                    $provider = $payloadType === 'INVALID'
-                        ? ['status' => 'INVALID_QR']
-                        : $this->provider->verifyQrPayload($payload);
-                    QrScanResult::query()->updateOrCreate(['document_id' => $document->id], [
-                        'encrypted_payload' => $payload,
-                        'payload_type' => $payloadType,
-                        'detection_confidence' => $input['qr']['confidence'] ?? null,
-                        'provider_status' => $provider['status'],
-                    ]);
-                }
-            }
-            $session->update(['status' => 'PROCESSING']);
+                $document->qrResults()->delete();
+            });
+            $this->manualReview($session, ['SERVER_SIDE_IDENTITY_VERIFICATION_REQUIRED']);
+            $session->update(['status' => 'MANUAL_REVIEW_REQUIRED']);
+            $session->user->update([
+                'mykad_verification_status' => 'MANUAL_REVIEW_REQUIRED',
+                'mykad_submitted_at' => now(),
+                'mykad_verified_at' => null,
+                'mykad_verification_session_id' => $session->id,
+                'mykad_review_reason' => 'SERVER_SIDE_IDENTITY_VERIFICATION_REQUIRED',
+            ]);
         });
 
         return $session->fresh(['documents.fields', 'documents.qrResults']);
@@ -71,6 +45,10 @@ class VerificationWorkflowService
 
     public function verify(VerificationSession $session): VerificationSession
     {
+        if ($session->status === 'MANUAL_REVIEW_REQUIRED' || $session->manualReview()->exists()) {
+            return $session->fresh(['documents.fields', 'documents.qrResults', 'comparison', 'manualReview']);
+        }
+
         $session->load('documents.fields', 'documents.qrResults', 'user.oku');
         $required = collect(['mykad_front', 'mykad_back']);
         $documents = $session->documents->keyBy('document_type');
@@ -139,7 +117,7 @@ class VerificationWorkflowService
         $session->user->update([
             'mykad_verification_status' => $status,
             'mykad_submitted_at' => now(),
-            'mykad_verified_at' => in_array($status, ['VERIFIED', 'VERIFIED_LOCALLY_ONLY'], true) ? now() : null,
+            'mykad_verified_at' => $status === 'VERIFIED' ? now() : null,
             'mykad_verification_session_id' => $session->id,
             'mykad_review_reason' => $reasons[0] ?? null,
             'mykad_resubmission_required' => false,

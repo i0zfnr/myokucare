@@ -14,7 +14,7 @@ class ProcessVerificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'documents' => ['required', 'array'],
+            'documents' => ['nullable', 'array'],
             'documents.*.text' => ['nullable', 'string', 'max:10000'],
             'documents.*.confidence' => ['nullable', 'numeric', 'between:0,1'],
             'documents.*.edited' => ['nullable', 'boolean'],

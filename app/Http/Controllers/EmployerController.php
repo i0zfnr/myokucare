@@ -60,9 +60,36 @@ class EmployerController extends Controller
     public function show(Request $request, Employer $employer, RecordAccessService $access)
     {
         $access->authorizeEmployer($request->user(), $employer);
-        $employer->load(['jobs', 'employments.oku']);
+        $employer->load('jobs');
+        $employer->load(['employments' => function ($query) use ($request) {
+            if ($request->user()->hasRole('oku_user')) {
+                $query->where('oku_id', $request->user()->oku_id);
+            }
+            $query->with('oku:id,name');
+        }]);
 
-        return $request->expectsJson() ? response()->json($employer) : view('employers.show', compact('employer'));
+        if ($request->expectsJson()) {
+            return response()->json([
+                'id' => $employer->id,
+                'company_name' => $employer->company_name,
+                'industry_sector' => $employer->industry_sector,
+                'website' => $employer->website,
+                'company_description' => $employer->company_description,
+                'jobs' => $employer->jobs->map->only([
+                    'id', 'title', 'description', 'requirements', 'location',
+                    'employment_type', 'application_deadline', 'is_active',
+                ]),
+                'employments' => $employer->employments->map(fn ($employment) => [
+                    'id' => $employment->id,
+                    'oku_id' => $employment->oku_id,
+                    'oku_name' => $employment->oku?->name,
+                    'job_title' => $employment->job_title,
+                    'status' => $employment->status,
+                ]),
+            ]);
+        }
+
+        return view('employers.show', compact('employer'));
     }
 
     public function create(Request $request, PermissionService $permissions)

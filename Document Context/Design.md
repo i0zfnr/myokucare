@@ -132,8 +132,8 @@ Target WCAG level: WCAG 2.2 AA.
   - JKM: pending reviews and expiring schedules;
   - Employer: open jobs and applicants;
   - OKU: recommendations and application statuses;
-  - Family: linked OKU actions;
-  - Viewer: aggregate reports only.
+  - Planned Family role: linked OKU actions only after consent/authority is implemented;
+  - Planned Viewer role: aggregate reports only.
 
 ## Responsive behaviour
 

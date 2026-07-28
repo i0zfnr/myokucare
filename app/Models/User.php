@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function hasVerifiedMyKad(): bool
     {
-        return in_array($this->mykad_verification_status, ['VERIFIED', 'VERIFIED_LOCALLY_ONLY'], true);
+        return $this->mykad_verification_status === 'VERIFIED';
     }
 
     public function verificationSessions()

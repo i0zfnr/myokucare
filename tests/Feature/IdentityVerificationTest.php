@@ -37,7 +37,7 @@ class IdentityVerificationTest extends TestCase
             ->assertJsonPath('code', 'MYKAD_VERIFICATION_REQUIRED');
         $this->get(route('identity-verification.show'))->assertOk()->assertSeeText('Sahkan Kad OKU dan MyKad anda');
 
-        $user->update(['mykad_verification_status' => 'VERIFIED_LOCALLY_ONLY']);
+        $user->update(['mykad_verification_status' => 'VERIFIED']);
         $this->get(route('dashboard'))->assertOk();
     }
 
@@ -180,7 +180,7 @@ class IdentityVerificationTest extends TestCase
 
         app(VerificationWorkflowService::class)->verify($session);
         $this->assertSame('VERIFIED_LOCALLY_ONLY', $session->fresh()->status);
-        $this->assertTrue($user->fresh()->hasVerifiedMyKad());
+        $this->assertFalse($user->fresh()->hasVerifiedMyKad());
 
         [$otherUser] = $this->okuUser('SUBMISSION_IN_PROGRESS');
         $otherSession = $this->verificationSession($otherUser);

@@ -73,7 +73,7 @@ The current application is a modular Laravel monolith. This is appropriate for t
 | Family Member | Assist a linked OKU user and monitor permitted information |
 | Viewer | Read-only statistics and reports |
 
-Public registration is restricted to Employer, OKU User, and Family Member. Administrative roles must be provisioned by an authorised administrator.
+Family Member and Viewer are planned roles and are not present in the current four-role release. Current public registration is restricted to Employer and OKU User. Administrative roles must be provisioned by an authorised administrator.
 
 ## Main request flows
 
@@ -141,17 +141,18 @@ This is current database data at page-load time, not push-based real-time data. 
 - Eloquent parameter binding protects ordinary queries from SQL injection.
 - Route middleware enforces authentication and roles.
 - Inactive accounts are rejected.
+- Active-account middleware blocks deactivated web and API sessions; administrative deactivation revokes database sessions, API tokens and remembered-login tokens.
+- PWA navigation and API responses are network-only; the service worker caches only static assets and the public offline page.
 - Administrative roles cannot be selected through public registration.
 
 Required before production:
 
-- ownership policies for linked OKU and employer records;
 - email verification and password reset;
-- audit log for sensitive reads and mutations;
-- rate limiting on authentication and API endpoints;
 - encrypted transport and secure production cookies;
 - backup, retention, incident response, and recovery procedures;
 - privacy review for Malaysian personal-data and public-sector requirements.
+
+Planned authentication recovery is defined in `docs/AUTHENTICATION_RECOVERY_PLAN.md`.
 
 ## Planned integrations
 

@@ -239,7 +239,7 @@ export default class IdentityVerification {
 
     renderResult(result) {
         const panel = this.root.querySelector('[data-result]');
-        const success = ['VERIFIED', 'VERIFIED_LOCALLY_ONLY'].includes(result.status);
+        const success = result.status === 'VERIFIED';
         panel.hidden = false;
         panel.className = `panel verification-result ${success ? 'result-success' : 'result-review'}`;
         panel.innerHTML = `<h3>${success ? 'Pengesahan berjaya' : 'Semakan lanjut diperlukan'}</h3>

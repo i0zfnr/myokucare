@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobIndexRequest;
+use App\Models\Employer;
 use App\Models\Job;
 use App\Models\JobInterest;
-use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -110,9 +110,10 @@ class JobController extends Controller
         return $r->expectsJson() ? response()->json($job) : redirect()->route('jobs.index')->with('success', 'Peluang kerja berjaya dikemas kini.');
     }
 
-    public function destroy(Job $job)
+    public function destroy(Request $request, Job $job)
     {
-        Job::query()->whereKey($job->getKey())->delete();
+        $this->authorizeEmployerAccess($request, $job);
+        $job->delete();
 
         return response()->noContent();
     }

@@ -2,6 +2,7 @@
 
 use App\Contracts\OkuVerificationProvider;
 use App\Contracts\TranslationProvider;
+use App\Http\Middleware\EnsureAccountIsActive;
 use App\Http\Middleware\EnsureIdentityVerificationFeatureEnabled;
 use App\Http\Middleware\EnsureMyKadIsVerified;
 use App\Http\Middleware\EnsureOkuProfileIsCurrent;
@@ -25,11 +26,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
 
         $middleware->alias([
+            'active' => EnsureAccountIsActive::class,
             'identity.feature' => EnsureIdentityVerificationFeatureEnabled::class,
             'role' => EnsureUserHasRole::class,
         ]);
 
+        $middleware->appendToGroup('web', EnsureAccountIsActive::class);
         $middleware->appendToGroup('web', SetPreferredLocale::class);
+        $middleware->appendToGroup('api', EnsureAccountIsActive::class);
         $middleware->appendToGroup('web', EnsureOkuProfileIsCurrent::class);
         $middleware->appendToGroup('web', EnsureMyKadIsVerified::class);
     })

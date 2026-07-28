@@ -1,6 +1,6 @@
 # MyOKUcare Agent Handoff
 
-Last updated: 24 July 2026  
+Last updated: 27 July 2026
 Repository: `https://github.com/i0zfnr/myokucare`  
 Primary branch: `main`
 
@@ -25,7 +25,6 @@ Before changing code:
 - Vite 8
 - Laravel Sanctum
 - Spatie Laravel Permission
-- Maatwebsite Excel
 - PHPUnit 12
 
 ## Main Roles
@@ -44,6 +43,7 @@ All roles log in using e-mail and their own password. Dashboard routing is autom
 - Public welcome, login and registration pages
 - Role-aware authentication and active-account checks
 - Login throttling by e-mail and IP
+- Active-session revocation for deactivated accounts
 - Separate dashboard view for every role
 - Live dashboard polling for current OKU statistics
 - OKU CRUD, search, filtering, CSV/XLSX import and CSV export
@@ -94,7 +94,7 @@ All roles log in using e-mail and their own password. Dashboard routing is autom
 
 ## Known Gaps
 
-- No password-reset workflow.
+- No password-reset, SMS-code or passkey workflow. The approved next-phase design is in `docs/AUTHENTICATION_RECOVERY_PLAN.md`.
 - No MyDigital ID integration.
 - E-mail verification is not a complete real-world verification flow.
 - Push notifications are not connected to a server-side push provider.
@@ -104,10 +104,29 @@ All roles log in using e-mail and their own password. Dashboard routing is autom
 - Full physical-device and cross-browser UAT is still required.
 - Production hosting, SSL, queue worker, scheduler, backups and monitoring are not yet confirmed.
 
+## Client Discussion and Agreed Scope
+
+The following decisions and cautions were agreed during the client discussion:
+
+- The system may be presented as a **functional prototype / pilot system**, but it must not yet be described as fully production-ready.
+- The initial government-hosting estimate is for **500 users in Kota Putera only**.
+- The current Ryaze footprint of **215.8 MB** is only the application baseline and is not a production-capacity figure.
+- Expected storage for 500 users is approximately **8–12 GB** under normal use, **22–30 GB** under high use, and **40–45 GB** in an upload-heavy scenario.
+- Government hosting should provide **100 GB encrypted live storage** (50 GB absolute minimum), plus **150–300 GB of separate encrypted backup capacity**. Start with approximately **4 vCPU and 8 GB RAM**, then confirm through load testing.
+- Until security remediation and independent retesting are complete, demonstrations and user trials must use **fake or synthetic data only**. Do not collect real IC numbers, disability records, identity documents, addresses, salaries or welfare records.
+- Earlier security testing reported broken authorization and identity-verification risks. A passing attack test means the simulated attack succeeded; it does not mean the system passed security. Production approval requires each finding to be fixed and followed by negative authorization tests and a fresh security assessment.
+- OKU registration must enforce a normalized, database-level unique identity number. A duplicate identity number must not create a second account; it must enter a controlled identity-verification or account-recovery process.
+- A PWA login session must not be used as a substitute for password recovery. Sessions need server-side expiry, secure cookies, logout/revocation, deactivated-account enforcement and reauthentication for sensitive actions.
+- The next implementation must include accessible recovery options: email password reset, one-time SMS code where approved, passkey/device biometrics as a longer-term option, and JKM-assisted recovery. Officers must never see or retrieve a user's old password.
+- The project is planned to start in **February**; the exact year, implementation milestones and production launch date still require client confirmation.
+- A Bahasa Melayu storage-estimate document for this scope is maintained at `docs/Anggaran_Storan_MyOKUcare_500_Pengguna_Kota_Putera_BM.docx`.
+
+These are planning estimates, not guaranteed capacity. Final sizing requires measured database growth, upload limits, retention rules, concurrent-user load testing and the government hosting platform's backup policy.
+
 ## Recommended Next Work
 
 1. Complete UAT using `docs/UAT_CHECKLIST.md`.
-2. Add password reset and real e-mail verification.
+2. Implement the accessible recovery plan: email reset, JKM-assisted recovery, followed by approved SMS and passkey options.
 3. Add production notification delivery and scheduled reminders.
 4. Expand feature and authorization tests.
 5. Complete privacy, retention and security review for sensitive OKU data.
@@ -118,10 +137,11 @@ All roles log in using e-mail and their own password. Dashboard routing is autom
 
 At the time of this handoff:
 
-- `php artisan test`: 23 tests passed
-- Assertions: 246 passed
+- `php artisan test`: 71 tests passed
+- Assertions: 453 passed
 - `npm run build`: passed
 - Blade view compilation: passed
+- Composer and npm production audits: 0 known vulnerabilities
 
 ## Estimated Progress
 

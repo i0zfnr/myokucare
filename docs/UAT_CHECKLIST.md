@@ -5,13 +5,14 @@ Test on Android, iPhone, tablet, laptop and desktop where available.
 ## Public and Authentication
 
 - [ ] Welcome page is readable and responsive
-- [ ] Registration works for OKU, employer and family member
+- [ ] Registration works for OKU and employer
 - [ ] Required OKU fields are enforced
 - [ ] Login works using e-mail and password
 - [ ] Incorrect login shows a clear error
 - [ ] Password visibility control works
 - [ ] Inactive account is rejected
 - [ ] Logout invalidates the session
+- [ ] Deactivation blocks an already authenticated web/PWA session
 
 ## Role Access
 
@@ -19,8 +20,6 @@ Test on Android, iPhone, tablet, laptop and desktop where available.
 - [ ] JKM officer sees operational modules
 - [ ] Employer sees employer/job modules
 - [ ] OKU user sees personal profile/job/welfare modules
-- [ ] Family member sees allowed support modules
-- [ ] Viewer cannot modify data
 - [ ] Direct URL access is blocked for unauthorised roles
 
 ## OKU
@@ -67,7 +66,20 @@ Test on Android, iPhone, tablet, laptop and desktop where available.
 - [ ] Installed PWA shows correct role navigation
 - [ ] Content is not covered by bottom navigation
 - [ ] Offline page appears without a connection
+- [ ] Previously viewed authenticated pages are not available offline
 - [ ] Install prompt disappears after installation
+
+## Planned Recovery UAT
+
+Run this section after `docs/AUTHENTICATION_RECOVERY_PLAN.md` is implemented:
+
+- [ ] Email reset link is single-use and expires
+- [ ] Password reset revokes existing and remembered sessions
+- [ ] Recovery responses do not reveal whether an account exists
+- [ ] JKM-assisted recovery requires authorisation and creates an audit record
+- [ ] SMS recovery works only if an approved provider is configured
+- [ ] Passkey recovery has a non-biometric alternative
+- [ ] Recovery is usable with keyboard, screen reader and enlarged text
 
 ## Accessibility
 

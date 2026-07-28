@@ -7,6 +7,7 @@ use App\Http\Requests\WelfareReportRequest;
 use App\Models\Oku;
 use App\Models\WelfareApplication;
 use App\Services\EmploymentReportService;
+use App\Services\PermissionService;
 use App\Services\WelfareReportService;
 use Illuminate\Http\Request;
 
@@ -88,21 +89,43 @@ class ReportController extends Controller
         }, 'laporan-statistik-kebajikan-'.now()->format('Ymd-His').'.csv', ['Content-Type' => 'text/csv; charset=UTF-8']);
     }
 
-    public function export(Request $request, string $type)
+    public function export(Request $request, string $type, PermissionService $permissions)
     {
         abort_unless(in_array($type, ['oku', 'welfare'], true), 404);
-        abort_unless($request->user()->hasRole('super_admin', 'jkm_officer'), 403);
-        $rows = $type === 'oku' ? Oku::query()->get() : WelfareApplication::query()->get();
+        $permissions->authorize($request->user(), 'report.generate');
+        $rows = $type === 'oku'
+            ? Oku::query()->get(['name', 'ic_number', 'employment_status', 'verification_status', 'created_at'])
+                ->map(fn (Oku $oku) => [
+                    'name' => $oku->name,
+                    'masked_nric' => $this->maskNric($oku->ic_number),
+                    'employment_status' => $oku->employment_status,
+                    'verification_status' => $oku->verification_status,
+                    'created_at' => $oku->created_at?->toDateString(),
+                ])
+            : WelfareApplication::query()->get(['application_type', 'status', 'application_date', 'review_date'])
+                ->map(fn (WelfareApplication $application) => [
+                    'application_type' => $application->application_type,
+                    'status' => $application->status,
+                    'application_date' => $application->application_date?->toDateString(),
+                    'review_date' => $application->review_date?->toDateString(),
+                ]);
         $name = $type.'-report.csv';
 
         return response()->streamDownload(function () use ($rows) {
             $out = fopen('php://output', 'w');
             if ($rows->isNotEmpty()) {
-                fputcsv($out, array_keys($rows->first()->toArray()));
+                fputcsv($out, array_keys((array) $rows->first()));
                 foreach ($rows as $row) {
-                    fputcsv($out, $row->toArray());
+                    fputcsv($out, (array) $row);
                 }
             } fclose($out);
         }, $name, ['Content-Type' => 'text/csv']);
+    }
+
+    private function maskNric(?string $value): string
+    {
+        $digits = preg_replace('/\D/', '', $value ?? '');
+
+        return strlen($digits) === 12 ? '******-**-'.substr($digits, -4) : 'Tidak tersedia';
     }
 }

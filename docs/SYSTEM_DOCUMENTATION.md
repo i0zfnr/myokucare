@@ -13,7 +13,7 @@ MyOKUcare centralises OKU registration, career information, employment opportuni
 5. JKM staff review and update verification status.
 6. Employers and authorised staff manage inclusive job opportunities.
 7. OKU users review matching jobs and register interest.
-8. OKU users or family members submit welfare applications.
+8. OKU users submit welfare applications for their linked profile.
 9. JKM staff process cases and schedule reviews.
 10. Authorised roles view reports and current dashboard statistics.
 
@@ -26,6 +26,8 @@ MyOKUcare centralises OKU registration, career information, employment opportuni
 - Sessions regenerate after successful login.
 - Inactive accounts are rejected.
 - Failed login attempts are rate-limited by e-mail and IP.
+- Deactivated accounts are blocked on subsequent requests, including an existing session.
+- Password recovery, SMS codes and passkeys are planned but not yet implemented; see `docs/AUTHENTICATION_RECOVERY_PLAN.md`.
 
 ## Data and Services
 
@@ -53,6 +55,9 @@ MyOKUcare centralises OKU registration, career information, employment opportuni
 - Mobile browser: bottom navigation hidden.
 - Installed standalone PWA: role-specific bottom navigation visible.
 - Install prompt disappears after installation. Manual dismissal is currently session-only unless dismissal persistence is added.
+- Authenticated pages and API responses are network-only and are not stored by the service worker.
+- The service worker caches only the public offline page and static assets.
+- The PWA shares Laravel's server-side session cookie with the website; it never stores passwords in browser storage.
 
 ## Security Notes
 

@@ -824,12 +824,12 @@ body { color:#172033; font-size:16px; font-weight:400; }
 
 /* Professional application sidebar */
 :root { --sidebar:288px; }
-.sidebar { border-right:1px solid #e4e7ec; background:#fff; box-shadow:4px 0 24px rgba(23,32,51,.025); }
-.brand { min-height:88px; gap:13px; padding:0 22px; border-bottom:1px solid #edf0f4; }
+.sidebar { border-right:0; background:#fff; box-shadow:none; }
+.brand { min-height:100px; gap:13px; padding:4px 22px 0; border:0; box-shadow:none; }
 .brand-mark { width:44px; height:44px; border-radius:12px; font-size:18px; font-weight:650; box-shadow:0 9px 22px rgba(255,101,101,.22); }
 .brand-copy strong { color:#172033; font-size:21px; font-weight:650; letter-spacing:-.025em; }
 .brand-copy small { margin-top:5px; color:#687184; font-size:11px; font-weight:500; }
-.sidebar-profile { margin:16px 16px 5px; padding:13px; gap:11px; border-color:#e5e8ee; border-radius:12px; background:linear-gradient(145deg,#fff,#fafbfc); box-shadow:0 4px 14px rgba(23,32,51,.025); }
+.sidebar-profile { margin:10px 16px 7px; padding:13px; gap:11px; border-color:#e5e8ee; border-radius:12px; background:linear-gradient(145deg,#fff,#fafbfc); box-shadow:none; }
 .sidebar-profile .avatar { width:42px; height:42px; display:grid; place-items:center; margin:0; color:#9f3e42; background:#fff0ec; font-size:12px; font-weight:650; line-height:1; }
 .sidebar-profile-copy { min-width:0; }.sidebar-profile-copy strong { overflow:hidden; color:#263044; font-size:13px; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
 .sidebar-profile-copy>span { display:flex; align-items:center; gap:5px; margin-top:5px; color:#687184; font-size:11px; }

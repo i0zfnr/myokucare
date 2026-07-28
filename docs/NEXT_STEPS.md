@@ -15,15 +15,14 @@ Measured on 24 July 2026:
 - 1 job record
 - 0 welfare applications
 - 9 of 9 migrations applied
-- 69 application routes registered
+- 107 application routes registered
 - Production frontend build passes
-- 23 tests and 246 assertions pass
+- 71 tests and 453 assertions pass
 - 0 npm production dependency vulnerabilities
-- 20 Composer security advisories affecting 1 package
+- 0 known Composer security advisories
 
 Main production risks:
 
-- Composer dependency advisories
 - Limited automated coverage for the application size
 - Password reset and real email verification are incomplete
 - Push notification delivery is not connected
@@ -46,8 +45,6 @@ Priority: Critical
    - JKM Officer
    - Employer
    - OKU User
-   - Family Member
-   - Viewer
 2. Test every item in `docs/UAT_CHECKLIST.md`.
 3. Test at minimum on:
    - Android phone, approximately 360×800
@@ -79,14 +76,22 @@ Implement:
 - Password-reset email and token flow
 - Real email verification
 - Resend-verification action
+- Optional 30-day remembered session for an OKU user on a trusted personal device
+- JKM-assisted recovery with identity checks and an audit trail
+- Evaluate one-time SMS codes after provider, privacy and cost approval
+- Evaluate passkeys/device biometrics as the preferred long-term passwordless option
 - Clear inactive-account recovery procedure
-- Tests for throttling, reset and verification
+- Tests for throttling, reset, verification, session revocation and accessibility
+
+Detailed requirements: `docs/AUTHENTICATION_RECOVERY_PLAN.md`.
 
 Acceptance criteria:
 
 - A user can securely recover a forgotten password.
 - Unverified email behavior follows the client's approved rule.
 - Reset tokens expire and cannot be reused.
+- Password reset, logout and deactivation revoke existing sessions and remembered-login tokens.
+- Passwords and session identifiers are never stored in PWA browser storage or caches.
 - Authentication feature tests pass.
 
 ## Phase 3 — Validate Real Client Workflows

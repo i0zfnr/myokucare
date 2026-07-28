@@ -57,10 +57,14 @@ The source documentation identifies four core problems:
 
 ### Family Member
 
+Planned role; not implemented in the current four-role release.
+
 - Assist a specifically linked OKU user
 - Access only information for which consent or authority exists
 
 ### Viewer
+
+Planned role; not implemented in the current four-role release.
 
 - View aggregate reports only
 - Cannot view unnecessary personal records or mutate data
@@ -73,9 +77,10 @@ The source documentation identifies four core problems:
 - The system rejects inactive accounts.
 - Sessions regenerate after authentication.
 - Users can log out from every authenticated page.
-- Public users may register only as Employer, OKU User, or Family Member.
+- Current public registration permits Employer and OKU User. Family Member remains planned.
 - Admin and JKM roles require authorised provisioning.
 - Password reset and email verification are required before production.
+- Accessible recovery should follow `docs/AUTHENTICATION_RECOVERY_PLAN.md`, including email reset, assisted recovery and later approved SMS/passkey options.
 
 ### FR-2 OKU profiles
 
@@ -187,6 +192,7 @@ Implemented:
 - database-backed dashboard;
 - CSV reports;
 - responsive public and authenticated interfaces.
+- server-enforced ownership, active-session blocking, safe exports and regression tests for confirmed attack paths.
 
 Partial:
 
@@ -202,6 +208,7 @@ Not yet implemented:
 - automatic six-month scheduling;
 - reminders and notifications;
 - password reset and email verification;
+- SMS recovery and passkeys;
 - admin user-management UI;
 - audit log;
 - mobile ID card;

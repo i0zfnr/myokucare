@@ -9,6 +9,8 @@
 5. Inactive accounts cannot authenticate or continue protected requests.
 6. A successful login regenerates the session and records `last_login_at`.
 7. Demonstration accounts and shared passwords are forbidden in production.
+8. Passwords, session identifiers and recovery secrets must never be stored in PWA browser storage or service-worker caches.
+9. Password reset, logout, deactivation and reported-device-loss workflows revoke applicable sessions and remembered-login tokens.
 
 ## Authorisation rules
 
@@ -18,8 +20,8 @@
 4. JKM Officer can manage OKU, employment, welfare, and operational reports.
 5. Employer access is limited to its own employer record, jobs, and applicants.
 6. OKU User access is limited to its own profile, interests, employment, and welfare information.
-7. Family Member access requires an explicit link and recorded authority or consent.
-8. Viewer sees aggregate, read-only information and no unnecessary personal data.
+7. Planned Family Member access requires an explicit link and recorded authority or consent before that role is implemented.
+8. The planned Viewer role sees aggregate, read-only information and no unnecessary personal data.
 
 ## OKU data rules
 
@@ -98,7 +100,7 @@ Interested -> Applied -> Shortlisted -> Interviewed -> Hired
 2. Page-load data must not be called instant real-time data.
 3. No-data charts show an empty state, not simulated values.
 4. Report filters and calculation dates must be displayed.
-5. Aggregate viewer reports must suppress identifying information.
+5. Aggregate reports, including any future Viewer reports, must suppress identifying information.
 6. CSV exports require authentication and an authorised reporting role.
 
 ## Content and accessibility rules

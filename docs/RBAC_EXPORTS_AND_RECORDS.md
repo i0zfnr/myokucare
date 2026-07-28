@@ -13,6 +13,8 @@ Application roles remain `jkm_officer`, `oku_user`, and `employer` (with `super_
 
 OKU and employer access is derived on the server from an authorised employment relationship. Frontend identifiers never expand the authenticated user's scope. NRIC is masked in normal exports and document images are excluded.
 
+Job update and deletion enforce employer ownership on the server. Employer pages shown to an OKU user include only that user's employment relationship and do not serialize coworkers' identity or salary data.
+
 ## Secure exports
 
 PDF, CSV and XLSX files are written to Laravel's private local disk with random ULID filenames. Each export has an audit record, purpose, filter/field metadata, owner, expiry, signed download route and hourly deletion. PDF reports include report metadata, record totals, page numbers, confidentiality notice and watermark.
@@ -26,4 +28,6 @@ Employer and OKU records use soft deletion. The backend requires a deletion perm
 - Salary values use Laravel encrypted casts.
 - Disability category exports require both user consent and `sensitive_data.export`.
 - Raw card images are never part of normal exports.
+- Restricted JKM exports use explicit safe column allowlists and masked NRIC values.
+- Deactivated accounts are rejected on subsequent web and API requests; deactivation revokes database sessions, API tokens and remembered-login tokens.
 - The application does not grant official JKM/SMOKU verification without an authorised provider.

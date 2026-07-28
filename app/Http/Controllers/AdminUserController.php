@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Services\AuditService;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
@@ -104,6 +106,9 @@ class AdminUserController extends Controller
             unset($data['password']);
         }
         $user->update($data);
+        if (($before['is_active'] ?? true) && ! $user->is_active) {
+            $this->revokeAccess($user);
+        }
         $changes = collect($user->only(array_keys($before)))->filter(fn ($value, $key) => $value != $before[$key])->all();
         $this->log($request, $user, isset($data['password']) ? 'user_updated_password_reset' : 'user_updated', $changes);
 
@@ -210,5 +215,19 @@ class AdminUserController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => str($request->userAgent())->limit(1000),
         ]);
+    }
+
+    private function revokeAccess(User $user): void
+    {
+        if (Schema::hasTable('sessions')) {
+            DB::table('sessions')->where('user_id', $user->id)->delete();
+        }
+        if (Schema::hasTable('personal_access_tokens')) {
+            DB::table('personal_access_tokens')
+                ->where('tokenable_type', $user->getMorphClass())
+                ->where('tokenable_id', $user->id)
+                ->delete();
+        }
+        $user->forceFill(['remember_token' => null])->save();
     }
 }

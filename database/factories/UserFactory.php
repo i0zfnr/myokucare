@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'role' => 'oku_user',
-            'mykad_verification_status' => 'VERIFIED_LOCALLY_ONLY',
+            'mykad_verification_status' => 'VERIFIED',
             'is_active' => true,
             'remember_token' => Str::random(10),
         ];

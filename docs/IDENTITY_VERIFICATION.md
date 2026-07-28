@@ -11,7 +11,7 @@
 7. Run Laravel's scheduler so `identity:purge-expired` executes daily.
 8. Serve production only over HTTPS; browser camera access requires HTTPS outside localhost.
 
-The application stores verification images on the private disk using Laravel application encryption. OCR and QR detection run in the user's browser. Uploaded images are re-encoded before storage to remove EXIF metadata, then OpenCV generates a cropped, perspective-corrected copy for OCR.
+The application stores verification images on the private disk using Laravel application encryption. Uploaded images are re-encoded before storage to remove EXIF metadata, then OpenCV generates a cropped, perspective-corrected copy for review. Browser-provided OCR text, confidence scores and QR payloads are treated as untrusted and cannot verify an account.
 
 ## JKM/SMOKU provider
 
@@ -21,12 +21,12 @@ To integrate an authorised API, implement `App\Contracts\OkuVerificationProvider
 
 ## Current limitations
 
-- Local OCR is probabilistic and is not proof that a card is genuine.
+- Browser OCR is optional presentation assistance only and is not accepted as verification evidence.
 - MyKad front/back side classification uses required side slots, OCR/layout signals, and duplicate-image detection; it cannot authenticate physical security features with a standard web camera.
 - Card obstruction detection is limited to card-boundary, sharpness, lighting, glare, and OCR-readability signals. Uncertain images must go to manual review.
-- Browser OCR may download OCR runtime/language assets, but card pixels remain local and are not uploaded to the OCR package provider.
+- Until an authorised server-side provider is configured, submitted documents require manual approval by an authorised JKM reviewer.
 - HEIC is intentionally rejected because this server has no configured HEIC decoder.
-- `VERIFIED_LOCALLY_ONLY` means exact local NRIC matching with a sufficiently similar name and adequate confidence. It is not official JKM verification.
+- `VERIFIED_LOCALLY_ONLY` is diagnostic comparison output only and does not unlock the account. Only `VERIFIED`, set through an authorised review/provider path, grants verified access.
 
 ## Privacy operations
 
