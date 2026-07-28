@@ -4,7 +4,7 @@ export default class DashboardLive {
         this.endpoint = root.dataset.statisticsUrl;
         this.interval = interval;
         this.loading = false;
-        this.numberFormatter = new Intl.NumberFormat('ms-MY');
+        this.numberFormatter = new Intl.NumberFormat(document.documentElement.lang);
         this.categoryChart = document.querySelector('[data-category-chart]');
         this.liveLabel = document.querySelector('[data-live-label]');
         this.updatedAt = document.querySelector('[data-live-updated]');
@@ -42,11 +42,11 @@ export default class DashboardLive {
             this.updateMetrics(data);
             this.renderCategories(data.categories, data.total);
             if (this.updatedAt) this.updatedAt.textContent = data.updated_at;
-            if (this.liveLabel) this.liveLabel.textContent = 'Data langsung';
-            this.announce(`Statistik dashboard dikemas kini pada ${data.updated_at}.`);
+            if (this.liveLabel) this.liveLabel.textContent = this.t('live_data');
+            this.announce(this.t('dashboard_updated').replace(':time', data.updated_at));
         } catch {
-            if (this.liveLabel) this.liveLabel.textContent = 'Sambungan terganggu';
-            this.announce('Statistik tidak dapat dikemas kini. Sistem akan mencuba semula secara automatik.');
+            if (this.liveLabel) this.liveLabel.textContent = this.t('connection_interrupted');
+            this.announce(this.t('dashboard_update_failed'));
         } finally {
             this.setLoading(false);
         }
@@ -69,7 +69,7 @@ export default class DashboardLive {
         if (!entries.length) {
             const empty = document.createElement('div');
             empty.className = 'chart-empty';
-            empty.innerHTML = '<span aria-hidden="true">◎</span><strong>Belum ada data</strong><p>Statistik akan muncul selepas rekod OKU ditambah.</p>';
+            empty.innerHTML = `<span aria-hidden="true">◎</span><strong>${this.t('no_data')}</strong><p>${this.t('no_data_copy')}</p>`;
             this.categoryChart.replaceChildren(empty);
             return;
         }
@@ -78,7 +78,7 @@ export default class DashboardLive {
             const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
             const row = document.createElement('div');
             row.className = 'category-row';
-            row.innerHTML = `<div class="category-label"><strong><span class="category-marker" aria-hidden="true"></span><span data-category-name></span></strong><small><b>${this.numberFormatter.format(value)}</b> orang <em>${percentage}%</em></small></div><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percentage}" aria-label="${category}: ${percentage}%"><span style="width:${percentage}%"></span></div>`;
+            row.innerHTML = `<div class="category-label"><strong><span class="category-marker" aria-hidden="true"></span><span data-category-name></span></strong><small><b>${this.numberFormatter.format(value)}</b> ${this.t('people')} <em>${percentage}%</em></small></div><div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percentage}" aria-label="${category}: ${percentage}%"><span style="width:${percentage}%"></span></div>`;
             row.querySelector('[data-category-name]').textContent = category;
             return row;
         }));
@@ -89,11 +89,15 @@ export default class DashboardLive {
         this.root.setAttribute('aria-busy', String(loading));
         this.root.classList.toggle('is-refreshing', loading);
         if (this.refreshButton) this.refreshButton.disabled = loading;
-        if (this.refreshLabel) this.refreshLabel.textContent = loading ? 'Memuat...' : 'Muat Semula';
+        if (this.refreshLabel) this.refreshLabel.textContent = loading ? this.t('loading') : this.t('reload');
     }
 
     announce(message) {
         if (this.announcement) this.announcement.textContent = message;
+    }
+
+    t(key) {
+        return window.MyOKUcareI18n?.[key] ?? key;
     }
 
     handleVisibility() {

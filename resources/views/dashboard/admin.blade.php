@@ -11,14 +11,14 @@
     $roleIcons=['super_admin'=>'settings','jkm_officer'=>'profile','employer'=>'employer','oku_user'=>'id-card'];
 @endphp
 <div class="page-head admin-dashboard-head">
-    <div><p class="eyebrow">Pentadbiran Sistem</p><h2>Selamat datang, Admin System</h2><p>Pantau pengguna, organisasi dan operasi keseluruhan MyOKUcare.</p></div>
-    <div class="page-actions"><a class="btn" href="{{ route('admin.users.index') }}">Urus Pengguna</a><a class="btn btn-primary" href="{{ route('oku.create') }}">Daftar OKU Baharu</a></div>
+    <div><p class="eyebrow">{{ __('ui.pentadbiran_sistem.f78f3faf') }}</p><h2>{{ __('ui.selamat_datang_admin_system.afdfda97') }}</h2><p>{{ __('ui.pantau_pengguna_organisasi_dan_operasi_keseluruhan_myokucare.0bc63465') }}</p></div>
+    <div class="page-actions"><a class="btn" href="{{ route('admin.users.index') }}">{{ __('ui.urus_pengguna.c50aaa63') }}</a><a class="btn btn-primary" href="{{ route('oku.create') }}">{{ __('ui.daftar_oku_baharu.92f38243') }}</a></div>
 </div>
 
-<section class="metric-grid professional-metrics admin-metrics stagger-children" aria-label="Statistik pentadbiran" data-live-dashboard data-statistics-url="{{ route('dashboard.statistics') }}">
+<section class="metric-grid professional-metrics admin-metrics stagger-children" aria-label="{{ __('ui.statistik_pentadbiran.ad50c908') }}" data-live-dashboard data-statistics-url="{{ route('dashboard.statistics') }}">
 @foreach($metrics as $metric)
     <article class="metric-card metric-{{ $metric['tone'] }} widget-hover">
-        <div class="metric-top"><span class="metric-icon" aria-hidden="true"><x-dashboard-icon :name="$metric['icon']"/></span><span class="metric-status"><i></i>Data semasa</span></div>
+        <div class="metric-top"><span class="metric-icon" aria-hidden="true"><x-dashboard-icon :name="$metric['icon']"/></span><span class="metric-status"><i></i>{{ __('ui.data_semasa.d807b88d') }}</span></div>
         <div class="metric-content"><span>{{ $metric['label'] }}</span><strong data-stat="{{ $metric['key'] }}">{{ number_format($metric['value']) }}</strong><small>{{ $metric['caption'] }}</small></div>
     </article>
 @endforeach
@@ -26,7 +26,7 @@
 
 <section class="admin-dashboard-grid">
     <article class="panel professional-panel admin-role-panel card-lift">
-        <div class="panel-head"><div><p class="panel-kicker">Akses Sistem</p><h3>Pengguna Mengikut Peranan</h3><p>Taburan semua akaun berdaftar mengikut tahap akses.</p></div><a class="panel-action" href="{{ route('admin.users.index') }}">Lihat semua →</a></div>
+        <div class="panel-head"><div><p class="panel-kicker">{{ __('ui.akses_sistem.00e3e4bd') }}</p><h3>{{ __('ui.pengguna_mengikut_peranan.32a9a4d6') }}</h3><p>{{ __('ui.taburan_semua_akaun_berdaftar_mengikut_tahap_akses.d92beeaa') }}</p></div><a class="panel-action" href="{{ route('admin.users.index') }}">{{ __('ui.lihat_semua.cff5ba88') }}</a></div>
         <div class="admin-role-list">
         @forelse($roleLabels as $role=>$label)
             @php $total=(int)($roles[$role]??0); $percentage=$totalUsers?round(($total/$totalUsers)*100):0; @endphp
@@ -36,13 +36,13 @@
                 <span class="admin-role-count">{{ $total }}</span>
             </a>
         @empty
-            <div class="panel-empty">Tiada akaun pengguna.</div>
+            <div class="panel-empty">{{ __('ui.tiada_akaun_pengguna.444507fc') }}</div>
         @endforelse
         </div>
     </article>
 
     <aside class="panel professional-panel admin-action-panel card-lift">
-        <div class="panel-head"><div><p class="panel-kicker">Pintasan</p><h3>Tindakan Admin System</h3><p>Akses pantas kepada fungsi utama sistem.</p></div></div>
+        <div class="panel-head"><div><p class="panel-kicker">{{ __('ui.pintasan.c1b90977') }}</p><h3>{{ __('ui.tindakan_admin_system.06ef7c51') }}</h3><p>{{ __('ui.akses_pantas_kepada_fungsi_utama_sistem.8398239a') }}</p></div></div>
         <div class="admin-action-list">
             @foreach([
                 ['route'=>'admin.users.index','icon'=>'users','title'=>'Pengurusan Pengguna','copy'=>'Urus akaun, peranan dan status akses'],

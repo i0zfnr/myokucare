@@ -70,7 +70,7 @@
             <span class="avatar">{{ collect(explode(' ',$user->name))->take(2)->map(fn($part)=>strtoupper(substr($part,0,1)))->implode('') }}</span>
             <div class="sidebar-profile-copy"><strong>{{ $user->name }}</strong><span><i aria-hidden="true"></i>{{ $user->role_label }}</span></div>
         </div>
-        <nav class="side-nav" aria-label="Navigasi utama">
+        <nav class="side-nav" aria-label="{{ __('ui.navigasi_utama.869d117f') }}">
             @php $section = null; @endphp
             @foreach($nav as $item)
                 @if($section !== $item['section'])
@@ -82,7 +82,7 @@
                     <details class="nav-dropdown" @if($adminOpen) open @endif>
                         <summary class="nav-link {{ $adminOpen?'active':'' }}">
                             <span class="nav-icon" aria-hidden="true"><x-dashboard-icon name="users"/></span>
-                            <span>Pentadbiran</span><b aria-hidden="true"></b>
+                            <span>{{ __('ui.pentadbiran.9f16a3f6') }}</span><b aria-hidden="true"></b>
                         </summary>
                         <div class="nav-submenu">
                             @foreach($adminNav as $adminItem)
@@ -107,29 +107,29 @@
         @if($preferences['show_help_panel'])
             <div class="sidebar-help"><span class="sidebar-help-icon" aria-hidden="true">?</span><div><strong>{{ __('accessibility.help_title') }}</strong><p>{{ __('accessibility.help_text') }}</p><a href="{{ route('guideline.show', ['replay' => 1]) }}">{{ __('guideline.replay') }}</a></div></div>
         @endif
-        <form class="sidebar-logout" method="post" action="{{ route('logout') }}">@csrf<button type="submit"><span aria-hidden="true">↪</span>Log Keluar</button></form>
+        <form class="sidebar-logout" method="post" action="{{ route('logout') }}">@csrf<button type="submit"><span aria-hidden="true">↪</span>{{ __('ui.log_keluar.506f8c0d') }}</button></form>
     </aside>
     <div class="backdrop" id="backdrop"></div>
     <div class="main-wrap">
         <header class="topbar">
-            <div class="topbar-left"><button class="menu-btn" id="menuButton" aria-label="Buka menu" aria-controls="sidebar" aria-expanded="false">☰</button><div class="topbar-copy"><h1>{{ $pageTitle }}</h1><p>Pengurusan komuniti yang inklusif dan tersusun</p></div></div>
+            <div class="topbar-left"><button class="menu-btn" id="menuButton" aria-label="{{ __('ui.buka_menu.79b60505') }}" aria-controls="sidebar" aria-expanded="false">☰</button><div class="topbar-copy"><h1>{{ $pageTitle }}</h1><p>{{ __('ui.pengurusan_komuniti_yang_inklusif_dan_tersusun.f04b24fe') }}</p></div></div>
             <div class="topbar-actions">
                 @unless(!$user->hasRole('super_admin','jkm_officer','employer','oku_user'))
                 <form class="search" method="get" action="{{ route($globalSearchRoute) }}" role="search"><span aria-hidden="true">⌕</span><input name="search" type="search" maxlength="100" placeholder="{{ $user->hasRole('super_admin','jkm_officer')?'Cari rekod OKU...':'Cari peluang kerja...' }}" aria-label="{{ $user->hasRole('super_admin','jkm_officer')?'Cari rekod OKU':'Cari peluang kerja' }}"></form>
                 @endunless
-                <div class="accessibility-tools" aria-label="Tetapan paparan">
-                    <button class="tool-btn" type="button" data-font-action="decrease" aria-label="Kecilkan saiz teks">A−</button>
-                    <button class="tool-btn" type="button" data-font-action="increase" aria-label="Besarkan saiz teks">A+</button>
-                    <button class="tool-btn" type="button" data-contrast-toggle aria-label="Tukar mod kontras tinggi" aria-pressed="false">◐</button>
+                <div class="accessibility-tools" aria-label="{{ __('ui.tetapan_paparan.caee2a4d') }}">
+                    <button class="tool-btn" type="button" data-font-action="decrease" aria-label="{{ __('ui.kecilkan_saiz_teks.0f2ef075') }}">A−</button>
+                    <button class="tool-btn" type="button" data-font-action="increase" aria-label="{{ __('ui.besarkan_saiz_teks.27358982') }}">A+</button>
+                    <button class="tool-btn" type="button" data-contrast-toggle aria-label="{{ __('ui.tukar_mod_kontras_tinggi.136429a0') }}" aria-pressed="false">◐</button>
                 </div>
-                <button class="icon-btn" aria-label="Notifikasi">●</button><span class="avatar">{{ strtoupper(substr($user->name,0,2)) }}</span>
+                <button class="icon-btn" aria-label="{{ __('ui.notifikasi.624d215c') }}">●</button><span class="avatar">{{ strtoupper(substr($user->name,0,2)) }}</span>
             </div>
         </header>
         <main class="content" id="main">
             @if(session('success'))<div class="notice">{{ session('success') }}</div>@endif
             @yield('content')
         </main>
-        <nav class="pwa-bottom-nav" aria-label="Navigasi aplikasi mudah alih" style="--pwa-nav-items:{{ count($pwaNav) }}">
+        <nav class="pwa-bottom-nav" aria-label="{{ __('ui.navigasi_aplikasi_mudah_alih.b3f8f717') }}" style="--pwa-nav-items:{{ count($pwaNav) }}">
             @foreach($pwaNav as $item)
                 @php $isPwaActive=request()->routeIs($item['active']); @endphp
                 <a href="{{ route($item['route']) }}" class="{{ $isPwaActive?'active':'' }}" @if($isPwaActive) aria-current="page" @endif>
@@ -141,15 +141,29 @@
     </div>
 </div>
 <script>
-    const sidebar=document.getElementById('sidebar'),backdrop=document.getElementById('backdrop'),menuButton=document.getElementById('menuButton');
-    const setSidebarOpen=(open)=>{sidebar.classList.toggle('open',open);backdrop.classList.toggle('open',open);menuButton?.setAttribute('aria-expanded',String(open));document.body.classList.toggle('sidebar-open',open)};
-    menuButton?.addEventListener('click',()=>setSidebarOpen(!sidebar.classList.contains('open')));
-    backdrop?.addEventListener('click',()=>setSidebarOpen(false));
-    sidebar?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setSidebarOpen(false)));
-    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&sidebar.classList.contains('open')){setSidebarOpen(false);menuButton?.focus()}});
-    const standaloneQuery=window.matchMedia('(display-mode: standalone)');
-    const syncStandaloneMode=()=>document.documentElement.classList.toggle('is-standalone',standaloneQuery.matches||window.navigator.standalone===true);
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('backdrop');
+    const menuButton = document.getElementById('menuButton');
+    const setSidebarOpen = (open) => {
+        sidebar?.classList.toggle('open', open);
+        backdrop?.classList.toggle('open', open);
+        menuButton?.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('sidebar-open', open);
+    };
+    menuButton?.addEventListener('click', () => setSidebarOpen(!document.body.classList.contains('sidebar-open')));
+    backdrop?.addEventListener('click', () => setSidebarOpen(false));
+    sidebar?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setSidebarOpen(false)));
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) {
+            setSidebarOpen(false);
+            menuButton?.focus();
+        }
+    });
+    const standaloneQuery = window.matchMedia('(display-mode: standalone)');
+    const syncStandaloneMode = () => {
+        document.documentElement.classList.toggle('is-standalone', standaloneQuery.matches || window.navigator.standalone === true);
+    };
     syncStandaloneMode();
-    standaloneQuery.addEventListener?.('change',syncStandaloneMode);
+    standaloneQuery.addEventListener?.('change', syncStandaloneMode);
 </script>
 </body></html>

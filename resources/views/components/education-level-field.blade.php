@@ -48,22 +48,22 @@
         @if($required) required aria-required="true" @endif
         @if($error) aria-invalid="true" @endif
     >
-        <option value="">Pilih taraf pendidikan</option>
+        <option value="">{{ __('ui.pilih_taraf_pendidikan.2d8b206a') }}</option>
         @foreach($options as $option)
             <option value="{{ $option }}" @selected($currentValue === $option)>{{ $option }}</option>
         @endforeach
-        <option value="Lain-lain" @selected($isOther)>Lain-lain</option>
+        <option value="Lain-lain" @selected($isOther)>{{ __('ui.lain_lain.1c604f26') }}</option>
     </select>
 
     <div data-education-level-other-wrap @if(!$isOther) hidden @endif style="margin-top: 10px">
-        <label for="education_level_other">Nyatakan taraf pendidikan</label>
+        <label for="education_level_other">{{ __('ui.nyatakan_taraf_pendidikan.ab2bea29') }}</label>
         <input
             class="field"
             id="education_level_other"
             data-education-level-other
             value="{{ $isOther ? $currentValue : '' }}"
             maxlength="100"
-            placeholder="Sila nyatakan taraf pendidikan"
+            placeholder="{{ __('ui.sila_nyatakan_taraf_pendidikan.c53cc702') }}"
             @if($isOther && $required) required aria-required="true" @endif
         >
     </div>

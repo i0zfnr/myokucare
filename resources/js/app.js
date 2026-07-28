@@ -1,6 +1,7 @@
 import DashboardLive from './modules/dashboard-live';
 import Guideline from './modules/guideline';
 import IdentityVerification from './modules/identity-verification';
+const t = (key) => window.MyOKUcareI18n?.[key] ?? key;
 
 /* ── PWA ── */
 if ('serviceWorker' in navigator) {
@@ -38,9 +39,9 @@ installPanel.className = 'pwa-install-panel';
 installPanel.hidden = true;
 installPanel.innerHTML = `
     <div class="pwa-install-icon" aria-hidden="true"><img src="/images/myokucare-logo.png" alt=""></div>
-    <div><strong>Pasang MyOKUcare</strong><span>Akses lebih pantas dari skrin utama telefon anda.</span></div>
-    <button class="pwa-install-button" type="button">Pasang</button>
-    <button class="pwa-install-close" type="button" aria-label="Tutup cadangan pemasangan">×</button>`;
+    <div><strong>${t('install_title')}</strong><span>${t('install_copy')}</span></div>
+    <button class="pwa-install-button" type="button">${t('install')}</button>
+    <button class="pwa-install-close" type="button" aria-label="${t('close_install')}">×</button>`;
 document.body.appendChild(installPanel);
 window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
@@ -68,8 +69,8 @@ connectionNotice.hidden = true;
 document.body.appendChild(connectionNotice);
 const updateConnectionStatus = () => {
     connectionNotice.textContent = navigator.onLine
-        ? 'Sambungan internet dipulihkan.'
-        : 'Anda sedang berada di luar talian.';
+        ? t('online')
+        : t('offline');
     connectionNotice.classList.toggle('is-online', navigator.onLine);
     connectionNotice.hidden = false;
     if (navigator.onLine) window.setTimeout(() => { connectionNotice.hidden = true; }, 3500);
@@ -131,7 +132,7 @@ document.querySelectorAll('[data-file-input]').forEach((input) => {
         const file = input.files?.[0];
         status.textContent = file
             ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`
-            : 'Tiada fail dipilih.';
+            : t('no_file');
     });
 });
 
@@ -159,7 +160,7 @@ document.querySelectorAll('[data-password-toggle]').forEach((button) => {
         const showing = input.type === 'text';
         input.type = showing ? 'password' : 'text';
         button.setAttribute('aria-pressed', String(!showing));
-        button.setAttribute('aria-label', showing ? 'Tunjukkan kata laluan' : 'Sembunyikan kata laluan');
+        button.setAttribute('aria-label', showing ? t('show_password') : t('hide_password'));
         input.focus({ preventScroll: true });
     });
 });
@@ -172,7 +173,7 @@ document.querySelector('[data-login-form]')?.addEventListener('submit', (event) 
     if (!button || button.disabled) return;
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
-    if (label) label.textContent = 'Sedang log masuk…';
+    if (label) label.textContent = t('logging_in');
     const spinner = document.createElement('span');
     spinner.className = 'login-spinner';
     spinner.setAttribute('aria-hidden', 'true');
