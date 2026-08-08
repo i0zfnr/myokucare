@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\WelfareIndexRequest;
 use App\Models\Oku;
 use App\Models\WelfareApplication;
+use App\Models\User;
+use App\Notifications\SystemNotification;
 use App\Services\UserContentTranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -113,6 +115,15 @@ class WelfareController extends Controller
         $data['reviewed_by'] = $r->user()?->id;
         $data['review_date'] ??= today();
         $welfareApplication->update($data);
+        User::query()->where('oku_id', $welfareApplication->oku_id)->where('is_active', true)->each(
+            fn (User $user) => $user->notify(new SystemNotification(
+                'notifications.welfare_status_title',
+                'notifications.welfare_status_message',
+                ['type' => $welfareApplication->application_type, 'status' => $data['status']],
+                route('welfare.show', $welfareApplication),
+                'welfare',
+            )),
+        );
 
         return $r->expectsJson()
             ? response()->json($welfareApplication)
@@ -128,6 +139,15 @@ class WelfareController extends Controller
 
             return $welfareApplication->reviewSchedules()->create($data);
         });
+        User::query()->where('oku_id', $welfareApplication->oku_id)->where('is_active', true)->each(
+            fn (User $user) => $user->notify(new SystemNotification(
+                'notifications.welfare_review_title',
+                'notifications.welfare_review_message',
+                ['date' => $schedule->scheduled_date->format('d/m/Y')],
+                route('welfare.show', $welfareApplication),
+                'welfare',
+            )),
+        );
 
         return $r->expectsJson()
             ? response()->json($schedule, 201)

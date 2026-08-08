@@ -90,8 +90,10 @@
 
             <label class="remember" for="remember">
                 <input id="remember" name="remember" type="checkbox" value="1" @checked(old('remember'))>
-                <span>{{ __('ui.ingat_saya_pada_peranti_ini.5d81162d') }}</span>
+                <span>{{ __('auth_recovery.remember_oku_30_days') }}</span>
             </label>
+
+            <p class="login-footer"><a href="{{ route('password.request') }}">{{ __('auth_recovery.forgot_password') }}</a></p>
 
             <button class="btn btn-primary login-submit btn-ripple" type="submit" data-login-submit>
                 <span data-login-submit-label>{{ __('ui.log_masuk.65586411') }}</span>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\ManualReview;
 use App\Services\Identity\SecureImageService;
+use App\Notifications\SystemNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -54,6 +55,13 @@ class ManualReviewController extends Controller
             'mykad_resubmission_required' => $data['status'] === 'NEEDS_RESUBMISSION',
         ]);
         $this->audit($request, $manualReview, 'identity_manual_review_completed', ['status' => $data['status']]);
+        $session->user->notify(new SystemNotification(
+            'notifications.identity_title',
+            'notifications.identity_message',
+            ['status' => __('notifications.identity_status.'.strtolower($userStatus))],
+            route('identity-verification.show'),
+            'identity',
+        ));
 
         return redirect()->route('identity-reviews.show', $manualReview)->with('success', 'Keputusan semakan telah disimpan.');
     }

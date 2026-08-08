@@ -10,6 +10,12 @@
 <meta name="guideline-completed" content="{{ auth()->user()?->has_completed_guideline ? '1' : '0' }}">
 <meta name="guideline-authenticated" content="{{ auth()->check() ? '1' : '0' }}">
 <meta name="guideline-track-url" content="{{ route('guideline.track') }}">
+<meta name="push-authenticated" content="{{ auth()->check() ? '1' : '0' }}">
+@auth
+<meta name="push-config-url" content="{{ route('push.config') }}">
+<meta name="push-subscribe-url" content="{{ route('push.subscriptions.store') }}">
+<meta name="push-unsubscribe-url" content="{{ route('push.subscriptions.destroy') }}">
+@endauth
 <script>
 window.MyOKUcareI18n = {!! json_encode([
     'online' => __('js.online'),
@@ -32,5 +38,15 @@ window.MyOKUcareI18n = {!! json_encode([
     'install_copy' => __('js.install_copy'),
     'install' => __('js.install'),
     'close_install' => __('js.close_install'),
+    'push_title' => __('push.prompt_title'),
+    'push_copy' => __('push.prompt_copy'),
+    'push_enable' => __('push.enable'),
+    'push_disable' => __('push.disable'),
+    'push_not_now' => __('push.not_now'),
+    'push_enabled' => __('push.enabled'),
+    'push_disabled' => __('push.disabled'),
+    'push_denied' => __('push.denied'),
+    'push_unavailable' => __('push.unavailable'),
+    'push_failed' => __('push.failed'),
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!};
 </script>

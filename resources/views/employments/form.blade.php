@@ -2,7 +2,7 @@
 @section('content')
 @php $value=fn($field,$default='')=>old($field,$employment->exists?$employment->{$field}:$default); @endphp
 <div class="page-head"><div><p class="eyebrow">{{ __('ui.hubungan_pekerjaan.f10a5415') }}</p><h2>{{ $employment->exists?'Kemaskini Rekod':'Tambah Rekod Pekerjaan' }}</h2></div></div>
-@if($errors->any())<div class="error">{{ $errors->first() }}</div>@endif
+@if($errors->any())<div class="error" role="alert" aria-live="assertive">{{ $errors->first() }}</div>@endif
 <form method="post" action="{{ $employment->exists?route('employments.update',$employment):route('employments.store') }}">@csrf @if($employment->exists)@method('PUT')@endif<section class="panel form-section"><div class="form-grid">
 <div class="form-group"><label>{{ __('ui.pekerja_oku.ed2d471e') }}</label><select class="select" name="oku_id" required>@foreach($okus as $oku)<option value="{{ $oku->id }}" @selected((int)$value('oku_id')===$oku->id)>{{ $oku->name }}</option>@endforeach</select></div>
 <div class="form-group"><label>{{ __('ui.majikan.73adc28e') }}</label><select class="select" name="employer_id" required>@foreach($employers as $employer)<option value="{{ $employer->id }}" @selected((int)$value('employer_id')===$employer->id)>{{ $employer->company_name }}</option>@endforeach</select></div>
@@ -11,5 +11,5 @@
 <div class="form-group"><label>{{ __('ui.status.bae7d5be') }}</label><select class="select" name="status">@foreach(['PENDING','ACTIVE','INACTIVE','TERMINATED','REJECTED','UNDER_REVIEW'] as $status)<option @selected($value('status','PENDING')===$status)>{{ $status }}</option>@endforeach</select></div>
 <div class="form-group"><label>{{ __('ui.pengesahan.916e3638') }}</label><select class="select" name="verification_status">@foreach(['PENDING','VERIFIED','REJECTED','UNDER_REVIEW'] as $status)<option @selected($value('verification_status','PENDING')===$status)>{{ $status }}</option>@endforeach</select></div>
 <div class="form-group full"><label>{{ __('ui.catatan.9f09aefd') }}</label><textarea class="textarea" name="notes">{{ $value('notes') }}</textarea></div>
-</div></section><div class="form-actions"><a class="btn" href="{{ route('employments.index') }}">{{ __('ui.batal.1433539c') }}</a><button class="btn btn-primary">{{ __('ui.simpan.87dd92d7') }}</button></div></form>
+</div></section><div class="form-actions"><a class="btn" href="{{ route('employments.index') }}">{{ __('ui.batal.1433539c') }}</a><button class="btn btn-primary" type="submit">{{ __('ui.simpan.87dd92d7') }}</button></div></form>
 @endsection

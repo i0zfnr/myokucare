@@ -94,7 +94,7 @@ class BesutResidenceVerificationTest extends TestCase
             'residential_mukim' => null,
             'residential_village' => 'Petaling Jaya',
             'residential_postcode' => '46000',
-        ]))->assertRedirect(route('login'));
+        ]))->assertRedirect(route('verification.notice'));
 
         $this->assertDatabaseHas('okus', [
             'residential_state' => 'Selangor',

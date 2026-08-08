@@ -54,8 +54,8 @@ class CareerProfileController extends Controller
             'career_summary' => ['nullable', 'string', 'max:2000'],
             'skills' => ['nullable', 'string', 'max:2000'],
             'availability_status' => ['required', Rule::in(['Mencari Kerja', 'Sudah Bekerja', 'Tidak Tersedia'])],
-            'oku_card_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
-            'resume' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
+            'oku_card_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'extensions:jpg,jpeg,png,webp', 'max:5120'],
+            'resume' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'extensions:pdf,doc,docx', 'max:5120'],
         ]);
 
         unset($data['oku_card_image'], $data['resume']);
@@ -107,7 +107,7 @@ class CareerProfileController extends Controller
         $path = $type === 'card' ? $oku->oku_card_image_path : $oku->resume_path;
         abort_unless($path && Storage::disk('local')->exists($path), 404);
 
-        return Storage::disk('local')->download($path);
+        return Storage::disk('local')->download($path, null, $this->privateDownloadHeaders());
     }
 
     public function staffDocument(Request $request, Oku $oku, string $type, PermissionService $permissions): StreamedResponse
@@ -117,7 +117,7 @@ class CareerProfileController extends Controller
         $path = $type === 'card' ? $oku->oku_card_image_path : $oku->resume_path;
         abort_unless($path && Storage::disk('local')->exists($path), 404);
 
-        return Storage::disk('local')->download($path);
+        return Storage::disk('local')->download($path, null, $this->privateDownloadHeaders());
     }
 
     public function verify(Request $request, Oku $oku, BesutResidenceService $residence)
@@ -153,5 +153,14 @@ class CareerProfileController extends Controller
         if ($oldPath && $oldPath !== $newPath) {
             Storage::disk('local')->delete($oldPath);
         }
+    }
+
+    private function privateDownloadHeaders(): array
+    {
+        return [
+            'Cache-Control' => 'no-store, private, max-age=0',
+            'Pragma' => 'no-cache',
+            'X-Content-Type-Options' => 'nosniff',
+        ];
     }
 }

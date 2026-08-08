@@ -37,6 +37,7 @@
         ['label'=>__('nav.deleted_records'),'route'=>'deleted-records.index','icon'=>'audit'],
     ];
     $globalSearchRoute = $user->hasRole('super_admin','jkm_officer') ? 'oku.index' : 'jobs.index';
+    $unreadNotificationCount = $user->unreadNotifications()->count();
     $pwaNavByRole = [
         'super_admin'=>[
             ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
@@ -142,11 +143,14 @@
                     <button class="tool-btn" type="button" data-font-action="increase" aria-label="{{ __('ui.besarkan_saiz_teks.27358982') }}">A+</button>
                     <button class="tool-btn" type="button" data-contrast-toggle aria-label="{{ __('ui.tukar_mod_kontras_tinggi.136429a0') }}" aria-pressed="false">◐</button>
                 </div>
-                <button class="icon-btn" aria-label="{{ __('ui.notifikasi.624d215c') }}">●</button><span class="avatar">{{ strtoupper(substr($user->name,0,2)) }}</span>
+                <a class="icon-btn notification-button {{ request()->routeIs('notifications.*')?'active':'' }}" href="{{ route('notifications.index') }}" aria-label="{{ __('notifications.page_title') }}{{ $unreadNotificationCount ? ' ('.$unreadNotificationCount.')' : '' }}">
+                    <span aria-hidden="true">●</span>
+                    @if($unreadNotificationCount)<b>{{ min($unreadNotificationCount, 99) }}</b>@endif
+                </a><span class="avatar">{{ strtoupper(substr($user->name,0,2)) }}</span>
             </div>
         </header>
         <main class="content" id="main">
-            @if(session('success'))<div class="notice">{{ session('success') }}</div>@endif
+            @if(session('success'))<div class="notice" role="status" aria-live="polite">{{ session('success') }}</div>@endif
             @yield('content')
         </main>
         <nav class="pwa-bottom-nav" aria-label="{{ __('ui.navigasi_aplikasi_mudah_alih.b3f8f717') }}" style="--pwa-nav-items:{{ count($pwaNav) }}">

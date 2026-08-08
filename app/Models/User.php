@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password', 'role', 'employer_id', 'oku_id', 'mykad_verification_status', 'mykad_submitted_at', 'mykad_verified_at', 'mykad_verification_session_id', 'mykad_review_reason', 'mykad_resubmission_required', 'is_active', 'last_login_at', 'preferences', 'permissions', 'preferred_language'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -68,6 +68,11 @@ class User extends Authenticatable
     public function guidelineActivityLogs()
     {
         return $this->hasMany(GuidelineActivityLog::class);
+    }
+
+    public function pushSubscriptions()
+    {
+        return $this->hasMany(PushSubscription::class);
     }
 
     public function getRoleLabelAttribute(): string

@@ -17,7 +17,7 @@
 </div>
 
 @if($errors->any())
-    <div class="error"><strong>{{ __('ui.maklumat_belum_dapat_disimpan.095d035f') }}</strong><br>{{ $errors->first() }}</div>
+    <div class="error" role="alert" aria-live="assertive"><strong>{{ __('ui.maklumat_belum_dapat_disimpan.095d035f') }}</strong><br>{{ $errors->first() }}</div>
 @endif
 
 <form method="post" action="{{ route('career-profile.save') }}" enctype="multipart/form-data">

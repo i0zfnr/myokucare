@@ -6,6 +6,8 @@ use App\Http\Requests\JobIndexRequest;
 use App\Models\Employer;
 use App\Models\Job;
 use App\Models\JobInterest;
+use App\Models\User;
+use App\Notifications\SystemNotification;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -71,6 +73,15 @@ class JobController extends Controller
 
         if ($interest->wasRecentlyCreated) {
             Job::query()->whereKey($job->id)->increment('applications_count', 1, []);
+            User::query()->where('employer_id', $job->employer_id)->where('is_active', true)->each(
+                fn (User $user) => $user->notify(new SystemNotification(
+                    'notifications.job_interest_title',
+                    'notifications.job_interest_message',
+                    ['job' => $job->title],
+                    route('jobs.index'),
+                    'employment',
+                )),
+            );
         }
 
         return back()->with('success', $interest->wasRecentlyCreated ? 'Minat terhadap jawatan berjaya direkodkan.' : 'Minat terhadap jawatan ini telah direkodkan sebelum ini.');

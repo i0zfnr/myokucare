@@ -1,6 +1,7 @@
 import DashboardLive from './modules/dashboard-live';
 import Guideline from './modules/guideline';
 import IdentityVerification from './modules/identity-verification';
+import PushNotifications from './modules/push-notifications';
 const t = (key) => window.MyOKUcareI18n?.[key] ?? key;
 
 /* ── PWA ── */
@@ -11,6 +12,7 @@ if ('serviceWorker' in navigator) {
 }
 const standaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 document.documentElement.classList.toggle('is-standalone', standaloneMode);
+new PushNotifications({ translate: t, standalone: standaloneMode }).init().catch(() => {});
 const guidelineVersion = document.querySelector('meta[name="guideline-version"]')?.content;
 const guidelineCompletedByUser = document.querySelector('meta[name="guideline-completed"]')?.content === '1';
 const guidelineAuthenticated = document.querySelector('meta[name="guideline-authenticated"]')?.content === '1';

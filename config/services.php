@@ -35,4 +35,19 @@ return [
         ],
     ],
 
+    'firebase' => [
+        'enabled' => (bool) env('FIREBASE_PUSH_ENABLED', false),
+        'project_id' => env('FIREBASE_PROJECT_ID'),
+        'service_account_path' => env('FIREBASE_SERVICE_ACCOUNT_PATH'),
+        'vapid_public_key' => env('FIREBASE_VAPID_PUBLIC_KEY'),
+        'web' => [
+            'apiKey' => env('FIREBASE_WEB_API_KEY'),
+            'authDomain' => env('FIREBASE_WEB_AUTH_DOMAIN'),
+            'projectId' => env('FIREBASE_PROJECT_ID'),
+            'storageBucket' => env('FIREBASE_WEB_STORAGE_BUCKET'),
+            'messagingSenderId' => env('FIREBASE_MESSAGING_SENDER_ID'),
+            'appId' => env('FIREBASE_WEB_APP_ID'),
+        ],
+    ],
+
 ];

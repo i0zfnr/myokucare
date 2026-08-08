@@ -83,6 +83,8 @@ Run this section after `docs/AUTHENTICATION_RECOVERY_PLAN.md` is implemented:
 
 ## Accessibility
 
+Automated baseline checks cover skip navigation, page landmarks, core labels, visible focus CSS, reduced-motion CSS and live status/error regions. The following items still require human testing on representative devices and assistive technology:
+
 - [ ] Keyboard navigation is logical
 - [ ] Focus indicator is visible
 - [ ] Text scaling works without clipping

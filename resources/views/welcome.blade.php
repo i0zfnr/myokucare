@@ -285,7 +285,7 @@
                 <p>{{ __('ui.prototaip_platform_digital_sokongan_oku_yang_menyatukan.2617a09b') }}</p>
             </div>
             <div class="footer-links footer-accordion">
-                <button class="footer-accordion-trigger" aria-expanded="false" aria-controls="footer-section-services">
+                <button class="footer-accordion-trigger" type="button" aria-expanded="false" aria-controls="footer-section-services">
                     <strong>{{ __('ui.perkhidmatan.0b65e05f') }}</strong>
                     <span class="footer-chevron" aria-hidden="true">▼</span>
                 </button>
@@ -297,7 +297,7 @@
                 </div>
             </div>
             <div class="footer-links footer-accordion">
-                <button class="footer-accordion-trigger" aria-expanded="false" aria-controls="footer-section-resources">
+                <button class="footer-accordion-trigger" type="button" aria-expanded="false" aria-controls="footer-section-resources">
                     <strong>{{ __('ui.sumber.ff648afc') }}</strong>
                     <span class="footer-chevron" aria-hidden="true">▼</span>
                 </button>
@@ -308,7 +308,7 @@
                 </div>
             </div>
             <div class="footer-links footer-accordion">
-                <button class="footer-accordion-trigger" aria-expanded="false" aria-controls="footer-section-contact">
+                <button class="footer-accordion-trigger" type="button" aria-expanded="false" aria-controls="footer-section-contact">
                     <strong>{{ __('ui.hubungi.aff04813') }}</strong>
                     <span class="footer-chevron" aria-hidden="true">▼</span>
                 </button>
@@ -336,7 +336,7 @@
         </div>
     </footer>
 
-    <button class="scroll-top" id="scrollTop" aria-label="{{ __('ui.ke_atas.36244ce1') }}" hidden>{{ __('ui.uarr.b9187882') }}</button>
+    <button class="scroll-top" id="scrollTop" type="button" aria-label="{{ __('ui.ke_atas.36244ce1') }}" hidden>{{ __('ui.uarr.b9187882') }}</button>
 </div>
 
 <script>

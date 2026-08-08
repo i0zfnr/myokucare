@@ -724,7 +724,7 @@ class MyOkuCareTest extends TestCase
             'sektor_pekerjaan' => 'Tidak Bekerja',
             'password' => 'Secret123!',
             'password_confirmation' => 'Secret123!',
-        ])->assertRedirect('/login');
+        ])->assertRedirect(route('verification.notice'));
 
         $this->assertDatabaseHas('users', ['email' => 'new-oku@example.test', 'role' => 'oku_user']);
         $this->assertDatabaseHas('okus', [
@@ -733,7 +733,9 @@ class MyOkuCareTest extends TestCase
             'verification_status' => 'Pending',
             'residence_verification_status' => 'UNVERIFIED',
         ]);
-        $this->assertGuest();
+        $this->assertAuthenticated();
+
+        $this->post(route('logout'))->assertRedirect(route('login'));
 
         $this->post('/register', [
             'name' => 'Fake Admin',

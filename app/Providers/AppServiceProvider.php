@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Jobs\SendPushNotification;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -24,5 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         RateLimiter::for('identity-verification', fn (Request $request) => Limit::perMinute(30)
             ->by((string) ($request->user()?->id ?? $request->ip())));
+
+        if (config('services.firebase.enabled')) {
+            DatabaseNotification::created(
+                fn (DatabaseNotification $notification) => SendPushNotification::dispatch($notification->id)->afterCommit(),
+            );
+        }
     }
 }

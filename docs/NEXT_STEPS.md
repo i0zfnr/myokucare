@@ -25,7 +25,7 @@ Main production risks:
 
 - Limited automated coverage for the application size
 - Password reset and real email verification are incomplete
-- Push notification delivery is not connected
+- Firebase push delivery is implemented but remains disabled until production project credentials and PWA device UAT are completed
 - Physical-device and client UAT are incomplete
 - Privacy, retention and sensitive-document security need formal review
 - Production hosting, SSL, monitoring, backups and rollback are not verified
@@ -134,7 +134,7 @@ Recommended order:
 1. In-app database notifications
 2. Email notifications
 3. Scheduled reminders
-4. Web push notifications
+4. Web push notifications — implemented with Firebase Cloud Messaging; production configuration and device UAT remain
 
 Acceptance criteria:
 

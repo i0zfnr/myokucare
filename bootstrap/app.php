@@ -7,6 +7,7 @@ use App\Http\Middleware\EnsureIdentityVerificationFeatureEnabled;
 use App\Http\Middleware\EnsureMyKadIsVerified;
 use App\Http\Middleware\EnsureOkuProfileIsCurrent;
 use App\Http\Middleware\EnsureUserHasRole;
+use App\Http\Middleware\ApplySecurityHeaders;
 use App\Http\Middleware\SetPreferredLocale;
 use App\Services\HttpTranslationProvider;
 use App\Services\Identity\UnavailableOkuVerificationProvider;
@@ -32,8 +33,10 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->appendToGroup('web', EnsureAccountIsActive::class);
+        $middleware->appendToGroup('web', ApplySecurityHeaders::class);
         $middleware->appendToGroup('web', SetPreferredLocale::class);
         $middleware->appendToGroup('api', EnsureAccountIsActive::class);
+        $middleware->appendToGroup('api', ApplySecurityHeaders::class);
         $middleware->appendToGroup('web', EnsureOkuProfileIsCurrent::class);
         $middleware->appendToGroup('web', EnsureMyKadIsVerified::class);
     })

@@ -2,6 +2,14 @@
 
 ## Before Deployment
 
+Run the automated release gate on the target host:
+
+```powershell
+php artisan deployment:check
+```
+
+Do not continue while any check reports `FAIL`. This command validates configuration without printing credentials; it does not replace UAT, backup restoration or infrastructure monitoring checks.
+
 - [ ] UAT signed off
 - [ ] Production database created
 - [ ] HTTPS certificate configured
@@ -11,14 +19,18 @@
 - [ ] Correct `APP_URL`
 - [ ] Strong `APP_KEY`
 - [ ] `SESSION_DRIVER=database`
+- [ ] `SESSION_ENCRYPT=true`
 - [ ] `SESSION_SECURE_COOKIE=true`
 - [ ] `SESSION_HTTP_ONLY=true`
 - [ ] `SESSION_SAME_SITE=lax`
 - [ ] Session encryption and approved idle/remembered-session lifetimes confirmed
 - [ ] Production mail settings
+- [ ] Firebase Web App, VAPID key and protected service-account path configured
+- [ ] Installed-PWA push tested for every role
 - [ ] Database backup completed
 - [ ] Upload storage backup completed
 - [ ] Queue and scheduler strategy confirmed
+- [ ] `php artisan deployment:check` passes on the production host
 
 ## Build and Release
 
@@ -30,6 +42,7 @@ php artisan migrate --force
 php artisan storage:link
 php artisan optimize
 php artisan test
+php artisan deployment:check
 ```
 
 - [ ] Web root points to `public`

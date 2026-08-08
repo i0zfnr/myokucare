@@ -9,6 +9,8 @@ use App\Models\OkuEmployment;
 use App\Models\User;
 use App\Models\VerificationSession;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class SecurityRegressionTest extends TestCase
@@ -109,6 +111,62 @@ class SecurityRegressionTest extends TestCase
             ->assertForbidden()
             ->assertJsonPath('code', 'ACCOUNT_DEACTIVATED');
         $this->assertGuest();
+    }
+
+    public function test_sensitive_and_authenticated_responses_disable_browser_caching(): void
+    {
+        Storage::fake('local');
+        $oku = $this->oku('Document Owner', '900101013333');
+        $path = "oku-documents/{$oku->id}/card/card.jpg";
+        Storage::disk('local')->put($path, 'private-card');
+        $oku->update(['oku_card_image_path' => $path]);
+        $user = User::factory()->create(['role' => 'oku_user', 'oku_id' => $oku->id]);
+
+        $this->actingAs($user)->get(route('dashboard'))
+            ->assertOk()
+            ->assertHeader('X-Content-Type-Options', 'nosniff')
+            ->assertHeader('X-Frame-Options', 'DENY')
+            ->assertHeader('Cache-Control', 'max-age=0, no-store, private');
+
+        $this->get(route('career-profile.document', 'card'))
+            ->assertOk()
+            ->assertHeader('Content-Disposition')
+            ->assertHeader('Cache-Control', 'max-age=0, no-store, private');
+    }
+
+    public function test_recovery_pages_have_security_headers_and_are_not_cached(): void
+    {
+        $this->get(route('password.request'))
+            ->assertOk()
+            ->assertHeader('X-Content-Type-Options', 'nosniff')
+            ->assertHeader('X-Frame-Options', 'DENY')
+            ->assertHeader('Cache-Control', 'max-age=0, no-store, private');
+    }
+
+    public function test_card_upload_rejects_an_image_with_a_misleading_extension(): void
+    {
+        $oku = $this->oku('Upload Owner', '900101014444');
+        $oku->update([
+            'residential_state' => 'Terengganu', 'residential_district' => 'Besut',
+            'residential_mukim' => 'Kampung Raja', 'residential_village' => 'Kampung Raja',
+            'residential_postcode' => '22200', 'phone_number' => '0123456789',
+            'availability_status' => 'Mencari Kerja',
+        ]);
+        $user = User::factory()->create(['role' => 'oku_user', 'oku_id' => $oku->id]);
+
+        $this->actingAs($user)->put(route('career-profile.save'), [
+            'name' => $oku->name, 'ic_number' => $oku->ic_number, 'gender' => $oku->gender,
+            'age' => $oku->age, 'marital_status' => $oku->marital_status, 'address' => $oku->address,
+            'residential_state' => 'Terengganu', 'residential_district' => 'Besut',
+            'residential_mukim' => 'Kampung Raja', 'residential_village' => 'Kampung Raja',
+            'residential_postcode' => '22200', 'education_level' => $oku->education_level,
+            'oku_card_number' => $oku->oku_card_number, 'oku_category' => $oku->oku_category,
+            'phone_number' => '0123456789', 'availability_status' => 'Mencari Kerja',
+            'oku_card_image' => UploadedFile::fake()->createWithContent(
+                'kad-oku.pdf',
+                base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='),
+            ),
+        ])->assertSessionHasErrors('oku_card_image');
     }
 
     private function oku(string $name, string $nric): Oku

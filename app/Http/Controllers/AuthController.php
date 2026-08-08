@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\BesutResidenceService;
 use App\Services\FeatureManager;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
@@ -63,7 +64,7 @@ class AuthController extends Controller
             'jenis_bantuan.*' => ['nullable', Rule::in(['EPOKU', 'BTB', 'BPT', 'BAT', 'Lain-lain', 'Tiada'])],
         ]);
 
-        DB::transaction(function () use ($data, $residence): void {
+        $user = DB::transaction(function () use ($data, $residence): User {
             $oku = null;
             if ($data['role'] === 'oku_user') {
                 $oku = Oku::query()->create($residence->declaration([
@@ -91,18 +92,23 @@ class AuthController extends Controller
                 ], true));
             }
 
-            User::query()->create([
+            return User::query()->create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'role' => $data['role'],
                 'password' => $data['password'],
                 'oku_id' => $oku?->id,
                 'is_active' => true,
-                'email_verified_at' => now(),
             ]);
         });
 
-        return redirect()->route('login')->with('success', 'Pendaftaran berjaya. Sila log masuk dan muat naik gambar Kad OKU anda.');
+        event(new Registered($user));
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->route('verification.notice')
+            ->with('success', __('auth_recovery.registration_success'));
     }
 
     public function store(Request $request, FeatureManager $features)
@@ -121,7 +127,13 @@ class AuthController extends Controller
             ]);
         }
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        $candidate = User::query()->where('email', $credentials['email'])->first();
+        $remember = $request->boolean('remember') && $candidate?->role === 'oku_user';
+        if ($remember) {
+            Auth::guard()->setRememberDuration(60 * 24 * 30);
+        }
+
+        if (! Auth::attempt($credentials, $remember)) {
             RateLimiter::hit($throttleKey, 60);
 
             throw ValidationException::withMessages([
@@ -141,6 +153,10 @@ class AuthController extends Controller
         $request->session()->regenerate();
         $request->user()->forceFill(['last_login_at' => now()])->save();
 
+        if (! $request->user()->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
         if ($features->identityVerificationEnabled() && $request->user()->role === 'oku_user' && $request->user()->oku && ! $request->user()->hasVerifiedMyKad()) {
             return redirect()->route('identity-verification.show')
                 ->with('warning', 'Sila lengkapkan pengesahan MyKad untuk menggunakan sistem.');
@@ -156,6 +172,7 @@ class AuthController extends Controller
 
     public function destroy(Request $request)
     {
+        $request->user()?->pushSubscriptions()->delete();
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

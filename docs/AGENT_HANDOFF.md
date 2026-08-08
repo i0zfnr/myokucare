@@ -97,7 +97,7 @@ All roles log in using e-mail and their own password. Dashboard routing is autom
 - No password-reset, SMS-code or passkey workflow. The approved next-phase design is in `docs/AUTHENTICATION_RECOVERY_PLAN.md`.
 - No MyDigital ID integration.
 - E-mail verification is not a complete real-world verification flow.
-- Push notifications are not connected to a server-side push provider.
+- Firebase Cloud Messaging is implemented for installed PWA users but remains configuration-gated; see `docs/FIREBASE_PUSH_NOTIFICATIONS.md`.
 - Dashboard “real time” uses polling, not WebSockets.
 - No production privacy-policy or terms pages.
 - Automated coverage is useful but still limited for the size of the system.

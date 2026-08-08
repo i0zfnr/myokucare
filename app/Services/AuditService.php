@@ -12,6 +12,10 @@ class AuditService
         'user_updated' => ['label' => 'Akaun dikemas kini', 'severity' => 'info', 'description' => 'Maklumat atau akses akaun telah diubah.'],
         'user_updated_password_reset' => ['label' => 'Kata laluan ditetapkan semula', 'severity' => 'warning', 'description' => 'Maklumat akaun dan kata laluan telah diubah.'],
         'audit_exported' => ['label' => 'Log audit dieksport', 'severity' => 'warning', 'description' => 'Salinan log audit telah dimuat turun.'],
+        'password_reset_requested' => ['label' => 'Pemulihan kata laluan diminta', 'severity' => 'warning', 'description' => 'Pautan pemulihan kata laluan telah diminta.'],
+        'password_reset_completed' => ['label' => 'Kata laluan dipulihkan', 'severity' => 'warning', 'description' => 'Kata laluan pengguna telah ditetapkan semula dan sesi lama dibatalkan.'],
+        'email_verification_requested' => ['label' => 'Pengesahan e-mel diminta', 'severity' => 'info', 'description' => 'Pautan pengesahan e-mel telah dihantar.'],
+        'email_verified' => ['label' => 'E-mel disahkan', 'severity' => 'info', 'description' => 'Alamat e-mel pengguna telah berjaya disahkan.'],
     ];
 
     public function search(array $filters)

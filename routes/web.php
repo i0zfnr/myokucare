@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminAccountController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthRecoveryController;
 use App\Http\Controllers\CareerProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeletedRecordController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\IdentityVerificationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\LanguageSettingsController;
 use App\Http\Controllers\ManualReviewController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PushSubscriptionController;
 use App\Http\Controllers\OkuController;
 use App\Http\Controllers\QuarterlyProfileController;
 use App\Http\Controllers\ReportController;
@@ -22,6 +25,14 @@ use App\Http\Controllers\WelfareController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
+Route::get('/firebase-messaging-sw.js', function () {
+    return response()->view('firebase-messaging-sw', [
+        'enabled' => (bool) config('services.firebase.enabled'),
+        'firebaseConfig' => config('services.firebase.web'),
+    ])->header('Content-Type', 'application/javascript; charset=UTF-8')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Service-Worker-Allowed', '/firebase-cloud-messaging-push-scope');
+})->name('push.service-worker');
 Route::get('/guideline', [GuidelineController::class, 'show'])->name('guideline.show');
 Route::post('/guideline/activity', [GuidelineController::class, 'track'])->middleware('throttle:30,1')->name('guideline.track');
 Route::post('/guideline/language', [GuidelineController::class, 'language'])->middleware('throttle:20,1')->name('guideline.language');
@@ -30,12 +41,28 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'store'])->name('login.store');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'signup'])->name('register.store');
+    Route::get('/lupa-kata-laluan', [AuthRecoveryController::class, 'forgot'])->name('password.request');
+    Route::post('/lupa-kata-laluan', [AuthRecoveryController::class, 'sendResetLink'])->middleware('throttle:3,1')->name('password.email');
+    Route::get('/tetap-semula-kata-laluan/{token}', [AuthRecoveryController::class, 'reset'])->name('password.reset');
+    Route::post('/tetap-semula-kata-laluan', [AuthRecoveryController::class, 'updatePassword'])->middleware('throttle:5,1')->name('password.update');
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+    Route::get('/sahkan-e-mel', [AuthRecoveryController::class, 'verificationNotice'])->name('verification.notice');
+    Route::post('/sahkan-e-mel/hantar', [AuthRecoveryController::class, 'sendVerification'])->middleware('throttle:3,1')->name('verification.send');
+    Route::get('/sahkan-e-mel/{id}/{hash}', [AuthRecoveryController::class, 'verifyEmail'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/push/config', [PushSubscriptionController::class, 'config'])->name('push.config');
+    Route::post('/push/subscriptions', [PushSubscriptionController::class, 'store'])->middleware('throttle:10,1')->name('push.subscriptions.store');
+    Route::delete('/push/subscriptions', [PushSubscriptionController::class, 'destroy'])->middleware('throttle:10,1')->name('push.subscriptions.destroy');
+    Route::get('/notifikasi', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifikasi/baca-semua', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+    Route::get('/notifikasi/{notification}', [NotificationController::class, 'read'])->name('notifications.read');
     Route::get('/settings/language', [LanguageSettingsController::class, 'edit'])->name('language-settings.edit');
     Route::put('/settings/language', [LanguageSettingsController::class, 'update'])->name('language-settings.update');
-    Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
     Route::prefix('verification')->name('identity-verification.')->middleware(['role:oku_user', 'identity.feature', 'throttle:identity-verification'])->group(function () {
         Route::get('/mykad', [IdentityVerificationController::class, 'show'])->name('show');
         Route::post('/session', [IdentityVerificationController::class, 'createSession'])->name('session.create');
