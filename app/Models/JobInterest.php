@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobInterest extends Model
 {
-    protected $fillable = ['oku_id', 'job_id', 'status', 'notes', 'application_date', 'interview_date'];
+    protected $fillable = ['oku_id', 'job_id', 'status', 'notes', 'application_date', 'profile_shared_at', 'interview_date'];
 
     protected function casts(): array
     {
-        return ['application_date' => 'date', 'interview_date' => 'date'];
+        return ['application_date' => 'date', 'profile_shared_at' => 'datetime', 'interview_date' => 'date'];
     }
 
     public function oku()

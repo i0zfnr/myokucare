@@ -14,6 +14,7 @@ class JobMatchingService
             ->with('employer')
             ->active()
             ->notExpired()
+            ->inBesut()
             ->byCategorySuitable($oku->oku_category)
             ->latest()
             ->limit($limit)

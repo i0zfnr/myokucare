@@ -14,6 +14,7 @@ use App\Http\Controllers\FeatureControlController;
 use App\Http\Controllers\GuidelineController;
 use App\Http\Controllers\IdentityVerificationController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobCandidateController;
 use App\Http\Controllers\LanguageSettingsController;
 use App\Http\Controllers\ManualReviewController;
 use App\Http\Controllers\NotificationController;
@@ -160,6 +161,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/{export}', [ExportController::class, 'destroy'])->name('destroy');
     });
     Route::middleware('role:super_admin,jkm_officer,employer')->group(function () {
+        Route::get('/jobs/{job}/candidates', [JobCandidateController::class, 'index'])->name('jobs.candidates.index');
+        Route::patch('/jobs/{job}/candidates/{jobInterest}', [JobCandidateController::class, 'update'])->name('jobs.candidates.update');
+        Route::get('/jobs/{job}/candidates/{jobInterest}/resume', [JobCandidateController::class, 'resume'])->name('jobs.candidates.resume');
         Route::get('/jobs/create', [JobController::class, 'create'])->name('jobs.create');
         Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
         Route::apiResource('employers', EmployerController::class)->except(['index', 'show']);

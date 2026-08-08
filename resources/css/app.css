@@ -640,6 +640,9 @@ body { font-family:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,"Sego
 .opportunity-footer form { margin:0; }.opportunity-footer .btn { min-height:36px; padding:0 12px; }
 .opportunity-footer button:disabled { color:#117257; border-color:#bde7d9; background:#e9f8f2; box-shadow:none; cursor:default; }
 .applications-count { color:#70798a; font-size:9px; font-weight:600; }
+.job-interest-form { display:grid; max-width:420px; gap:9px; }
+.job-interest-form .check-option { align-items:flex-start; font-size:11px; line-height:1.45; }
+.job-interest-form .btn { justify-self:end; }
 .job-empty { grid-column:1/-1; padding:45px 20px; text-align:center; }
 .job-empty>span { width:48px; height:48px; display:grid; place-items:center; margin:0 auto 12px; border-radius:13px; color:#9f3e42; background:#fff0ec; font-size:22px; }
 .job-empty h3 { margin:0; font-size:15px; }.job-empty p { margin:6px 0 14px; color:var(--muted); font-size:11px; }

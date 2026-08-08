@@ -20,6 +20,12 @@
         @php
             $data = $notification->data;
             $parameters = $data['parameters'] ?? [];
+            foreach ($parameters as $key => $value) {
+                if (str_ends_with($key, '_key') && is_string($value)) {
+                    $parameters[str($key)->beforeLast('_key')->toString()] = __($value);
+                    unset($parameters[$key]);
+                }
+            }
         @endphp
         <article class="notification-card {{ $notification->read_at ? '' : 'unread' }}">
             <span class="notification-indicator" aria-hidden="true"></span>

@@ -1,0 +1,2372 @@
+<?php
+
+return [
+    'halaman' => [
+        '8050d4cb' => '第',
+    ],
+    'daripada' => [
+        'fb3c9880' => '页，共',
+        '4692369d' => '从',
+    ],
+    '16_n' => [
+        'dce13d14' => '=16 && n',
+    ],
+    '91_padanan' => [
+        '59b7c650' => '91% 匹配',
+    ],
+    'a_besar' => [
+        '9cbf5ad9' => '大A+',
+    ],
+    'a_kecil' => [
+        '049eef2e' => 'A− 小',
+    ],
+    'aa' => [
+        '2c419ecc' => '啊',
+    ],
+    'ada_soalan_kami_sedia_menjawab' => [
+        '4fe702df' => '有问题吗？我们准备好回答',
+    ],
+    'adakah_myokucare_percuma' => [
+        'faf6d4f0' => 'MyOKUcare 是免费的吗？',
+    ],
+    'ahli_sejak' => [
+        'fa62c921' => '会员自',
+    ],
+    'akaun_aktif_dan_boleh_log_masuk' => [
+        '05727098' => '帐户已激活并且可以登录',
+    ],
+    'akaun_baharu' => [
+        '775812c8' => '新账户',
+    ],
+    'akaun_ditemui' => [
+        '14d0a0fc' => '找到帐户',
+    ],
+    'akaun_kakitangan' => [
+        '350b60bf' => '员工账户',
+    ],
+    'akaun_pengguna' => [
+        '64ea096f' => '用户账户',
+    ],
+    'akses_dan_status_rekod' => [
+        '69a024ff' => '访问并记录状态',
+    ],
+    'akses_mengikut_peranan' => [
+        '93d2648f' => '按角色访问',
+    ],
+    'akses_mesra_peranti_mudah_alih' => [
+        '6a6d298f' => '移动设备友好访问',
+    ],
+    'akses_pantas_kepada_fungsi_utama_sistem' => [
+        '8398239a' => '快速访问系统主要功能。',
+    ],
+    'akses_perkhidmatan' => [
+        'bbbe2011' => '无障碍服务',
+    ],
+    'akses_profil_digital_peribadi_cari_pekerjaan_yang' => [
+        '6152655e' => '访问您的个人数字档案，搜索与您的技能相匹配的工作，并在线申请 JKM 福利援助。',
+    ],
+    'akses_sistem_berubah_mengikut_peranan_yang_dipilih' => [
+        'd0d5d3bc' => '系统访问权限根据所选角色而变化。',
+    ],
+    'akses_sistem' => [
+        '00e3e4bd' => '系统访问',
+    ],
+    'akses_untuk_semua' => [
+        'b86be9b2' => '所有人均可访问',
+    ],
+    'aksesibiliti_menyeluruh' => [
+        'ebc300df' => '普遍无障碍',
+    ],
+    'aksesibiliti' => [
+        'b9df4812' => '无障碍',
+    ],
+    'aktif' => [
+        '742b53b7' => '积极的',
+        '89f29d42' => '积极的',
+    ],
+    'aktifkan_atau_matikan_ciri_yang_masih_dalam' => [
+        '4160c4b9' => '激活或停用仍处于测试阶段的功能。',
+    ],
+    'aktifkan_pengesahan_identiti' => [
+        'febd63fc' => '启用身份验证',
+    ],
+    'aktiviti_ditemui' => [
+        'cef53a05' => '发现活动',
+    ],
+    'aktiviti_pekerjaan' => [
+        '3fb08548' => '就业活动',
+    ],
+    'aktiviti' => [
+        '82397dea' => '活动',
+    ],
+    'alamat_e_mel_digunakan_untuk_log_masuk' => [
+        'd4e7edb3' => '该电子邮件地址用于登录系统。',
+    ],
+    'alamat_e_mel' => [
+        '8e5b16c4' => '电子邮件',
+    ],
+    'alamat_penuh' => [
+        '570cc8a0' => '完整地址',
+    ],
+    'alamat_semasa' => [
+        'f7027e02' => '现住址',
+    ],
+    'alamat_syarikat' => [
+        '663fc2c3' => '公司地址',
+    ],
+    'alamat' => [
+        '85b6ed5c' => '地址',
+    ],
+    'ambil_gambar' => [
+        '8ede3b9e' => '拍张照片',
+    ],
+    'ambil_semula' => [
+        '825ee67d' => '把它拿回来',
+    ],
+    'analisis_agregat_beban_kes_keputusan_dan_keperluan' => [
+        '704dea11' => '对案件量、决策和福利援助需求的汇总分析。',
+    ],
+    'analisis_agregat_untuk_membantu_perancangan_sokongan_dan' => [
+        'f69801ef' => '汇总分析有助于支持规划和工作安置。',
+    ],
+    'analitik_kebajikan' => [
+        '7c39f612' => '福利分析',
+    ],
+    'analitik_pekerjaan' => [
+        '73f24a3b' => '工作分析',
+    ],
+    'analitik_pendaftaran' => [
+        'd0a31ffe' => '注册分析',
+    ],
+    'anda_akan_memadam' => [
+        'eab4297b' => '你将删除',
+    ],
+    'antara_muka_mesra_pembaca_skrin_sokongan_kontras' => [
+        '79fe112f' => '支持屏幕阅读器、高对比度和键盘导航，并可安装为 PWA。',
+    ],
+    'apa_itu_myokucare' => [
+        'd522c1f4' => 'MyOKUcare 是什么？',
+    ],
+    'apa_yang_myokucare_sediakan' => [
+        '312d16c6' => 'MyOKUcare 提供什么',
+    ],
+    'apabila_aktif_pengguna_oku_yang_belum_disahkan' => [
+        'e4217b8a' => '激活后，尚未验证的禁用用户将需要在使用系统之前提交 MyKad。',
+    ],
+    'arah_susunan' => [
+        '21d8cbc0' => '订单方向',
+    ],
+    'asas_it' => [
+        'c5ded828' => '信息技术基础知识',
+    ],
+    'atau_daftar_satu_rekod_secara_manual' => [
+        '9fc249c5' => '或手动注册记录',
+    ],
+    'audit_aktiviti_pengguna' => [
+        'bb21d1a7' => '用户活动审计',
+    ],
+    'bahagian_depan_dan_belakang_mykad_mesti_diterima' => [
+        '60fdd053' => '必须先收到 MyKad 的正面和背面，然后才能进行验证。',
+    ],
+    'bahagian_halaman' => [
+        '467c041e' => '页面的一部分',
+    ],
+    'bahasa_melayu' => [
+        '3d6241c6' => '马来语',
+    ],
+    'baru' => [
+        '5356cfdd' => '新的',
+    ],
+    'batal' => [
+        '1433539c' => '取消',
+    ],
+    'beberapa_soalan_yang_sering_ditanya_tentang_myokucare' => [
+        'b26687be' => '有关 MyOKUcare 及其运作方式的一些常见问题。',
+    ],
+    'bekerja' => [
+        'fa64d559' => '工作',
+    ],
+    'belum_ada_aktiviti_pekerjaan' => [
+        '85e5d2ac' => '还没有工作活动',
+    ],
+    'belum_ada_data' => [
+        '64302d91' => '还没有数据',
+    ],
+    'belum_ada_permohonan_dalam_skop_laporan_ini' => [
+        '7673720c' => '本报告范围内没有任何应用。',
+    ],
+    'belum_ada_rekod_atau_cuba_ubah_penapis' => [
+        '25554808' => '尚无记录或尝试更改当前过滤器。',
+    ],
+    'belum_bekerja' => [
+        '9cbeb222' => '尚未工作',
+    ],
+    'belum_dihantar' => [
+        'cd0f8008' => '尚未交付',
+    ],
+    'belum_mempunyai_akaun' => [
+        '03e573d5' => '还没有帐户？',
+    ],
+    'berpandukan_keperluan_jkm' => [
+        '1338d683' => '基于 JKM 要求',
+    ],
+    'besarkan_saiz_teks' => [
+        '27358982' => '增加文字大小',
+    ],
+    'besarkan_teks_aktifkan_kontras_tinggi_atau_gunakan' => [
+        'cc352105' => '随时放大文本、激活高对比度或使用深色模式。',
+    ],
+    'besarkan_teks' => [
+        '0aa41880' => '放大文字',
+    ],
+    'betulkan_hanya_jika_ocr_tersilap_sebarang_perubahan' => [
+        '7fd736a1' => '仅在 OCR 错误时修复。任何用户更改都将提交以供人工审核。',
+    ],
+    'biarkan_kosong_jika_anda_tidak_mahu_menukar' => [
+        'b4659db3' => '如果您不想更改密码，请保留空白。',
+    ],
+    'bilangan_bekerja_termasuk_pekerjaan_sendiri' => [
+        '44a296d8' => '包括自营职业在内的工作数量。',
+    ],
+    'bilangan_oku_berdaftar_mengikut_kumpulan_umur' => [
+        '74915e02' => '按年龄组划分的登记残疾人人数。',
+    ],
+    'borang_log_masuk' => [
+        '76cb95bb' => '登录表格',
+    ],
+    'borang_pendaftaran' => [
+        'ce4f153c' => '登记表',
+    ],
+    'buang_imej' => [
+        'c6bcaf34' => '删除图像',
+    ],
+    'buat_akaun_percuma_sebagai_individu_oku_atau' => [
+        'aec4904e' => '作为残疾人或雇主创建一个免费帐户。管理帐户单独提供。',
+    ],
+    'buka_lokasi_di_google_maps' => [
+        '3fdaa3f1' => '在 Google 地图上打开该位置',
+    ],
+    'buka_menu_navigasi' => [
+        'db4b2021' => '打开导航菜单',
+    ],
+    'buka_menu' => [
+        '79b60505' => '打开菜单',
+    ],
+    'butiran_permohonan' => [
+        '533a90e7' => '申请详情',
+    ],
+    'cadangan_pekerjaan_untuk_anda' => [
+        'd00cd342' => '为您推荐职位',
+    ],
+    'cadangan_pekerjaan' => [
+        'fd10f034' => '工作建议',
+    ],
+    'cara_berfungsi' => [
+        'f61ac63e' => '它是如何运作的',
+    ],
+    'cara_myokucare_berfungsi' => [
+        'd486a131' => 'MyOKUcare 的运作方式',
+    ],
+    'cari_dan_pantau_organisasi_yang_menawarkan_peluang' => [
+        '256c4baa' => '寻找并监控提供包容性就业机会的组织。',
+    ],
+    'cari_dan_tapis_log_audit' => [
+        'ed766c3a' => '搜索和过滤审核日志',
+    ],
+    'cari_dan_tapis_rekod_oku' => [
+        '6b49f332' => '搜索和过滤 PWD 记录',
+    ],
+    'cari_dan_tapis_rekod' => [
+        'c37bc28f' => '搜索和过滤记录',
+    ],
+    'cari_jawatan_aktif_yang_sepadan_dengan_keperluan' => [
+        '8dbf6eaa' => '找到符合您的需求和位置的活跃职位。',
+    ],
+    'cari_jawatan' => [
+        'e1e64a9b' => '寻找职位',
+    ],
+    'cari_kerja' => [
+        '1f4af78d' => '找工作',
+    ],
+    'cari_majikan' => [
+        '8c64540c' => '寻找雇主',
+    ],
+    'cari_peluang_kerja' => [
+        '4672ccd4' => '寻找工作机会',
+    ],
+    'cari_pengguna' => [
+        '02f2f4c5' => '寻找用户',
+    ],
+    'cari_permohonan' => [
+        'ef467d99' => '查找应用程序',
+    ],
+    'cari' => [
+        '3f2275d7' => '搜索',
+    ],
+    'carian_rekod' => [
+        '6d7e4731' => '搜索记录',
+    ],
+    'catat_status_semakan_kes_semasa' => [
+        '8d5c3708' => '记录当前案件审查状态。',
+    ],
+    'catatan_pegawai_jkm' => [
+        'c3ac2550' => 'JKM 官员的笔记',
+    ],
+    'catatan_pegawai' => [
+        '57006bce' => '官员的笔记',
+    ],
+    'catatan' => [
+        '9f09aefd' => '笔记',
+    ],
+    'ceritakan_pengalaman_dan_jenis_pekerjaan_yang_anda' => [
+        'c2226229' => '告诉我们您的经验以及您正在寻找的工作类型...',
+    ],
+    'cetak_simpan_pdf' => [
+        '48b209ee' => '打印/保存 PDF',
+    ],
+    'cipta_akaun_menggunakan_e_mel_anda_akses' => [
+        '93c229b4' => '使用您的电子邮件创建一个帐户。系统访问权限将根据所选角色进行定制。',
+    ],
+    'cipta_akaun' => [
+        '46534436' => '创建一个帐户',
+    ],
+    'ciri_utama' => [
+        'a1c5aa01' => '主要特点',
+    ],
+    'contoh_bantuan_alat_sokongan' => [
+        'fc7ddafd' => '示例：帮助支持工具',
+    ],
+    'contoh_microsoft_office_khidmat_pelanggan_reka_bentuk' => [
+        '31de599e' => '示例：Microsoft Office、客户服务、平面设计',
+    ],
+    'cuba_ubah_carian_atau_kosongkan_penapis_semasa' => [
+        '0c991413' => '尝试更改搜索或清除当前过滤器。',
+    ],
+    'cuba_ubah_carian_kategori_atau_lokasi_anda' => [
+        '2645a0dd' => '尝试更改您的搜索、类别或位置。',
+    ],
+    'cuba_ubah_kata_carian_atau_penapis' => [
+        'ef842597' => '尝试更改搜索词或过滤器。',
+    ],
+    'cuba_ubah_penapis_atau_kosongkan_carian_semasa' => [
+        '1d3f4cbe' => '尝试更改过滤器或清除当前搜索。',
+    ],
+    'daftar_akaun_baharu_atau_log_masuk_menggunakan' => [
+        '1b5a06fa' => '注册新帐户或使用您的电子邮件登录。',
+    ],
+    'daftar_akaun_myokucare' => [
+        '42b82402' => '注册账户 — MyOKUcare',
+    ],
+    'daftar_akaun' => [
+        '97f415a6' => '账户注册',
+    ],
+    'daftar_majikan' => [
+        '8a991b2d' => '雇主名册',
+    ],
+    'daftar_myokucare' => [
+        '7b8e9a83' => '注册 MyOKUcare',
+    ],
+    'daftar_oku_baharu' => [
+        '92f38243' => '新残疾人注册',
+    ],
+    'daftar_oku' => [
+        '0f8aba80' => '残疾人登记',
+    ],
+    'daftar_organisasi_terbit_peluang_pekerjaan_cari_bakat' => [
+        '26868e76' => '注册组织、发布就业机会、寻找多元化的残疾人人才并建立一支包容性的劳动力队伍。',
+    ],
+    'daftar_percuma' => [
+        '64463f2b' => '免费注册',
+    ],
+    'daftar_sebagai' => [
+        'fd511673' => '注册为',
+    ],
+    'daftar_sekarang' => [
+        '18b852d9' => '立即注册',
+        'a11b91f7' => '立即注册',
+    ],
+    'daftarkan_keperluan_bantuan_untuk_tindakan_dan_semakan' => [
+        '38ff40de' => '登记 JKM 行动和审查的援助需求。',
+    ],
+    'daripada_pendaftaran_hingga_akses_penuh_perkhidmatan_semuanya' => [
+        '14c67f80' => '从注册到全面的服务访问——全部都是数字化的。',
+    ],
+    'dashboard_majikan' => [
+        '7679c735' => '雇主仪表板',
+    ],
+    'data_keseluruhan' => [
+        '2864afe1' => '总体数据',
+    ],
+    'data_langsung' => [
+        '37f74122' => '实时数据',
+    ],
+    'data_paparan_senarai' => [
+        'ce52c5bf' => '数据和列表视图',
+    ],
+    'data_selamat_terpelihara' => [
+        'a4efe017' => '数据安全可靠',
+        'e53dbde0' => '安全可靠的数据',
+    ],
+    'data_semasa' => [
+        'd807b88d' => '当前数据',
+    ],
+    'demografi' => [
+        'ae448bae' => '人口统计',
+    ],
+    'dibangunkan_untuk_menyokong_perkhidmatan_kebajikan' => [
+        'bb07678e' => '为支持福利服务而开发',
+    ],
+    'diluluskan' => [
+        'ab8165fe' => '得到正式认可的',
+    ],
+    'direka_berdasarkan_aliran_pengurusan_oku_pekerjaan_dan' => [
+        '7e1abc9e' => '基于OKU管理、就业和福利流程设计',
+    ],
+    'direka_menuju_garis_panduan_aksesibiliti_kandungan_web' => [
+        '1f6af931' => '专为国际网络内容可访问性指南而设计',
+    ],
+    'direka_supaya_lebih_mudah_dilihat_didengar_dan' => [
+        'afe0b722' => '旨在更容易看到、听到和使用',
+    ],
+    'direka_untuk_menyokong_perkhidmatan_oku_data_dilindungi' => [
+        'ffb909ac' => '旨在支持残疾人服务 • 数据受保护',
+    ],
+    'diselia_jkm_malaysia' => [
+        'd9744a6f' => '由马来西亚 JKM 监管',
+    ],
+    'dokumen_anda_disimpan_secara_peribadi_dan_hanya' => [
+        'c82c420a' => '您的文件将被保密，只有您和授权官员才能访问。',
+    ],
+    'dokumen_gambar' => [
+        'c817437b' => '文件和图片',
+    ],
+    'dokumen' => [
+        'a809e950' => '文件',
+    ],
+    'eksport_csv' => [
+        '24844a7f' => 'CSV 导出',
+    ],
+    'eksport_statistik_csv' => [
+        'f936c485' => 'CSV 统计数据导出',
+    ],
+    'enam_bulan' => [
+        '8cd83b7d' => '六个月',
+    ],
+    'enam_teras_perkhidmatan_utama' => [
+        '94796059' => '六大主要服务核心',
+    ],
+    'english' => [
+        '649df08a' => '英语',
+    ],
+    'facebook_jkm_malaysia' => [
+        'dd819052' => '脸书 JKM 马来西亚',
+    ],
+    'footer_offsettop_80_scrollbtn_hidden_cur' => [
+        'aac6dac7' => '= 页脚.offsetTop - 80;滚动Btn.hidden = cur',
+    ],
+    'format_csv_atau_xlsx_maksimum_10_mb' => [
+        'a8bdc71d' => '.csv 或 .xlsx 格式，最大 10 MB。',
+    ],
+    'format' => [
+        '041a5dec' => '格式',
+    ],
+    'gaji_maksimum_rm' => [
+        '2e4c35fc' => '最高薪金 (RM)',
+    ],
+    'gaji_minimum_rm' => [
+        '326b59f8' => '最低工资（马币）',
+    ],
+    'gaji_minimum' => [
+        'd75f0618' => '最低工资',
+    ],
+    'gaji_penerbitan' => [
+        'd52b087c' => '薪资和出版物',
+    ],
+    'gaji' => [
+        '78f77057' => '薪水',
+    ],
+    'gambar_kad_oku_tidak_diperlukan_di_halaman' => [
+        '0b67bc94' => '此页不需要 OKU 卡的图片。注册后，登录并通过职业档案上传卡片照片。',
+    ],
+    'gambar_kad_oku' => [
+        '7508a6d6' => 'OKU卡图片',
+    ],
+    'gambar_profil' => [
+        '3b8d5cad' => '个人资料图片',
+    ],
+    'gunakan_e_mel_dan_kata_laluan_yang' => [
+        '8f8c52f0' => '使用为您的帐户注册的电子邮件和密码。',
+    ],
+    'gunakan_kamera' => [
+        'c4ff31d8' => '使用相机',
+    ],
+    'gunakan_satu_atau_beberapa_penapis_untuk_mengecilkan' => [
+        '328a531c' => '使用一个或多个过滤器来缩小搜索结果范围。',
+    ],
+    'gunakan_warna_dan_sempadan_yang_lebih_jelas' => [
+        '54e7c8cd' => '使用更清晰的颜色和边框。',
+    ],
+    'halaman_utama' => [
+        '8e008a9a' => '主页',
+    ],
+    'hantar_permohonan' => [
+        '65bbe7a9' => '提交申请',
+    ],
+    'hantar_untuk_semakan_manual' => [
+        '2ef09ac2' => '提交人工审核',
+    ],
+    'hari' => [
+        '46ebaaa2' => '天',
+    ],
+    'haspages' => [
+        '8a184344' => '有页面())',
+    ],
+    'hubungan_akses' => [
+        '3c89d190' => '联系方式和访问',
+    ],
+    'hubungan_pekerjaan' => [
+        'f10a5415' => '雇佣关系',
+    ],
+    'hubungi_1800_88_3555' => [
+        'ea60664a' => '致电 1800-88-3555',
+    ],
+    'hubungi' => [
+        'aff04813' => '联系我们',
+    ],
+    'identiti_akaun' => [
+        '06f277a0' => '账户身份',
+    ],
+    'identiti_dan_maklumat_hubungan_anda' => [
+        '7eff5105' => '您的身份和联系信息',
+    ],
+    'identiti_rasmi_dan_profil_asas_organisasi' => [
+        '1de7d763' => '组织的官方身份和基本概况。',
+    ],
+    'iklan_aktif' => [
+        'f358f164' => '广告已激活',
+    ],
+    'ikuti_kami' => [
+        'dc27bdc1' => '跟着我们',
+    ],
+    'imej_diproses_secara_peribadi_dan_tidak_dihantar' => [
+        '8cca58ed' => '图像会被私下处理，不会发送到第三方 OCR 服务。',
+    ],
+    'imej_kad_oku' => [
+        'ec8d2f69' => 'OKU卡图片',
+    ],
+    'import_data' => [
+        '0021d0fb' => '导入数据',
+    ],
+    'import_selesai' => [
+        'd0c9cadc' => '导入完成',
+    ],
+    'import_senarai_oku' => [
+        '8df48cd2' => '残疾人进口名单',
+    ],
+    'individu_oku_boleh_mendaftar_secara_dalam_talian' => [
+        '78ba5bb1' => '残疾人登录后可以通过个人资料在线注册并填写证明文件。验证状态可以通过平台监控。',
+    ],
+    'individu_oku' => [
+        'db976eba' => '残疾人士',
+    ],
+    'ingat_saya_pada_peranti_ini' => [
+        '5d81162d' => '在此设备上记住我',
+    ],
+    'instagram_jkm_malaysia' => [
+        '77f48218' => 'Instagram JKM 马来西亚',
+    ],
+    'isi_maklumat_peribadi_muat_naik_dokumen_sokongan' => [
+        'f73dc139' => '填写个人信息，上传证明文件并更新您的技能和残疾类别。',
+    ],
+    'jabatan' => [
+        '6cc749f5' => '部门',
+    ],
+    'jadual_baharu_akan_dipaparkan_di_sini' => [
+        '9df6adf4' => '新的时间表将显示在这里。',
+    ],
+    'jadual_semakan' => [
+        '0acc4e10' => '审核时间表',
+    ],
+    'jadual_susulan' => [
+        '8ed39794' => '后续时间表',
+    ],
+    'jalankan_pengesahan' => [
+        'fe87134d' => '运行验证',
+    ],
+    'jana_laporan' => [
+        'f466bd2e' => '生成报告',
+    ],
+    'jantina' => [
+        '652f8b82' => '性别',
+    ],
+    'jawatan_aktif_berdasarkan_kategori_lokasi_dan_profil' => [
+        'd3066fc4' => '基于类别、地点和职业概况的活跃职位。',
+    ],
+    'jawatan_kemahiran_atau_nama_majikan' => [
+        '5e2d136c' => '职位、技能或雇主名称',
+    ],
+    'jawatan_terkini' => [
+        '1313d970' => '最新帖子',
+    ],
+    'jawatan_tersedia' => [
+        'fcf93c9d' => '职位空缺',
+    ],
+    'jawatan_yang_anda_minati_akan_dipaparkan_di' => [
+        '2ed7f4e7' => '您感兴趣的职位将显示在这里。',
+    ],
+    'jawatan' => [
+        '065f2a70' => '位置',
+    ],
+    'jejak_perubahan_akaun_yang_dilakukan_oleh_admin' => [
+        'f2dcbc67' => '跟踪系统管理员所做的帐户更改。',
+    ],
+    'jenis_bantuan_pilih_yang_berkenaan' => [
+        'ff0fb742' => '援助类型（选择适用的援助类型）',
+    ],
+    'jenis_bantuan_pilihan' => [
+        '888631e1' => '帮助类型（可选）',
+    ],
+    'jenis_bantuan_teks' => [
+        'c870fb89' => '帮助类型（文本）',
+    ],
+    'jenis_bantuan_yang_paling_kerap_dimohon' => [
+        'a6367c88' => '最常请求的帮助类型。',
+    ],
+    'jenis_bantuan' => [
+        '07e50bb0' => '种类的帮助',
+        'a455fbd4' => '帮助类型',
+    ],
+    'jenis_pekerjaan' => [
+        '530078bd' => '工作类型',
+    ],
+    'jenis_permohonan' => [
+        '555e1b59' => '应用类型',
+    ],
+    'jenis' => [
+        'fabb2b5c' => '类型',
+    ],
+    'jika_berkenaan' => [
+        '8ae1b525' => '如果适用',
+    ],
+    'jika_tiada_perubahan_semak_maklumat_dan_tandakan' => [
+        'fd81e271' => '如果没有变化，请检查信息并标记此确认以继续。',
+    ],
+    'job_title_effect_sejarah_pekerjaan_akan_dikekalkan' => [
+        '535a6c96' => 'job_title"effect="工作历史记录将作为删除记录保留。"permission="employment.delete"/>',
+    ],
+    'jpg_png_atau_webp_maksimum_5mb' => [
+        'af7a8a87' => 'JPG、PNG 或 WebP · 最大 5MB',
+    ],
+    'jumlah_pekerja' => [
+        '820f5831' => '员工人数',
+    ],
+    'jumlah_permohonan_dan_kelulusan_bulanan' => [
+        'cd78813e' => '每月申请和批准的数量。',
+    ],
+    'kad_pengenalan_mengandungi_data_peribadi_sensitif_imej' => [
+        '847adbda' => '身份证包含敏感的个人数据。图像将被保密存储，以供验证、授权审查和根据存储政策删除。',
+    ],
+    'kadar_bekerja' => [
+        'daba640c' => '工作率',
+    ],
+    'kaji_semula_akan_datang' => [
+        '79bdd0c8' => '评论即将推出',
+    ],
+    'kata_laluan_baharu' => [
+        'a791d3d8' => '新密码',
+    ],
+    'kata_laluan_semasa' => [
+        '16f381e5' => '当前密码',
+    ],
+    'kata_laluan' => [
+        '8c4f8a5c' => '密码',
+    ],
+    'kategori_oku_sesuai' => [
+        '31b37c1b' => '残疾人类别合适',
+    ],
+    'kategori_oku' => [
+        '5a4ba70d' => '残疾人类别',
+    ],
+    'kategori' => [
+        'b7964404' => '类别',
+    ],
+    'kawal_kekerapan_statistik_dan_jumlah_rekod_lalai' => [
+        '7aefcf67' => '控制统计的频率和默认记录的数量。',
+    ],
+    'kawal_keperluan_pengesahan_identiti_untuk_semua_pengguna' => [
+        'd71ad700' => '控制所有禁用用户的身份验证要求。',
+    ],
+    'kawalan_ciri' => [
+        '4798a2e4' => '功能控制',
+    ],
+    'kawalan_paparan' => [
+        '9b238eb8' => '显示控制',
+        'ebb3ad37' => '显示控制',
+    ],
+    'ke_atas' => [
+        '36244ce1' => '向上',
+    ],
+    'kebenaran_terperinci' => [
+        '1fcf1ce3' => '详细权限',
+    ],
+    'kecekapan_pemprosesan' => [
+        '09949f21' => '加工效率',
+    ],
+    'kecilkan_saiz_teks' => [
+        '0f2ef075' => '缩小文字大小',
+    ],
+    'kecilkan_teks' => [
+        '18d9381a' => '最小化文本',
+    ],
+    'kelebihan_sistem' => [
+        'c8311f90' => '系统优势',
+    ],
+    'kelengkapan_dan_pengesahan_akaun' => [
+        'b35710ae' => '帐户完成和验证。',
+    ],
+    'kemahiran' => [
+        '22ff70cb' => '技能',
+    ],
+    'kemajuan_pengesahan' => [
+        '6f9459b5' => '验证进度',
+    ],
+    'kemas_kini_automatik_setiap_10_saat' => [
+        '088d42be' => '每10秒自动更新·',
+    ],
+    'kemas_kini_dashboard' => [
+        '370211cd' => '更新仪表板',
+    ],
+    'kemas_kini_maklumat_yang_berubah_atau_sahkan' => [
+        '51999e0e' => '更新更改的信息，或验证一切是否仍然相同。',
+    ],
+    'kemaskini_identiti_log_masuk_dan_keselamatan_akaun' => [
+        '3a51c952' => '更新您的登录身份和帐户安全。',
+    ],
+    'kemaskini_keputusan' => [
+        '761f62b8' => '更新结果',
+    ],
+    'kemaskini' => [
+        '356ee342' => '更新',
+    ],
+    'kembali_ke_laman_utama' => [
+        '1a885223' => '← 返回主页',
+        '8cf65bd1' => '返回主页',
+    ],
+    'kembali_ke_profil' => [
+        '9e91e755' => '← 返回个人资料',
+    ],
+    'kembali' => [
+        '0b8ff91a' => '← 返回',
+        'c43a6e25' => '回来',
+    ],
+    'keperluan_bantuan' => [
+        'ea18d7a8' => '需要帮助',
+    ],
+    'keperluan_jawatan' => [
+        '26352513' => '职位要求',
+    ],
+    'keperluan' => [
+        '3dfa39a3' => '要求',
+    ],
+    'keputusan_kes' => [
+        'aa9f4d53' => '案件判决',
+    ],
+    'keputusan_pegawai' => [
+        'a6ba55ff' => '官员的决定',
+    ],
+    'keputusan_semakan' => [
+        '0d1cf1f9' => '审核结果',
+    ],
+    'keputusan' => [
+        '63dcf2fe' => '决定',
+    ],
+    'kerja_berpasukan' => [
+        '50139eb8' => '团队合作',
+    ],
+    'kes_kebajikan' => [
+        '857d5d70' => '福利案例',
+    ],
+    'kes_telah_diputuskan' => [
+        '3c1eb176' => '案件已判决',
+    ],
+    'kes' => [
+        '46cbe2ad' => '案件',
+    ],
+    'keselamatan_sistem' => [
+        'c2edd527' => '系统安全',
+    ],
+    'kesesuaian_keperluan' => [
+        'b907b0ac' => '适用性和要求',
+    ],
+    'ketahui_lebih_lanjut' => [
+        'f81aaa2f' => '了解更多 →',
+    ],
+    'keutamaan_hari_ini' => [
+        'be2b32e4' => '今天的优先事项',
+    ],
+    'komposisi_rekod_dalam_skop_pilihan' => [
+        'e60ce8ef' => '可选范围内记录的组成。',
+    ],
+    'komposisi_status_permohonan_semasa' => [
+        'a7735300' => '当前申请状态的组成。',
+    ],
+    'komunikasi' => [
+        '8d01cb54' => '沟通',
+    ],
+    'konfigurasi_kakitangan' => [
+        'f754100c' => '人员配置',
+    ],
+    'konteks_perkhidmatan_jkm' => [
+        'ada9fe31' => 'JKM 服务上下文',
+    ],
+    'konteks_piawaian' => [
+        'e05d4d61' => '背景和标准',
+    ],
+    'kontras_tinggi_secara_lalai' => [
+        'cbf62bf8' => '默认高对比度',
+    ],
+    'kontras' => [
+        '4ee2296d' => '◐ 对比',
+    ],
+    'kosongkan_penapis' => [
+        '0ec32ab4' => '清空过滤器',
+        '3bca173e' => '清除过滤器',
+    ],
+    'kosongkan_semua_penapis' => [
+        'bd71bc35' => '清除所有过滤器',
+    ],
+    'kosongkan_semua' => [
+        '0e28af4a' => '全部清除',
+    ],
+    'kosongkan' => [
+        '899f41b5' => '清空它',
+    ],
+    'kredibiliti' => [
+        'b7bc8063' => '信誉度',
+    ],
+    'kurangkan_sedikit_lebar_navigasi_pada_desktop' => [
+        '8c7ae7d9' => '稍微减小桌面上的导航宽度。',
+    ],
+    'label_heading_dan_susunan_kandungan_yang_mesra' => [
+        '46c10add' => '屏幕阅读器友好的标签、标题和内容布局以及逻辑导航。',
+    ],
+    'lain_lain' => [
+        '1c604f26' => '其他的',
+    ],
+    'laman_utama' => [
+        'c456d24d' => '主页',
+    ],
+    'langkah_1_daripada_2' => [
+        '6138945e' => '第 1 步（共 2 步）',
+    ],
+    'langkah_pendaftaran' => [
+        '9dcc3c7c' => '注册步骤',
+    ],
+    'langkau_ke_borang_log_masuk' => [
+        'a07d02a0' => '跳至登录表单',
+    ],
+    'langkau_ke_borang_pendaftaran' => [
+        '811d75b6' => '跳至注册表',
+    ],
+    'langkau_ke_kandungan_utama' => [
+        '2c949d8e' => '跳至主要内容',
+    ],
+    'laporan_analitik' => [
+        '7064e357' => '报告与分析',
+    ],
+    'lelaki' => [
+        '0555ffac' => '男士',
+    ],
+    'lengkapkan_maklumat_berikut_untuk_mencipta_akaun_anda' => [
+        '7b1edf01' => '填写以下信息以创建您的帐户。',
+    ],
+    'lengkapkan_profil_oku_terlebih_dahulu_sebelum_membuat' => [
+        '8e2a3a7c' => '在申请福利之前，请先填写 OKU 资料。',
+    ],
+    'lengkapkan_profil_organisasi_untuk_pengurusan_peluang_pekerjaan' => [
+        '9e464e9a' => '完成包容性工作机会管理的组织概况。',
+    ],
+    'lengkapkan_profil' => [
+        '3dac4b06' => '完成个人资料',
+    ],
+    'letakkan_kad_di_dalam_bingkai' => [
+        'ac4fe6e8' => '将卡片放入相框中',
+    ],
+    'lihat_audit_aktiviti' => [
+        'd79009ad' => '查看活动审核',
+    ],
+    'lihat_dokumen_kad_oku_semasa' => [
+        'fd503309' => '查看当前身份证文件 →',
+    ],
+    'lihat_imej' => [
+        '3e996cf9' => '看图片',
+    ],
+    'lihat_kad_oku_semasa' => [
+        '43d77f61' => '查看当前PWD卡',
+    ],
+    'lihat_kad_oku' => [
+        'e9fa5c38' => '查看 OKU 卡',
+    ],
+    'lihat_keperluan_jawatan' => [
+        '49eab7b5' => '查看职位要求',
+    ],
+    'lihat_maklumat_majikan' => [
+        '168ed46d' => '查看雇主信息',
+    ],
+    'lihat_pekerja_oku' => [
+        '51585286' => '查看残疾工人',
+    ],
+    'lihat_peluang_kerja' => [
+        'bf6bcf31' => '查看工作机会',
+    ],
+    'lihat_ralat_baris' => [
+        '3323ca10' => '查看线路错误',
+    ],
+    'lihat_semua' => [
+        '2adf9761' => '查看全部',
+        '9527dd65' => '查看全部',
+        'cff5ba88' => '查看全部 →',
+    ],
+    'lihat_soalan_lengkap' => [
+        '41232c94' => '查看完整的问题 →',
+    ],
+    'lihat' => [
+        'f78db130' => '看',
+    ],
+    'log_keluar' => [
+        '506f8c0d' => '退出',
+    ],
+    'log_masuk_di_sini' => [
+        'b3271fb6' => '在此登录',
+    ],
+    'log_masuk_myokucare' => [
+        '9b368e79' => '登录 MyOKUcare',
+        '9ebbc976' => '登录 — MyOKUcare',
+    ],
+    'log_masuk_terakhir' => [
+        '09b0af44' => '上次登录',
+    ],
+    'log_masuk' => [
+        '65586411' => '登录',
+    ],
+    'lokasi_ditawarkan' => [
+        'dc85fecf' => '提供地点',
+    ],
+    'lokasi' => [
+        '7e1ab5d9' => '地点',
+    ],
+    'majikan_aktif' => [
+        'abf56e2f' => '活跃雇主',
+    ],
+    'majikan_inklusif' => [
+        '042bfe62' => '包容性雇主',
+    ],
+    'majikan_mempunyai_kuota_atau_peluang_mesra_oku' => [
+        'f99453bc' => '雇主有配额或残疾人友好的机会',
+    ],
+    'majikan' => [
+        '3ff4a318' => '雇主',
+        '73adc28e' => '雇主',
+    ],
+    'majlis_bandaraya_shah_alam' => [
+        'a48d1577' => '市议会 • 莎阿南',
+    ],
+    'maklumat_akaun' => [
+        'ba1bd9de' => '账户信息',
+    ],
+    'maklumat_asas_iklan_dan_organisasi' => [
+        'f3efdeb5' => '基本广告和组织信息。',
+    ],
+    'maklumat_belum_dapat_disimpan' => [
+        '095d035f' => '信息尚无法保存。',
+    ],
+    'maklumat_ini_perlu_disemak_setiap_tiga_bulan' => [
+        '67e5e66c' => '这些信息需要每三个月审查一次，以便所显示的工作机会和帮助保持相关性。',
+    ],
+    'maklumat_jawatan' => [
+        'c8cd08b3' => '职位信息',
+    ],
+    'maklumat_kad_kategori_pendidikan_dan_bantuan' => [
+        'f67b5d8a' => '卡信息、类别、教育和帮助。',
+    ],
+    'maklumat_lengkap_membantu_sistem_memberikan_cadangan_pekerjaan' => [
+        '42a947e7' => '完整的信息有助于系统提供更合适的职位推荐。',
+    ],
+    'maklumat_oku' => [
+        'dc685614' => '残疾人信息',
+    ],
+    'maklumat_organisasi' => [
+        '9655d089' => '组织信息',
+    ],
+    'maklumat_pendaftaran_oku' => [
+        '6db3f609' => '残疾人登记信息',
+        '84b6bf6b' => '残疾人注册信息',
+    ],
+    'maklumat_pengenalan_asas_pemegang_kad_oku' => [
+        '5d34f013' => 'OKU 卡持有者的基本身份信息。',
+    ],
+    'maklumat_perhubungan' => [
+        '7f8bcd14' => '联系信息',
+    ],
+    'maklumat_peribadi_dan_dokumen_dilindungi_dengan_piawaian' => [
+        '9d299828' => '个人信息和文件受到严格的安全标准的保护。',
+    ],
+    'maklumat_peribadi' => [
+        'd33af1a7' => '个人信息',
+        'e30f873c' => '个人信息',
+    ],
+    'maklumat_permohonan_dan_pemohon' => [
+        '02c37234' => '申请及申请人信息',
+    ],
+    'maklumat_syarikat' => [
+        '2c92883f' => '公司资料',
+    ],
+    'maklumat_untuk_dihubungi_dan_capaian_digital' => [
+        '45d7f365' => '联系信息和数字访问。',
+    ],
+    'maklumat_yang_digunakan_untuk_log_masuk' => [
+        '222cd735' => '用于登录的信息。',
+    ],
+    'maklumat_yang_perlu_disahkan' => [
+        'c2a2e996' => '待核实信息',
+    ],
+    'maklumat' => [
+        '11bf9483' => '信息',
+    ],
+    'maksimum_2_000_aksara_elakkan_memasukkan_maklumat' => [
+        '67091535' => '最多 2,000 个字符。避免输入不相关的信息。',
+    ],
+    'masukkan_kata_laluan' => [
+        'a45a8b18' => '输入密码',
+    ],
+    'medan_bertanda' => [
+        '9cb5e501' => '字段已标记',
+    ],
+    'melakukan_perubahan_pada' => [
+        '03ac429f' => '做出改变',
+    ],
+    'memaparkan' => [
+        '9a038a12' => '显示中',
+    ],
+    'memperkasakan_komuniti_oku_melalui_pekerjaan_dan_sokongan' => [
+        '94f49c37' => '通过就业和数字支持为残疾人社区赋权。',
+    ],
+    'menaik' => [
+        'e5d9477d' => '升序',
+    ],
+    'menu_navigasi' => [
+        'a6d8328e' => '导航菜单',
+    ],
+    'menurun' => [
+        'd232111a' => '降序',
+    ],
+    'mesra_oku' => [
+        '88104670' => '残疾人友善',
+    ],
+    'min_16' => [
+        '57db2455' => '分钟。 16',
+    ],
+    'minimum_8_aksara_termasuk_huruf_dan_nombor' => [
+        '173de21f' => '至少 8 个字符，包括字母和数字。',
+    ],
+    'minimum_8_aksara' => [
+        'b78dd750' => '最少 8 个字符',
+    ],
+    'mohon_sekarang' => [
+        'b8827eb8' => '立即申请 →',
+    ],
+    'mohon_semak_dan_urus_bantuan_jkm_secara' => [
+        'fe79ce5a' => '通过透明、实时的流程在线申请、审查和管理 JKM 援助。',
+    ],
+    'muat_naik_csv_atau_xlsx_sehingga_10' => [
+        '2aaf7125' => '上传最多 10 MB 的 CSV 或 XLSX。重复的记录将被跳过并报告有问题的行。',
+    ],
+    'muat_naik_gambar_yang_jelas_untuk_semakan' => [
+        'ba796bbb' => '上传清晰照片供 JKM 官员审核',
+    ],
+    'muat_naik_imej_yang_jelas_untuk_semakan' => [
+        'e00af69f' => '上传清晰的图像以进行身份​​验证和个人资料查看。',
+    ],
+    'muat_naik_imej' => [
+        '9fe37fa6' => '上传图片',
+    ],
+    'muat_semula_statistik_dashboard' => [
+        '87f980a3' => '刷新仪表板统计数据',
+    ],
+    'muat_semula' => [
+        '2d707956' => '重新加载',
+    ],
+    'muat_turun_resume_semasa' => [
+        '1b6087b9' => '下载当前简历 →',
+    ],
+    'muat_turun_resume' => [
+        'aa471404' => '下载简历',
+    ],
+    'muat_turun_templat_csv' => [
+        'fdcec864' => '下载 CSV 模板',
+    ],
+    'mulakan_pengesahan' => [
+        'e65e4166' => '开始验证',
+    ],
+    'myokucare_direka_dengan_sasaran_wcag_2_2' => [
+        '57d7c651' => 'MyOKUcare 的设计考虑了 WCAG 2.2 AA 目标。该界面支持语义结构、键盘导航、文本大小调整和高对比度显示。',
+    ],
+    'myokucare_direka_untuk_memenuhi_keperluan_pelbagai_pengguna' => [
+        '3a03f538' => 'MyOKUcare 旨在满足该国残疾人支持生态系统中各种用户的需求。',
+    ],
+    'myokucare_ialah_prototaip_platform_digital_yang_menyatukan' => [
+        '6651e25c' => 'MyOKUcare 是一个原型数字平台，它将 OKU 数据的管理、包容性工作匹配和福利援助应用程序统一在一个易于访问的系统中。',
+        'a78c73b4' => 'MyOKUcare 是一个原型数字平台，它将 OKU 数据的管理、合适的工作匹配和福利援助应用程序统一在一个易于访问的系统中。',
+    ],
+    'myokucare_ialah_prototaip_yang_memerlukan_ujian_pengesahan' => [
+        '3300fded' => 'MyOKUcare 是一个原型，在用作官方服务之前需要进行测试、验证和正式批准。',
+    ],
+    'myokucare_kini_menyokong_pendaftaran_oku_secara_digital' => [
+        '5c1b8636' => 'MyOKUcare 现在支持残疾人数字登记',
+    ],
+    'myokucare_laman_utama' => [
+        '646801e2' => 'MyOKUcare，主页',
+    ],
+    'myokucare_menghubungkan_pengurusan_oku_peluang_pekerjaan_dan' => [
+        '6ddd6f92' => 'MyOKUcare 将每个涉及的角色的残疾管理、就业机会和福利援助联系起来。',
+    ],
+    'myokucare_platform_digital_sokongan_oku' => [
+        '0b244af7' => 'MyOKUcare — 残疾人支持数字平台',
+    ],
+    'nama_atau_alamat_e_mel' => [
+        '4ecfbf06' => '姓名或电子邮件地址',
+    ],
+    'nama_jawatan' => [
+        'bfe039a3' => '职位名称',
+    ],
+    'nama_nombor_ic_atau_nombor_kad_oku' => [
+        '5b1d4848' => '姓名、IC 号码或 OKU 卡号码',
+    ],
+    'nama_pekerjaan' => [
+        '2748b6f5' => '职位名称',
+        '27ba3ba9' => '职位名称',
+    ],
+    'nama_pemohon' => [
+        '616ccbba' => '申请人姓名',
+    ],
+    'nama_pentadbir_pengguna_atau_e_mel' => [
+        'ce73a5db' => '管理员名称、用户或电子邮件',
+    ],
+    'nama_penuh_mykad' => [
+        'edad2a36' => 'MyKad 全名',
+    ],
+    'nama_penuh' => [
+        '46f89b95' => '姓名',
+    ],
+    'nama_seperti_dalam_kad_pengenalan' => [
+        'd6a807be' => '姓名与身份证一致',
+    ],
+    'nama_syarikat_nombor_pendaftaran_atau_pegawai' => [
+        '36cf1067' => '公司名称、注册号码或主管人员',
+    ],
+    'nama_syarikat' => [
+        '567263a3' => '公司名称',
+    ],
+    'nama' => [
+        '79d12c10' => '姓名',
+    ],
+    'navigasi_aplikasi_mudah_alih' => [
+        'b3f8f717' => '移动应用导航',
+    ],
+    'navigasi_halaman_rekod_oku' => [
+        '5073ff95' => '导航 OKU 记录页面',
+    ],
+    'navigasi_utama' => [
+        '869d117f' => '主导航',
+    ],
+    'no_kad_pengenalan' => [
+        '74e7662d' => '身份证号码',
+    ],
+    'no_pendaftaran_oku' => [
+        '9fa78cd4' => '伤残登记号',
+    ],
+    'no_telefon' => [
+        '043b84b0' => '电话号码',
+    ],
+    'nombor_ic' => [
+        'b06741d0' => '身份证号码',
+    ],
+    'nombor_kad_oku' => [
+        '909c0d55' => 'OKU卡号',
+    ],
+    'nombor_kad_pengenalan' => [
+        '0c585a2f' => '身份证号码',
+    ],
+    'nombor_mykad' => [
+        'f3a07902' => '大马卡号码',
+    ],
+    'nombor_pendaftaran_oku' => [
+        '35b40f68' => '残疾人注册号',
+    ],
+    'nombor_pendaftaran_ssm' => [
+        'c29ebca0' => 'SSM注册号码',
+    ],
+    'nombor_telefon' => [
+        'b71c491c' => '电话号码',
+    ],
+    'notifikasi' => [
+        '624d215c' => '通知',
+    ],
+    'nric_hanya_dipaparkan_dalam_bentuk_bertopeng_pada' => [
+        '9a10c590' => '身份证仅以屏蔽形式显示在正常显示屏上。',
+    ],
+    'nyatakan_kategori_oku_dan_skop_kerja_dengan' => [
+        '72a8709c' => '明确OKU的类别和工作范围。',
+    ],
+    'nyatakan_taraf_pendidikan' => [
+        'ab2bea29' => '说明教育水平',
+    ],
+    'oku_waris' => [
+        'ac8bacf5' => '残疾人和受益人',
+    ],
+    'operasi_jkm' => [
+        'd9343a58' => 'JKM操作',
+    ],
+    'orang' => [
+        '3e6c2381' => '人们',
+    ],
+    'padam_kekal' => [
+        'f407bb6f' => '永久删除',
+    ],
+    'padam' => [
+        '8f2d5bce' => '删除',
+    ],
+    'padanan_berdasarkan_kategori_dan_status_pekerjaan' => [
+        'bad36cbd' => '根据职位类别和状态进行匹配',
+    ],
+    'padanan_kerjaya' => [
+        'ccbc82cc' => '职业比赛',
+    ],
+    'padanan_pekerjaan_inklusif' => [
+        '234bcf08' => '包容性工作匹配',
+    ],
+    'padanan_pintar_berdasarkan_kategori_oku_kemahiran_dan' => [
+        '1bb24525' => '根据残疾类别、技能和地点进行智能匹配，以获得更合适、更公平的工作机会。',
+    ],
+    'padanan' => [
+        'd37265e3' => '匹配',
+    ],
+    'pantau_jawatan_permohonan_calon_dan_hasil_pengambilan' => [
+        '84cfb4de' => '监控职位、候选人申请和招聘结果。',
+    ],
+    'pantau_pengguna_organisasi_dan_operasi_keseluruhan_myokucare' => [
+        '0bc63465' => '监控 MyOKUcare 的用户、组织和整体运营。',
+    ],
+    'pantau_rekod_oku_bantuan_kebajikan_dan_aktiviti' => [
+        '6d6403ce' => '以一种方式监控残疾记录、福利援助和就业活动。',
+    ],
+    'paparan_aksesibiliti' => [
+        'd4274907' => '显示和辅助功能',
+    ],
+    'paparan_boleh_dilaras' => [
+        'b66272d8' => '显示可调节',
+    ],
+    'paparan_khusus_untuk_pengguna_oku_majikan_dan' => [
+        '47147fcb' => '为残疾用户、雇主和授权官员特别展示。',
+    ],
+    'paparan_sahaja' => [
+        '665cccb3' => '仅显示',
+    ],
+    'paparan' => [
+        'a61c4312' => '展示',
+    ],
+    'paparkan_panduan_ringkas_di_bahagian_bawah_sidebar' => [
+        '3c9537fc' => '在侧边栏底部显示简短指南。',
+    ],
+    'pdf_doc_atau_docx_maksimum_5mb' => [
+        '702ae3ae' => 'PDF、DOC 或 DOCX · 最大 5MB',
+    ],
+    'pegawai_dihubungi' => [
+        '8f20a6ae' => '已联系官员',
+    ],
+    'pegawai_jkm' => [
+        '31c195cb' => 'JKM官员',
+    ],
+    'pegawai_penyemak' => [
+        'f0ae4f71' => '审查官',
+    ],
+    'pegawai_yang_boleh_dihubungi_oleh_jkm_dan' => [
+        '3dd2cfc0' => 'JKM 和候选人可以联系的官员。',
+    ],
+    'pejabat_aras_12_blok_b_menara_kpwkm' => [
+        'f10b149a' => '办公室：Menara KPWKM B座12楼',
+    ],
+    'pekerja_oku_berkaitan' => [
+        'bcaa945f' => '相关残疾工人',
+    ],
+    'pekerja_oku' => [
+        'ed2d471e' => '残疾工人',
+    ],
+    'pekerja' => [
+        '2101a99e' => '工人',
+    ],
+    'pekerjaan_inklusif' => [
+        'c138085d' => '包容性就业',
+    ],
+    'pekerjaan_mengikut_kategori_oku' => [
+        '41adf191' => '按残疾人类别划分的工作',
+    ],
+    'pekerjaan' => [
+        '7b75a808' => '工作机会',
+    ],
+    'peluang_kerja_ditemui' => [
+        'f66650c3' => '找到工作机会',
+    ],
+    'pemantauan_operasi' => [
+        'c6fdb292' => '运营监控',
+    ],
+    'pembantu_operasi' => [
+        'ce904c98' => '运营助理',
+    ],
+    'pemberitahuan_kes_melalui_e_mel' => [
+        'ccadd50c' => '通过电子邮件通知案件',
+    ],
+    'pemberitahuan' => [
+        '00357dbf' => '通知',
+    ],
+    'pemohon_oku' => [
+        'b88fe355' => '残疾申请人',
+    ],
+    'pemohon' => [
+        '115368c3' => '申请人',
+    ],
+    'penapis_lanjutan' => [
+        '6b372703' => '高级过滤器',
+    ],
+    'pendaftaran_awam_tersedia_kepada_individu_oku_dan' => [
+        '4a55423c' => '残疾人和雇主可以进行公共注册。官员和管理员帐户仅由授权方提供。',
+    ],
+    'pendaftaran_awam_tersedia_untuk_individu_oku_dan' => [
+        '72ac1214' => '残疾人和雇主可以进行公共注册。官方帐号由授权管理员提供。',
+    ],
+    'pendaftaran_oku' => [
+        '7135182a' => '残疾人登记',
+    ],
+    'pendidikan_kemahiran_dan_resume_untuk_padanan_kerja' => [
+        'c7d96b8d' => '用于工作匹配的教育、技能和简历',
+    ],
+    'pendidikan' => [
+        'a1cefd01' => '教育',
+    ],
+    'penerangan_jawatan' => [
+        'd5330a50' => '职位描述',
+    ],
+    'penerangan_keperluan' => [
+        '4b54a6b5' => '要求说明',
+    ],
+    'penerangan_syarikat' => [
+        '80cafda2' => '公司简介',
+    ],
+    'pengesahan_identiti_selamat' => [
+        '5d7ba03c' => '安全身份验证',
+    ],
+    'pengesahan_identiti' => [
+        'a58b0502' => '身份验证',
+    ],
+    'pengesahan_jkm' => [
+        'bee6a989' => 'JKM验证',
+    ],
+    'pengesahan_kad_oku_mykad' => [
+        '53c6f66b' => 'OKU 卡和 MyKad 验证',
+    ],
+    'pengesahan_kad_oku' => [
+        '35b85542' => 'OKU卡验证',
+    ],
+    'pengesahan_tiga_bulanan' => [
+        'b806d73f' => '每三个月验证一次',
+    ],
+    'pengesahan' => [
+        '916e3638' => '确认',
+    ],
+    'pengguna_belum_memuat_naik_gambar_kad_oku' => [
+        'd9587d38' => '用户尚未上传OKU卡的图片。',
+    ],
+    'pengguna_mengikut_peranan' => [
+        '32a9a4d6' => '按角色划分的用户',
+    ],
+    'pengguna_oku' => [
+        '0e057ba3' => '残疾用户',
+    ],
+    'pengguna' => [
+        'c720f761' => '用户',
+    ],
+    'pengumuman' => [
+        'c02bad08' => '公告',
+    ],
+    'pengurusan_data_berpusat' => [
+        '42447e79' => '集中数据管理',
+    ],
+    'pengurusan_komuniti_yang_inklusif_dan_tersusun' => [
+        'f04b24fe' => '包容性和结构化的社区管理',
+    ],
+    'pengurusan_majikan' => [
+        '76e02fcb' => '雇主管理',
+    ],
+    'pengurusan_oku' => [
+        'da88493c' => '残疾人管理',
+    ],
+    'pengurusan_pengguna' => [
+        'e14f116f' => '用户管理',
+    ],
+    'penjelasan_pilihan' => [
+        '52211153' => '解释（可选）',
+    ],
+    'pentadbiran_data' => [
+        '822c3d44' => '数据管理',
+    ],
+    'pentadbiran_sistem' => [
+        'f78f3faf' => '系统管理',
+    ],
+    'pentadbiran' => [
+        '9f16a3f6' => '行政',
+    ],
+    'peranan_pautan_profil' => [
+        '13e37934' => '角色和个人资料链接',
+    ],
+    'peranan_pengguna' => [
+        'accb696c' => '用户角色',
+    ],
+    'peranan' => [
+        '0ef21dad' => '角色',
+    ],
+    'perbandingan' => [
+        'e5d69832' => '比较',
+    ],
+    'percuma_sepenuhnya' => [
+        'd78f0ae1' => '完全免费',
+    ],
+    'percuma_untuk_semua' => [
+        '81ac8e97' => '所有人免费',
+    ],
+    'perempuan' => [
+        'bc79719d' => '女性',
+    ],
+    'perhatian' => [
+        'b4690881' => '注意力：',
+    ],
+    'peribadi' => [
+        '1f9838fb' => '个人的',
+    ],
+    'perkembangan' => [
+        'bf066827' => '发展',
+    ],
+    'perkhidmatan' => [
+        '0b65e05f' => '服务',
+    ],
+    'perlu_perhatian' => [
+        'a380122e' => '需要注意',
+    ],
+    'permanently_delete' => [
+        '2eea1fa8' => '永久删除',
+    ],
+    'permissions_true' => [
+        'a97d28b2' => '权限？？ []),真))>',
+    ],
+    'permohonan_baharu_boleh_dibuat_melalui_menu_kebajikan' => [
+        '58ad53b0' => '可以通过福利菜单进行新的申请。',
+    ],
+    'permohonan_baharu' => [
+        'b9deab2e' => '新申请',
+    ],
+    'permohonan_berstatus_pending_atau_under_review' => [
+        'eaedd44d' => '申请状态待处理或正在审核中',
+    ],
+    'permohonan_ditemui' => [
+        '337dd003' => '找到应用程序',
+    ],
+    'permohonan_kebajikan_digital' => [
+        '3f1e6703' => '数字福利应用',
+    ],
+    'permohonan_kebajikan' => [
+        '33bca6ce' => '福利申请',
+    ],
+    'permohonan_memerlukan_tindakan' => [
+        '3d76abaf' => '申请需要采取行动',
+    ],
+    'permohonan_mengikut_jenis' => [
+        '5634f43f' => '按类型申请',
+    ],
+    'permohonan_mengikut_kategori_oku' => [
+        'f70f04e9' => '残疾人类别申请',
+    ],
+    'permohonan' => [
+        '2adeb904' => '应用',
+    ],
+    'persetujuan_diperlukan' => [
+        '9c9725f6' => '需要同意',
+    ],
+    'perubahan_ini_berkuat_kuasa_serta_merta_untuk' => [
+        'ce6141df' => '此更改对所有禁用用户立即生效。仅将此开关用于测试或紧急情况。',
+    ],
+    'petunjuk_untuk_tindakan_dan_jadual_semakan_jkm' => [
+        '230244bc' => '行动指示和 JKM 审查时间表。',
+    ],
+    'pilih_fail_csv_atau_xlsx' => [
+        '1490e5b7' => '选择 CSV 或 XLSX 文件',
+    ],
+    'pilih_hanya_tindakan_yang_diperlukan_kebenaran_data' => [
+        '27f3d7f6' => '仅选择必要的操作。敏感数据和永久删除的权限必须单独授予。',
+    ],
+    'pilih_jantina' => [
+        '70ddd2fe' => '选择性别',
+    ],
+    'pilih_kamera_atau_muat_naik_imej' => [
+        'da99a45e' => '选择相机或上传图像。',
+    ],
+    'pilih_kategori' => [
+        '5322c62f' => '选择一个类别',
+    ],
+    'pilih_majikan' => [
+        'b0d41b1f' => '选择雇主',
+    ],
+    'pilih_pemberitahuan_operasi_yang_anda_mahu_terima' => [
+        '5767640c' => '选择您想要接收的操作通知。',
+    ],
+    'pilih_pemohon' => [
+        '39a86eff' => '选择申请人',
+    ],
+    'pilih_peranan' => [
+        '772c7131' => '选择角色',
+    ],
+    'pilih_profil_oku' => [
+        '87d0b52e' => '选择禁用的配置文件',
+    ],
+    'pilih_sebab' => [
+        '5fdb51bd' => '选择一个理由',
+    ],
+    'pilih_sektor' => [
+        '3c0e74ef' => '选择一个部门',
+    ],
+    'pilih_status' => [
+        '6b38bfb5' => '选择状态',
+    ],
+    'pilih_taraf_pendidikan' => [
+        '2d8b206a' => '选择教育程度',
+    ],
+    'pintasan' => [
+        'c1b90977' => '捷径',
+    ],
+    'platform_digital_sokongan_oku' => [
+        '7eca08df' => '残疾人支持数字平台',
+    ],
+    'platform_menyeluruh_yang_direka_untuk_memenuhi_keperluan' => [
+        '54c29fbd' => '一个综合平台，旨在满足残疾支持生态系统中每个用户的需求。',
+    ],
+    'platform_untuk_setiap_lapisan_komuniti' => [
+        '4f3b6146' => '适合社区各个层面的平台',
+    ],
+    'portal_majikan' => [
+        '1d3358f2' => '雇主门户网站',
+    ],
+    'prestasi_iklan_pekerjaan_syarikat_anda' => [
+        '64ad110c' => '贵公司的招聘广告效果',
+    ],
+    'profil_anda' => [
+        '6cdc9709' => '您的个人资料',
+    ],
+    'profil_dipautkan' => [
+        '8781ee05' => '个人资料已链接',
+    ],
+    'profil_individu' => [
+        '905aa690' => '个人简介',
+    ],
+    'profil_kerjaya' => [
+        'c6f72da7' => '职业简介',
+    ],
+    'profil_majikan_aktif' => [
+        '03f248a8' => '活跃的雇主档案',
+    ],
+    'profil_majikan' => [
+        'ed137c8e' => '雇主简介',
+    ],
+    'profil_oku_belum_dipautkan' => [
+        'd94aba24' => 'OKU 个人资料尚未链接',
+    ],
+    'profil_oku_dipautkan' => [
+        'ea35a83d' => '已链接的禁用个人资料',
+    ],
+    'profil_oku_tidak_ditemui' => [
+        'be729019' => '未找到 PWD 配置文件',
+    ],
+    'profil_pencari_kerja' => [
+        'c03a6c08' => '求职者简介',
+    ],
+    'profil_penerima' => [
+        '32924eac' => '受益人资料',
+    ],
+    'profil_saya' => [
+        '95c1e30b' => '我的个人资料',
+    ],
+    'profil_syarikat' => [
+        '411a9e7d' => '公司简介',
+    ],
+    'prototaip_digital_pekerjaan_inklusif_kebajikan' => [
+        '65b4e0b1' => '数字样机·包容性就业·福利',
+    ],
+    'prototaip_digital' => [
+        '955cad86' => '数字样机',
+    ],
+    'prototaip_ini_dibangunkan_berdasarkan_keperluan_pengurusan_dan' => [
+        'cde71036' => '该原型是根据残疾人社区的管理和支持需求而开发的。',
+    ],
+    'prototaip_platform_digital_sokongan_oku_yang_menyatukan' => [
+        '2617a09b' => '支持残疾人的数字平台原型，将数据、就业和福利统一在一个包容性系统中。',
+    ],
+    'pulihkan_rekod_atau_lakukan_pemadaman_kekal_dengan' => [
+        '73cf7bbe' => '使用特殊权限恢复记录或执行永久删除。',
+    ],
+    'pulihkan' => [
+        'a3db5be7' => '恢复',
+    ],
+    'purata_masa_keputusan' => [
+        '16351ce6' => '平均决策时间',
+    ],
+    'rakan_pekerjaan' => [
+        'd378c2cc' => '工友',
+    ],
+    'rekod_baharu_mengikut_bulan' => [
+        '1fab0ced' => '按月新记录。',
+    ],
+    'rekod_dipadam' => [
+        '215aef4e' => '记录已删除',
+    ],
+    'rekod_pekerjaan_oku' => [
+        'e9ffa0bf' => '残疾人就业记录',
+    ],
+    'rekod_setiap_halaman' => [
+        '8cd8d328' => '记录每一页',
+    ],
+    'rekod_tindakan_pegawai' => [
+        '1ce9597f' => '官员行动记录',
+    ],
+    'rekod_yang_dipaparkan_telah_dihadkan_mengikut_peranan' => [
+        '33e088bc' => '显示的记录受您的角色和组织的限制。',
+    ],
+    'rekod' => [
+        '2c032ea6' => '记录',
+    ],
+    'responsif_dan_pwa' => [
+        '6a1d0d9c' => '响应式和 PWA',
+    ],
+    'resume' => [
+        '9fb58963' => '恢复',
+    ],
+    'ringkasan_kerjaya' => [
+        '544ad33d' => '职业生涯总结',
+    ],
+    'ringkasan_majikan' => [
+        'd9ee3590' => '雇主概要',
+    ],
+    'ringkasan_peluang_kerja' => [
+        '6d3654ff' => '工作机会摘要',
+    ],
+    'ringkasan_pengguna' => [
+        'cf60ff57' => '用户总结',
+    ],
+    'ringkasan_peribadi' => [
+        'e1854ba7' => '个人总结',
+    ],
+    'ringkasan_permohonan_kebajikan' => [
+        '7d00b5fb' => '福利申请摘要',
+    ],
+    'ringkasan_profil' => [
+        '1f8d224e' => '简介摘要',
+    ],
+    'ringkasan_rekod_oku' => [
+        '3acd376a' => 'PWD 记录摘要',
+    ],
+    'ringkasan_statistik_kebajikan' => [
+        '519e6305' => '福利统计摘要',
+    ],
+    'ringkasan_statistik_pekerjaan' => [
+        '0159670f' => '就业统计摘要',
+    ],
+    'ruang_peribadi' => [
+        '969085d6' => '个人空间',
+    ],
+    'rujukan_perkhidmatan_jabatan_kebajikan_masyarakat_malaysia' => [
+        '09809cc9' => '服务参考：马来西亚社会福利局',
+    ],
+    'rujukan' => [
+        'f2903512' => '参考',
+    ],
+    'sahkan_dan_teruskan' => [
+        '15baddf3' => '确认并继续',
+    ],
+    'sahkan_kad_oku_dan_mykad_anda' => [
+        'd4c68caa' => '验证您的 OKU 卡和 MyKad',
+    ],
+    'sahkan_kad_oku' => [
+        '73aa1af6' => '验证 OKU 卡',
+    ],
+    'sahkan_kata_laluan_baharu' => [
+        '44ecf587' => '确认新密码',
+    ],
+    'sahkan_kata_laluan' => [
+        '5243c157' => '确认密码',
+    ],
+    'sahkan_maklumat_terkini_anda' => [
+        'db675fa9' => '验证您当前的信息',
+    ],
+    'saiz_teks_lalai' => [
+        '94c1e9be' => '默认文字大小',
+    ],
+    'saluran_khusus_myokucare_akan_diumumkan_selepas_kelulusan' => [
+        '389937bf' => 'MyOKUcare专用频道将在官方批准后公布。',
+    ],
+    'sasaran_wcag_2_2_aa' => [
+        'f6c4efd7' => 'WCAG 目标 2.2 AA',
+    ],
+    'satu_akaun_mengikut_peranan' => [
+        'd8088328' => '每个角色一个帐户',
+    ],
+    'saya_bersetuju_dengan_pengumpulan_dan_pemprosesan_imej' => [
+        '0a6f952d' => '我同意收集和处理 OKU 卡和 MyKad 图像以进行身份​​验证。',
+    ],
+    'saya_mengesahkan_bahawa_maklumat_di_atas_adalah' => [
+        'e7c91803' => '我确认上述信息是最新且准确的。',
+    ],
+    'sebab_pemadaman' => [
+        '2c1ed866' => '删除原因',
+    ],
+    'sebab_penolakan_jika_berkaitan' => [
+        'ba504c74' => '拒绝原因（如果相关）',
+    ],
+    'sebab_penolakan' => [
+        'c923df26' => '拒绝原因',
+    ],
+    'sebab' => [
+        'f0949952' => '原因',
+    ],
+    'sebelum' => [
+        '9a8474d9' => '前',
+    ],
+    'sedia_untuk_menggunakan_myokucare' => [
+        '233a2473' => '准备好使用 MyOKUcare 了吗？',
+    ],
+    'sedia_untuk_penilaian_ujian_pengguna_dan_penambahbaikan' => [
+        'dfb01adf' => '实施前做好评估、用户测试和改进的准备',
+    ],
+    'sektor_industri' => [
+        '1f53ae4e' => '工业领域',
+    ],
+    'sektor_pekerjaan' => [
+        '0e1545e5' => '就业部门',
+    ],
+    'sektor' => [
+        'ee74fbed' => '部门',
+    ],
+    'selamat_datang_admin_system' => [
+        'afdfda97' => '欢迎，系统管理员',
+    ],
+    'selamat_datang_pegawai_jkm' => [
+        '3782d8ff' => '欢迎，JKM 官员',
+    ],
+    'selamat_kembali' => [
+        '9380dd79' => '欢迎回来',
+    ],
+    'semak_cari_dan_urus_profil_individu_berdaftar' => [
+        '11bdf63b' => '检查、搜索和管理注册个人的档案。',
+    ],
+    'semak_jawatan_tersedia' => [
+        'cabdb4b0' => '检查可用职位',
+    ],
+    'semak_maklumat_yang_diekstrak' => [
+        '6e642951' => '查看提取的信息',
+    ],
+    'semak_permohonan_yang_tidak_dapat_diluluskan_secara' => [
+        'e6d4ac7f' => '审查无法自动批准的申请。',
+    ],
+    'semak_profil_kerjaya' => [
+        '68981fc5' => '查看职业档案',
+    ],
+    'semak' => [
+        '621e8157' => '查看',
+    ],
+    'semakan_kad_oku' => [
+        '8a00058d' => 'OKU卡的评论',
+    ],
+    'semakan_manual' => [
+        '51918cc4' => '人工审核',
+    ],
+    'semakan_seterusnya' => [
+        '410aee65' => '下一篇评论',
+    ],
+    'semakan_telah_lewat' => [
+        'daa3a140' => '审稿晚了',
+    ],
+    'semua_aktiviti' => [
+        'bbdf84f9' => '所有活动',
+    ],
+    'semua_jantina' => [
+        '92fafb66' => '所有性别',
+    ],
+    'semua_jenis' => [
+        'dbf8ef8a' => '各种',
+    ],
+    'semua_kategori' => [
+        '3ee43aaf' => '所有类别',
+    ],
+    'semua_lokasi' => [
+        'edfd39e7' => '所有地点',
+    ],
+    'semua_pengesahan' => [
+        'b9b56bb8' => '所有确认',
+    ],
+    'semua_peranan_menggunakan_halaman_log_masuk_yang' => [
+        '235e3fa3' => '所有角色都使用相同的登录页面。系统显示和访问权限将根据账户角色自动调整。',
+    ],
+    'semua_peranan' => [
+        'd7bfeb35' => '所有角色',
+    ],
+    'semua_rekod_oku_dokumen_sokongan_dan_sejarah' => [
+        '2e55e6ea' => '所有 PWD 记录、支持文档和申请历史记录均位于一个安全且有组织的系统中。',
+    ],
+    'semua_sektor' => [
+        '43439b1c' => '所有行业',
+    ],
+    'semua_status' => [
+        'baa2adda' => '所有状态',
+    ],
+    'semua_tahap' => [
+        '47b45513' => '所有级别',
+    ],
+    'semua_urusan_selesai' => [
+        '3e90b77c' => '一切事务都完成了',
+    ],
+    'semua' => [
+        '42c76592' => '全部',
+    ],
+    'senarai_jawatan' => [
+        '17b4801e' => '职位列表',
+    ],
+    'senarai_log_audit' => [
+        '04b7c812' => '审计日志列表',
+    ],
+    'senarai_majikan_berdaftar' => [
+        '9af79494' => '注册雇主名单',
+    ],
+    'senarai_majikan' => [
+        '5d042ca0' => '雇主名单',
+    ],
+    'senarai_peluang_kerja' => [
+        '3906e2bc' => '工作机会清单',
+    ],
+    'senarai_permohonan_kebajikan' => [
+        '63a1854d' => '福利申请清单',
+    ],
+    'senarai_rekod_individu_oku_berdaftar' => [
+        'f00f4636' => '登记残疾人名单',
+    ],
+    'senarai_rekod_oku' => [
+        'c3aec10f' => 'PWD 记录列表',
+    ],
+    'senarai' => [
+        'c0d6d26e' => '← 列表',
+    ],
+    'sendiri' => [
+        '7209d86e' => '独自的',
+    ],
+    'sertai_komuniti_myokucare' => [
+        '6c65522c' => '加入 MyOKUcare 社区。',
+    ],
+    'sesuai_dengan_profil_anda' => [
+        '0bcdec54' => '符合您的个人资料',
+    ],
+    'sesuai_untuk_telefon_tablet_dan_boleh_dipasang' => [
+        '3a8b1a1e' => '适用于手机和平板电脑，并可安装到主屏幕。查看最新数据需要互联网连接。',
+    ],
+    'sesuaikan_paparan_kemas_kini_data_dan_pemberitahuan' => [
+        '55e9c462' => '自定义您帐户的显示、更新数据和通知。',
+    ],
+    'seterusnya' => [
+        '83038a0d' => '下一页 →',
+        'a15710d5' => '下一个',
+    ],
+    'siapa_yang_boleh_menggunakan_myokucare' => [
+        'aa6be742' => '谁可以使用MyOKUcare？',
+    ],
+    'sidebar_kompak' => [
+        '6c412b8e' => '紧凑的侧边栏',
+    ],
+    'sila_log_keluar_dan_hubungi_pentadbir_untuk' => [
+        'bf348e37' => '请注销并联系管理员寻求帮助。',
+    ],
+    'sila_nyatakan_taraf_pendidikan' => [
+        'c53cc702' => '请说明教育程度',
+    ],
+    'sila_semak_maklumat_berikut' => [
+        'f29d1fe9' => '请查看以下信息：',
+    ],
+    'sila_semak_maklumat_permohonan' => [
+        '6873cc29' => '请查看申请信息。',
+    ],
+    'sila_semak_semula_maklumat_berikut' => [
+        'c61e80ed' => '请查看以下信息：',
+    ],
+    'simpan_kawalan_ciri' => [
+        'dd3f282a' => '保存功能控制',
+    ],
+    'simpan_keputusan' => [
+        '94bc7836' => '保存结果',
+    ],
+    'simpan_pilihan_untuk_pemberitahuan_permohonan_yang_memerlukan' => [
+        '081be9b3' => '保存需要注意的应用程序通知的选项。',
+    ],
+    'simpan_profil_kerjaya' => [
+        '508a5c35' => '保存职业档案',
+    ],
+    'simpan_profil' => [
+        'f7952d13' => '保存个人资料',
+    ],
+    'simpan_status' => [
+        'e162190b' => '保存状态',
+    ],
+    'simpan_tetapan' => [
+        'f8b8eebd' => '保存设置',
+    ],
+    'simpan' => [
+        '87dd92d7' => '节省',
+    ],
+    'sistem_akan_menyemak_kelengkapan_dan_rekod_pendua' => [
+        '37e4f46f' => '在创建帐户之前，系统将检查记录的完整性和重复记录。',
+    ],
+    'skop_laporan' => [
+        '285eed85' => '报告范围：',
+        '402d66b4' => '报告范围',
+    ],
+    'soalan_f_a_q' => [
+        '0c234533' => '常问问题',
+    ],
+    'soalan_lazim' => [
+        '772ad0ce' => '常见问题解答',
+    ],
+    'soalan' => [
+        'be176bda' => '问题',
+    ],
+    'sokongan_inklusif_dalam_satu_sistem' => [
+        'e6d237d7' => '在一个系统中提供包容性支持。',
+    ],
+    'sokongan_kebajikan' => [
+        'db5367af' => '福利支持',
+    ],
+    'sokongan' => [
+        '8079b0e9' => '支持',
+    ],
+    'statistik_akan_muncul_selepas_rekod_oku_ditambah' => [
+        '16d9649a' => '添加禁用记录后会出现统计信息。',
+    ],
+    'statistik_kebajikan_oku' => [
+        '5d1de92c' => '残疾人福利统计',
+    ],
+    'statistik_log_audit' => [
+        '72422874' => '审计日志统计',
+    ],
+    'statistik_operasi_jkm' => [
+        '5b59533e' => 'JKM运行统计',
+    ],
+    'statistik_pekerjaan_oku' => [
+        'ab1e7f32' => '残疾人就业统计',
+    ],
+    'statistik_pentadbiran' => [
+        'ad50c908' => '行政统计',
+    ],
+    'statistik_semasa_carta_prestasi_dan_laporan_terperinci' => [
+        'c72e6a9c' => '当前统计数据、绩效图表和详细报告，以便更好地管理 OKU 计划。',
+    ],
+    'statistik_terus_daripada_rekod_oku_semasa' => [
+        'd0b0698b' => '直接从当前 PWD 记录进行统计',
+    ],
+    'status_akaun' => [
+        'ef78db19' => '账户状态',
+    ],
+    'status_dan_pekerjaan_semasa_individu' => [
+        'fff97977' => '个人目前的状况和就业情况。',
+    ],
+    'status_iklan' => [
+        '59086a47' => '广告状态',
+    ],
+    'status_ketersediaan' => [
+        '0863bd34' => '可用性状态',
+    ],
+    'status_majikan' => [
+        'e7be7080' => '雇主状况',
+    ],
+    'status_minat_dan_permohonan_terkini' => [
+        '2e3a0894' => '目前的兴趣和申请状态。',
+    ],
+    'status_organisasi' => [
+        '775f0aa4' => '组织状况',
+    ],
+    'status_pekerjaan' => [
+        '7cb12093' => '就业状况',
+        '9fa9d719' => '就业状况',
+    ],
+    'status_perkahwinan' => [
+        '9b26b931' => '婚姻状况',
+    ],
+    'status_permohonan_bantuan_terkini' => [
+        '260a576c' => '最新援助申请的状态。',
+    ],
+    'status_profil' => [
+        'd5cd3724' => '个人资料状态',
+    ],
+    'status_semakan' => [
+        '47cbbb22' => '审核状态',
+    ],
+    'status_semasa' => [
+        '5a9ee215' => '目前状态：',
+        '8d59a836' => '目前状态',
+    ],
+    'status' => [
+        'bae7d5be' => '地位',
+    ],
+    'struktur_semantik' => [
+        '04480ada' => '语义结构',
+    ],
+    'sudah_mempunyai_akaun' => [
+        'd2a87798' => '已经有帐户？',
+    ],
+    'sumber' => [
+        'ff648afc' => '来源',
+    ],
+    'sunting' => [
+        'b7b0d4ed' => '编辑',
+    ],
+    'susun_mengikut' => [
+        'f166ba5e' => '排序方式',
+    ],
+    'susunan' => [
+        'cbe00edc' => '安排',
+    ],
+    'syarikat_anda' => [
+        '16a20c1d' => '您的公司',
+    ],
+    'taburan_kategori_oku' => [
+        'b9a935e0' => '残疾人类别分布',
+    ],
+    'taburan_permohonan_berdasarkan_kategori_pemohon' => [
+        'dd781510' => '根据申请人类别分配申请。',
+    ],
+    'taburan_semua_akaun_berdaftar_mengikut_tahap_akses' => [
+        'd92beeaa' => '按访问级别分布所有注册帐户。',
+    ],
+    'taburan_status_pekerjaan' => [
+        '28ab8ed9' => '就业状况分布',
+    ],
+    'taburan_status_permohonan' => [
+        '8f1d9180' => '申请状态分布',
+    ],
+    'taburan_status' => [
+        'c62c12f4' => '分布状况',
+    ],
+    'taburan_umur' => [
+        'b1d6d472' => '年龄分布',
+    ],
+    'tahap' => [
+        'cb88a6ac' => '等级',
+    ],
+    'taip_semula_kata_laluan' => [
+        'cce43773' => '重新输入密码',
+    ],
+    'taip' => [
+        '6ae57156' => '类型',
+    ],
+    'talian_1800_88_3555' => [
+        '22e21180' => '专线：1800-88-3555',
+    ],
+    'tamat' => [
+        'ca30d178' => '完成的',
+    ],
+    'tambah_jawatan' => [
+        '73baee5c' => '添加职位',
+    ],
+    'tambah_rekod' => [
+        'd259e7c4' => '添加记录',
+    ],
+    'tanggungjawab' => [
+        '9a45d2bc' => '责任',
+    ],
+    'tapis_laporan_kebajikan' => [
+        '1eecd736' => '筛选福利报告',
+    ],
+    'tapis_laporan_pekerjaan' => [
+        'ac985515' => '过滤工作报告',
+    ],
+    'tapis_log' => [
+        'f0301c52' => '过滤日志',
+    ],
+    'tapis_permohonan' => [
+        'b66632f4' => '过滤器应用',
+    ],
+    'tapis_rekod' => [
+        'e2261d81' => '过滤记录',
+    ],
+    'tapis' => [
+        '6d4dc681' => '筛选',
+    ],
+    'tarikh_akhir' => [
+        'b02c5275' => '最后期限',
+    ],
+    'tarikh_daftar_akhir' => [
+        'f6dccc3f' => '最终注册日期',
+    ],
+    'tarikh_daftar_mula' => [
+        '247398ec' => '注册开始日期',
+    ],
+    'tarikh_mula' => [
+        'c0b2ad4e' => '开始日期',
+    ],
+    'tarikh_permohonan' => [
+        '63c68240' => '申请日期',
+    ],
+    'tarikh_semakan' => [
+        '6aea8b52' => '修订日期',
+    ],
+    'tarikh_tutup' => [
+        'ee57a073' => '截止日期',
+    ],
+    'tarikh' => [
+        'bb81283e' => '日期',
+    ],
+    'teks_ocr_mykad' => [
+        '20552de4' => 'MyKad OCR 文本',
+    ],
+    'telefon' => [
+        '40314f88' => '电话',
+    ],
+    'temu_janji_yang_perlu_diberi_perhatian' => [
+        '5a3dc93f' => '值得注意的约会',
+    ],
+    'temui_pekerjaan_yang_sesuai_dan_pantau_perkembangan' => [
+        'a059e0f9' => '寻找合适的工作并监控您的申请进度。',
+    ],
+    'terangkan_bantuan_yang_diperlukan_dan_maklumat_berkaitan' => [
+        '31c1a055' => '解释所需的帮助和相关信息。',
+    ],
+    'terbaharu' => [
+        '6dfac853' => '最新的',
+    ],
+    'terbitkan_jawatan_dengan_keperluan_dan_kesesuaian_oku' => [
+        'ec9943a0' => '发布具有明确需求且适合 OKU 的职位。',
+    ],
+    'terbitkan_jawatan_kosong_urus_calon_oku_dan' => [
+        'c9156a80' => '发布职位空缺、管理残疾候选人并监控组织中的员工多样性。',
+    ],
+    'teroka_peluang_pekerjaan_mohon_bantuan_kebajikan_urus' => [
+        '5a5bdd0c' => '在一个仪表板中探索工作机会、申请福利援助、管理记录和监控统计数据。',
+    ],
+    'tetapan_disimpan_khusus_untuk_akaun_kakitangan_ini' => [
+        'ca19b3b1' => '设置是专门为此员工帐户保存的。',
+    ],
+    'tetapan_ini_akan_digunakan_pada_peranti_selepas' => [
+        'e6e76be3' => '这些设置将在页面刷新后应用到设备。',
+    ],
+    'tetapan_paparan' => [
+        'caee2a4d' => '显示设置',
+    ],
+    'tetapan_sistem' => [
+        '11898d90' => '系统设置',
+    ],
+    'tetapkan_identiti_peranan_dan_akses_pengguna_dengan' => [
+        'b3440cf6' => '仔细定义用户身份、角色和访问权限。',
+    ],
+    'tetapkan_jadual' => [
+        '40ba307e' => '设定时间表',
+    ],
+    'tetapkan_julat_gaji_dan_tempoh_permohonan' => [
+        '96639a6b' => '设定薪资范围和申请期限。',
+    ],
+    'tetapkan_keterlibatan_majikan_dalam_program_pekerjaan_oku' => [
+        'ef2efa01' => '确定雇主参与 OKU 就业计划的情况。',
+    ],
+    'tetapkan_semula' => [
+        '831ea874' => '重置它',
+        'd63d5ccf' => '重置',
+    ],
+    'tetapkan_tarikh' => [
+        '321267f9' => '设定日期',
+    ],
+    'tetapkan_tindakan_susulan_kes' => [
+        'fbaaf677' => '设置案件跟进。',
+    ],
+    'tiada_akaun_pengguna_ditemui' => [
+        '7e3867eb' => '未找到用户帐户。',
+    ],
+    'tiada_akaun_pengguna' => [
+        '444507fc' => '没有用户帐户。',
+    ],
+    'tiada_caj_pendaftaran_atau_langganan_semua_perkhidmatan' => [
+        'fe53ea52' => '没有注册或订阅费用。所有基本服务均可免费使用。',
+    ],
+    'tiada_eksport_dijana' => [
+        '9b56d62c' => '不生成任何导出。',
+    ],
+    'tiada_jadual_terdekat' => [
+        '2f0ab72c' => '没有即将到来的时间表',
+    ],
+    'tiada_log_audit_ditemui' => [
+        '1cc11da0' => '未找到审核日志',
+    ],
+    'tiada_majikan_ditemui' => [
+        '6505357a' => '没有找到雇主',
+    ],
+    'tiada_pautan' => [
+        '85cfb9ac' => '没有链接',
+    ],
+    'tiada_pekerja_berkaitan' => [
+        '5c2a378e' => '无相关员工。',
+    ],
+    'tiada_pekerjaan_aktif_yang_sepadan_buat_masa' => [
+        '79996ebe' => '目前没有匹配的活跃职位。',
+    ],
+    'tiada_pekerjaan_sepadan' => [
+        'e7c7eb62' => '没有匹配的职位。',
+    ],
+    'tiada_peluang_kerja_ditemui' => [
+        'd66c4a11' => '没有找到工作机会',
+    ],
+    'tiada_permohonan_ditemui' => [
+        '7744e08f' => '没有找到应用程序',
+    ],
+    'tiada_permohonan_kebajikan' => [
+        'df65e29e' => '没有福利申请',
+    ],
+    'tiada_permohonan_tertunda_buat_masa_ini' => [
+        'cbea4a97' => '目前没有待处理的申请。',
+    ],
+    'tiada_rekod_dipadam' => [
+        'ce1fd8f2' => '没有记录被删除。',
+    ],
+    'tiada_rekod_ditemui' => [
+        '8d0a21cd' => '没有找到记录',
+    ],
+    'tiada_rekod_pekerjaan' => [
+        '28590b7d' => '无就业记录。',
+    ],
+    'tiada_rekod_semakan_manual' => [
+        '8bb5f5bf' => '无人工审核记录。',
+    ],
+    'tidak_aktif' => [
+        'c5f1e8e2' => '不活跃',
+    ],
+    'tiga_langkah_mudah_untuk_bermula' => [
+        'aaf5d51a' => '三个简单步骤即可开始',
+    ],
+    'tiktok_jkm_malaysia' => [
+        '44c2470e' => 'TikTok JKM 马来西亚',
+    ],
+    'tindakan_admin_system' => [
+        '06ef7c51' => '系统管理员操作',
+    ],
+    'tindakan_ini_tidak_boleh_dibatalkan_rekod_berkaitan' => [
+        '0315aaf7' => '此操作无法撤消。必须先解决相关记录。',
+    ],
+    'tindakan_majikan' => [
+        '7da01e27' => '雇主行动',
+    ],
+    'tindakan' => [
+        '4c20e744' => '行动',
+    ],
+    'tolak_perlu_pembetulan' => [
+        '457974ae' => '拒绝/需要更正',
+    ],
+    'trend_pendaftaran_enam_bulan' => [
+        '8034dbf9' => '六个月入学趋势',
+    ],
+    'trend_pendaftaran_oku' => [
+        '168ed79d' => '残疾人注册趋势',
+    ],
+    'trend_permohonan_kebajikan_enam_bulan' => [
+        '9ba24a98' => '六个月福利申请趋势',
+    ],
+    'trend_permohonan' => [
+        'a0a3f327' => '应用趋势',
+    ],
+    'tukar_kata_laluan' => [
+        '79921d52' => '更改密码',
+    ],
+    'tukar_mod_kontras_tinggi' => [
+        '136429a0' => '更改高对比度模式',
+    ],
+    'tukar_mod_kontras' => [
+        'd0fb59ea' => '更改对比度模式',
+    ],
+    'tunjukkan_kata_laluan' => [
+        '9423350c' => '显示密码',
+    ],
+    'tunjukkan_panel_bantuan' => [
+        'ac933acd' => '显示帮助面板',
+    ],
+    'tutup_menu' => [
+        '7c04e875' => '关闭菜单',
+    ],
+    'uarr' => [
+        'b9187882' => '↑',
+    ],
+    'umur_maksimum' => [
+        '37af54d6' => '最大年龄',
+    ],
+    'umur_minimum' => [
+        'b750d323' => '最低年龄',
+    ],
+    'umur' => [
+        '133cb71a' => '年龄',
+    ],
+    'untuk_mengesahkan' => [
+        'f09c99ea' => '确认',
+    ],
+    'untuk_siapa_myokucare' => [
+        'e2701ed4' => 'MyOKUcare 适合谁？',
+    ],
+    'untuk_siapa' => [
+        'b718501d' => '为了谁',
+    ],
+    'urus_operasi_pengambilan' => [
+        '24b1a5fe' => '管理招聘运营',
+    ],
+    'urus_peluang_kerja' => [
+        'dcbe9d90' => '管理工作机会',
+    ],
+    'urus_pengguna' => [
+        'c50aaa63' => '管理用户',
+    ],
+    'urus_rekod_oku_semak_dan_lulus_permohonan' => [
+        'f730d3af' => '管理残疾人记录、审查和通过福利申请、监控统计数据并生成计划报告。',
+    ],
+    'urus' => [
+        '0ada72b6' => '管理',
+    ],
+    'wajib_dilengkapkan' => [
+        '8a733d97' => '必须完成。',
+    ],
+    'wajib_jika_bekerja' => [
+        'ae9c5fe8' => '如果工作则必须',
+    ],
+    'wajib_jika_permohonan_ditolak' => [
+        '05d43d9c' => '如果申请被拒绝，则必须填写',
+    ],
+    'wajib_jika_semakan_ditolak' => [
+        '40082fe3' => '如果审核被拒绝，则必须执行',
+    ],
+    'wajib' => [
+        'e6bc023e' => '强制性的',
+    ],
+    'waktu_bekerja' => [
+        '56965909' => '工作时间',
+    ],
+    'x_twitter_jkm_malaysia' => [
+        'fb44ca9c' => 'X（推特）JKM 马来西亚',
+    ],
+    'ya_semua_perkhidmatan_asas_myokucare_adalah_percuma' => [
+        '95b6d150' => '是的。 MyOKUcare 的所有基本服务对所有用户都是免费的。没有注册费、订阅费或隐藏费用。',
+    ],
+    'youtube_jkm_malaysia' => [
+        '8a9f722d' => 'YouTube JKM 马来西亚',
+    ],
+];

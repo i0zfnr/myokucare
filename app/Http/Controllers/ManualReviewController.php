@@ -58,7 +58,7 @@ class ManualReviewController extends Controller
         $session->user->notify(new SystemNotification(
             'notifications.identity_title',
             'notifications.identity_message',
-            ['status' => __('notifications.identity_status.'.strtolower($userStatus))],
+            ['status_key' => 'notifications.identity_status.'.strtolower($userStatus)],
             route('identity-verification.show'),
             'identity',
         ));

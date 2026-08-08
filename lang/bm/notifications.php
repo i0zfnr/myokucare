@@ -8,6 +8,9 @@ return [
     'identity_title' => 'Keputusan pengesahan identiti', 'identity_message' => 'Status pengesahan identiti anda kini :status.',
     'identity_status' => ['verified' => 'Disahkan', 'rejected' => 'Ditolak', 'resubmission_required' => 'Perlu dihantar semula'],
     'welfare_status_title' => 'Status permohonan kebajikan', 'welfare_status_message' => 'Permohonan :type kini berstatus :status.',
+    'welfare_status' => ['pending' => 'Menunggu', 'under_review' => 'Dalam Semakan', 'approved' => 'Diluluskan', 'rejected' => 'Ditolak'],
     'welfare_review_title' => 'Semakan kebajikan dijadualkan', 'welfare_review_message' => 'Semakan permohonan kebajikan anda dijadualkan pada :date.',
     'job_interest_title' => 'Calon baharu berminat', 'job_interest_message' => 'Seorang calon OKU menunjukkan minat terhadap jawatan :job.',
+    'job_status_title' => 'Status permohonan kerja', 'job_status_message' => 'Status anda untuk jawatan :job kini :status.',
+    'job_status' => ['interested' => 'Berminat', 'applied' => 'Memohon', 'shortlisted' => 'Disenarai Pendek', 'interviewed' => 'Ditemu Duga', 'hired' => 'Diterima Bekerja', 'rejected' => 'Ditolak'],
 ];

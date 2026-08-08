@@ -119,7 +119,7 @@ class WelfareController extends Controller
             fn (User $user) => $user->notify(new SystemNotification(
                 'notifications.welfare_status_title',
                 'notifications.welfare_status_message',
-                ['type' => $welfareApplication->application_type, 'status' => $data['status']],
+                ['type' => $welfareApplication->application_type, 'status_key' => 'notifications.welfare_status.'.str($data['status'])->slug('_')],
                 route('welfare.show', $welfareApplication),
                 'welfare',
             )),

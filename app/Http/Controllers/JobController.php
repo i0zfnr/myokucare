@@ -24,17 +24,22 @@ class JobController extends Controller
             ->with('employer:id,company_name,is_active')
             ->active()
             ->notExpired()
+            ->inBesut()
             ->whereHas('employer', fn ($query) => $query->where('is_active', true))
             ->when(filled($filters['search'] ?? null), function ($query) use ($filters) {
                 $term = $filters['search'];
                 $query->where(fn ($query) => $query
                     ->where('title', 'like', "%{$term}%")
+                    ->orWhere('job_category', 'like', "%{$term}%")
                     ->orWhere('description', 'like', "%{$term}%")
                     ->orWhere('requirements', 'like', "%{$term}%")
+                    ->orWhere('workplace_mukim', 'like', "%{$term}%")
+                    ->orWhere('workplace_village', 'like', "%{$term}%")
                     ->orWhereHas('employer', fn ($query) => $query->where('company_name', 'like', "%{$term}%")));
             })
             ->when(filled($filters['category'] ?? null), fn ($query) => $query->byCategorySuitable($filters['category']))
-            ->when(filled($filters['location'] ?? null), fn ($query) => $query->where('location', $filters['location']))
+            ->when(filled($filters['job_category'] ?? null), fn ($query) => $query->where('job_category', $filters['job_category']))
+            ->when(filled($filters['location'] ?? null), fn ($query) => $query->where('workplace_mukim', $filters['location']))
             ->when(filled($filters['employment_type'] ?? null), fn ($query) => $query->where('employment_type', $filters['employment_type']))
             ->when(isset($filters['salary_min']), fn ($query) => $query->where(fn ($query) => $query->where('salary_max', '>=', $filters['salary_min'])->orWhere(fn ($query) => $query->whereNull('salary_max')->where('salary_min', '>=', $filters['salary_min']))))
             ->when(isset($filters['salary_max']), fn ($query) => $query->where('salary_min', '<=', $filters['salary_max']))
@@ -43,20 +48,21 @@ class JobController extends Controller
             ->withQueryString();
 
         $oku = $request->user()->role === 'oku_user' ? $request->user()->oku : null;
-        $interestedJobIds = $oku
-            ? JobInterest::query()->where('oku_id', $oku->id)->whereIn('job_id', $jobs->pluck('id'))->pluck('job_id')->all()
-            : [];
+        $interestsByJob = $oku
+            ? JobInterest::query()->where('oku_id', $oku->id)->whereIn('job_id', $jobs->pluck('id'))->get()->keyBy('job_id')
+            : collect();
 
         return view('jobs.index', [
             'jobs' => $jobs,
             'filters' => $filters,
-            'locations' => Job::query()->active()->notExpired()->distinct()->orderBy('location')->pluck('location'),
-            'interestedJobIds' => $interestedJobIds,
+            'jobCategories' => config('jobs.categories'),
+            'mukims' => config('besut.mukims'),
+            'interestsByJob' => $interestsByJob,
             'canApply' => (bool) $oku,
             'stats' => [
-                'available' => Job::query()->active()->notExpired()->count(),
-                'employers' => Job::query()->active()->notExpired()->distinct()->count('employer_id'),
-                'locations' => Job::query()->active()->notExpired()->distinct()->count('location'),
+                'available' => Job::query()->active()->notExpired()->inBesut()->count(),
+                'employers' => Job::query()->active()->notExpired()->inBesut()->distinct()->count('employer_id'),
+                'locations' => Job::query()->active()->notExpired()->inBesut()->whereNotNull('workplace_mukim')->distinct()->count('workplace_mukim'),
             ],
         ]);
     }
@@ -65,11 +71,16 @@ class JobController extends Controller
     {
         $oku = $request->user()->oku;
         abort_unless($oku && $job->is_active && (! $job->application_deadline || $job->application_deadline->isToday() || $job->application_deadline->isFuture()), 422);
+        $request->validate(['share_profile' => ['accepted']]);
 
         $interest = JobInterest::query()->firstOrCreate(
             ['oku_id' => $oku->id, 'job_id' => $job->id],
-            ['status' => 'Interested', 'application_date' => today()],
+            ['status' => 'Interested', 'application_date' => today(), 'profile_shared_at' => now()],
         );
+
+        if (! $interest->profile_shared_at) {
+            $interest->update(['profile_shared_at' => now()]);
+        }
 
         if ($interest->wasRecentlyCreated) {
             Job::query()->whereKey($job->id)->increment('applications_count', 1, []);
@@ -84,7 +95,7 @@ class JobController extends Controller
             );
         }
 
-        return back()->with('success', $interest->wasRecentlyCreated ? 'Minat terhadap jawatan berjaya direkodkan.' : 'Minat terhadap jawatan ini telah direkodkan sebelum ini.');
+        return back()->with('success', $interest->wasRecentlyCreated ? __('jobs.interest_created') : __('jobs.consent_updated'));
     }
 
     public function show(Job $job)
@@ -110,7 +121,7 @@ class JobController extends Controller
     {
         $job = Job::query()->create($this->data($r));
 
-        return $r->expectsJson() ? response()->json($job, 201) : redirect()->route('jobs.index')->with('success', 'Peluang kerja berjaya diterbitkan.');
+        return $r->expectsJson() ? response()->json($job, 201) : redirect()->route('jobs.index')->with('success', __('jobs.job_created'));
     }
 
     public function update(Request $r, Job $job)
@@ -118,7 +129,7 @@ class JobController extends Controller
         $this->authorizeEmployerAccess($r, $job);
         $job->update($this->data($r, true));
 
-        return $r->expectsJson() ? response()->json($job) : redirect()->route('jobs.index')->with('success', 'Peluang kerja berjaya dikemas kini.');
+        return $r->expectsJson() ? response()->json($job) : redirect()->route('jobs.index')->with('success', __('jobs.job_updated'));
     }
 
     public function destroy(Request $request, Job $job)
@@ -133,7 +144,17 @@ class JobController extends Controller
     {
         $p = $partial ? 'sometimes' : 'required';
 
-        $data = $r->validate(['employer_id' => "$p|exists:employers,id", 'title' => "$p|string|max:255", 'description' => "$p|string", 'requirements' => "$p|string", 'responsibilities' => 'nullable|string', 'oku_category_suitable' => [$p, Rule::in(['Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan', 'Semua'])], 'salary_min' => "$p|numeric|min:0", 'salary_max' => 'nullable|numeric|gte:salary_min', 'location' => "$p|string|max:255", 'working_hours' => 'nullable|string|max:100', 'employment_type' => [$p, Rule::in(['Sepenuh Masa', 'Separuh Masa', 'Kontrak', 'Sementara'])], 'application_deadline' => 'nullable|date', 'is_active' => 'sometimes|boolean']);
+        $data = $r->validate(['employer_id' => "$p|exists:employers,id", 'title' => "$p|string|max:255", 'job_category' => [$p, Rule::in(config('jobs.categories'))], 'description' => "$p|string", 'requirements' => "$p|string", 'responsibilities' => 'nullable|string', 'oku_category_suitable' => [$p, Rule::in(['Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan', 'Semua'])], 'salary_min' => "$p|numeric|min:0", 'salary_max' => 'nullable|numeric|gte:salary_min', 'workplace_mukim' => [$p, Rule::in(config('besut.mukims'))], 'workplace_village' => 'nullable|string|max:255', 'working_hours' => 'nullable|string|max:100', 'employment_type' => [$p, Rule::in(['Sepenuh Masa', 'Separuh Masa', 'Kontrak', 'Sementara'])], 'application_deadline' => 'nullable|date', 'is_active' => 'sometimes|boolean']);
+        if (array_key_exists('workplace_mukim', $data)) {
+            $data['workplace_state'] = config('jobs.state');
+            $data['workplace_district'] = config('jobs.district');
+            $data['location'] = collect([
+                $data['workplace_village'] ?? null,
+                $data['workplace_mukim'],
+                config('jobs.district'),
+                config('jobs.state'),
+            ])->filter()->implode(', ');
+        }
         if ($r->user()->role === 'employer') {
             abort_unless($r->user()->employer_id, 403);
             $data['employer_id'] = $r->user()->employer_id;

@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'page_title' => 'Job Opportunities', 'inclusive_employment' => 'Inclusive Employment',
+    'create_title' => 'Add Job Opportunity', 'edit_title' => 'Update Job Opportunity',
+    'job_category' => 'Job Category', 'choose_job_category' => 'Choose a job category', 'all_job_categories' => 'All job categories',
+    'workplace_mukim' => 'Workplace Mukim', 'choose_besut_mukim' => 'Choose a mukim in Besut District', 'mukim' => 'Mukim', 'all_besut_mukims' => 'All Besut mukims', 'mukims_offered' => 'Mukims offered',
+    'village_area' => 'Village or Area', 'village_example' => 'Example: Kampung Raja',
+    'besut_scope' => 'Besut District Scope', 'besut_scope_help' => 'Every vacancy must be located in one of the mukims within Besut District, Terengganu.',
+    'save_changes' => 'Save Changes', 'publish_job' => 'Publish Vacancy',
+    'deadline' => 'Closing date: :date', 'applications_open' => 'Applications open',
+    'profile_shared' => 'Profile Shared', 'share_consent' => 'I consent to sharing my career profile and résumé with this employer.', 'share_profile' => 'Share Profile', 'interested' => 'I Am Interested',
+    'interest_count' => ':count interested', 'view_candidates' => 'View Candidates',
+    'interest_created' => 'Your interest and profile-sharing consent have been recorded.', 'consent_updated' => 'Your profile-sharing consent has been updated.',
+    'job_created' => 'The job opportunity has been published.', 'job_updated' => 'The job opportunity has been updated.',
+    'candidates_title' => 'Job Candidates', 'candidates_heading' => 'Candidates: :job', 'back_to_jobs' => 'Back to Jobs', 'application_number' => 'Application #:id',
+    'profile_not_shared' => 'Profile not shared', 'consent_given' => 'Consent Given', 'no_consent' => 'No Consent',
+    'oku_category' => 'OKU Category', 'education' => 'Education', 'availability' => 'Availability', 'skills' => 'Skills', 'career_summary' => 'Career Summary', 'not_provided' => 'Not provided',
+    'download_resume' => 'Download Résumé', 'no_resume' => 'No résumé', 'privacy_hidden' => 'Personal information and the résumé remain hidden until the candidate gives consent.',
+    'candidate_status' => 'Candidate Status', 'interview_date' => 'Interview Date', 'notes' => 'Notes', 'update_status' => 'Update Status', 'status_updated' => 'The candidate status has been updated.',
+    'no_candidates' => 'No candidates yet', 'no_candidates_help' => 'Candidates who express interest will appear here.',
+    'validation_heading' => 'Please review the following information.',
+    'categories' => [
+        'Mekanik dan Automotif' => 'Mechanics and Automotive', 'Cuci Kereta' => 'Car Wash', 'Pembantu Kedai Makan' => 'Food Shop Assistant', 'Pembantu Kedai Runcit' => 'Grocery Shop Assistant',
+        'Pertanian dan Perladangan' => 'Agriculture and Plantations', 'Perikanan' => 'Fisheries', 'Pembinaan dan Pertukangan' => 'Construction and Carpentry', 'Pembersihan' => 'Cleaning',
+        'Jahitan dan Kraftangan' => 'Sewing and Handicrafts', 'Penghantaran dan Logistik' => 'Delivery and Logistics', 'Pentadbiran dan Perkhidmatan' => 'Administration and Services', 'Lain-lain' => 'Other',
+    ],
+    'statuses' => ['Interested' => 'Interested', 'Applied' => 'Applied', 'Shortlisted' => 'Shortlisted', 'Interviewed' => 'Interviewed', 'Hired' => 'Hired', 'Rejected' => 'Rejected'],
+    'oku_categories' => ['Semua' => 'All', 'Fizikal' => 'Physical', 'Pendengaran' => 'Hearing', 'Mental' => 'Mental', 'Pembelajaran' => 'Learning', 'Penglihatan' => 'Visual'],
+    'availability_values' => ['Mencari Kerja' => 'Seeking Work', 'Sudah Bekerja' => 'Employed', 'Tidak Tersedia' => 'Unavailable'],
+    'employment_types' => ['Sepenuh Masa' => 'Full-time', 'Separuh Masa' => 'Part-time', 'Kontrak' => 'Contract', 'Sementara' => 'Temporary'],
+];

@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'page_title' => 'Peluang Kerja', 'inclusive_employment' => 'Pekerjaan Inklusif',
+    'create_title' => 'Tambah Peluang Kerja', 'edit_title' => 'Kemaskini Peluang Kerja',
+    'job_category' => 'Kategori Pekerjaan', 'choose_job_category' => 'Pilih kategori pekerjaan', 'all_job_categories' => 'Semua kategori pekerjaan',
+    'workplace_mukim' => 'Mukim Tempat Kerja', 'choose_besut_mukim' => 'Pilih mukim dalam Daerah Besut', 'mukim' => 'Mukim', 'all_besut_mukims' => 'Semua mukim Besut', 'mukims_offered' => 'Mukim ditawarkan',
+    'village_area' => 'Kampung atau Kawasan', 'village_example' => 'Contoh: Kampung Raja',
+    'besut_scope' => 'Skop Daerah Besut', 'besut_scope_help' => 'Semua jawatan mesti berada di salah satu mukim dalam Daerah Besut, Terengganu.',
+    'save_changes' => 'Simpan Perubahan', 'publish_job' => 'Terbitkan Jawatan',
+    'deadline' => 'Tarikh tutup: :date', 'applications_open' => 'Permohonan dibuka',
+    'profile_shared' => 'Profil Dikongsi', 'share_consent' => 'Saya bersetuju berkongsi profil kerjaya dan résumé dengan majikan ini.', 'share_profile' => 'Kongsi Profil', 'interested' => 'Saya Berminat',
+    'interest_count' => ':count minat', 'view_candidates' => 'Lihat Calon',
+    'interest_created' => 'Minat dan persetujuan perkongsian profil berjaya direkodkan.', 'consent_updated' => 'Persetujuan perkongsian profil telah dikemas kini.',
+    'job_created' => 'Peluang kerja berjaya diterbitkan.', 'job_updated' => 'Peluang kerja berjaya dikemas kini.',
+    'candidates_title' => 'Calon Jawatan', 'candidates_heading' => 'Calon: :job', 'back_to_jobs' => 'Kembali ke Jawatan', 'application_number' => 'Permohonan #:id',
+    'profile_not_shared' => 'Profil belum dikongsi', 'consent_given' => 'Persetujuan Diberikan', 'no_consent' => 'Tiada Persetujuan',
+    'oku_category' => 'Kategori OKU', 'education' => 'Pendidikan', 'availability' => 'Ketersediaan', 'skills' => 'Kemahiran', 'career_summary' => 'Ringkasan kerjaya', 'not_provided' => 'Belum dinyatakan',
+    'download_resume' => 'Download Résumé', 'no_resume' => 'Tiada résumé', 'privacy_hidden' => 'Maklumat peribadi dan résumé disembunyikan sehingga calon memberikan persetujuan.',
+    'candidate_status' => 'Status calon', 'interview_date' => 'Tarikh temu duga', 'notes' => 'Catatan', 'update_status' => 'Kemaskini Status', 'status_updated' => 'Status calon berjaya dikemas kini.',
+    'no_candidates' => 'Belum ada calon', 'no_candidates_help' => 'Calon yang menunjukkan minat akan dipaparkan di sini.',
+    'validation_heading' => 'Sila semak maklumat berikut.',
+    'categories' => [
+        'Mekanik dan Automotif' => 'Mekanik dan Automotif', 'Cuci Kereta' => 'Cuci Kereta', 'Pembantu Kedai Makan' => 'Pembantu Kedai Makan', 'Pembantu Kedai Runcit' => 'Pembantu Kedai Runcit',
+        'Pertanian dan Perladangan' => 'Pertanian dan Perladangan', 'Perikanan' => 'Perikanan', 'Pembinaan dan Pertukangan' => 'Pembinaan dan Pertukangan', 'Pembersihan' => 'Pembersihan',
+        'Jahitan dan Kraftangan' => 'Jahitan dan Kraftangan', 'Penghantaran dan Logistik' => 'Penghantaran dan Logistik', 'Pentadbiran dan Perkhidmatan' => 'Pentadbiran dan Perkhidmatan', 'Lain-lain' => 'Lain-lain',
+    ],
+    'statuses' => ['Interested' => 'Berminat', 'Applied' => 'Memohon', 'Shortlisted' => 'Disenarai Pendek', 'Interviewed' => 'Ditemu Duga', 'Hired' => 'Diterima Bekerja', 'Rejected' => 'Ditolak'],
+    'oku_categories' => ['Semua' => 'Semua', 'Fizikal' => 'Fizikal', 'Pendengaran' => 'Pendengaran', 'Mental' => 'Mental', 'Pembelajaran' => 'Pembelajaran', 'Penglihatan' => 'Penglihatan'],
+    'availability_values' => ['Mencari Kerja' => 'Mencari Kerja', 'Sudah Bekerja' => 'Sudah Bekerja', 'Tidak Tersedia' => 'Tidak Tersedia'],
+    'employment_types' => ['Sepenuh Masa' => 'Sepenuh Masa', 'Separuh Masa' => 'Separuh Masa', 'Kontrak' => 'Kontrak', 'Sementara' => 'Sementara'],
+];

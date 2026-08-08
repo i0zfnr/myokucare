@@ -52,8 +52,8 @@ class NotificationTest extends TestCase
             'location' => 'Besut', 'employment_type' => 'Sepenuh Masa', 'is_active' => true,
         ]);
 
-        $this->actingAs($candidate)->post(route('jobs.interest', $job))->assertRedirect();
-        $this->post(route('jobs.interest', $job))->assertRedirect();
+        $this->actingAs($candidate)->post(route('jobs.interest', $job), ['share_profile' => '1'])->assertRedirect();
+        $this->post(route('jobs.interest', $job), ['share_profile' => '1'])->assertRedirect();
 
         $this->assertCount(1, $employerUser->fresh()->notifications);
     }

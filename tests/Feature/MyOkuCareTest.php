@@ -297,6 +297,10 @@ class MyOkuCareTest extends TestCase
             'salary_min' => 2000,
             'salary_max' => 2500,
             'location' => 'Besut',
+            'workplace_state' => 'Terengganu',
+            'workplace_district' => 'Besut',
+            'workplace_mukim' => 'Kampung Raja',
+            'job_category' => 'Pentadbiran dan Perkhidmatan',
             'employment_type' => 'Sepenuh Masa',
             'application_deadline' => today()->addMonth(),
             'is_active' => true,
@@ -314,20 +318,20 @@ class MyOkuCareTest extends TestCase
         $user = User::factory()->create(['role' => 'oku_user', 'oku_id' => $oku->id, 'is_active' => true]);
         $this->actingAs($user);
 
-        $this->get('/jobs?category=Fizikal&location=Besut')
+        $this->get('/jobs?category=Fizikal&location=Kampung Raja')
             ->assertOk()
             ->assertSee('Pembantu Data')
             ->assertDontSee('Jawatan Ditutup')
             ->assertSee('Saya Berminat');
 
-        $this->post(route('jobs.interest', $job))
+        $this->post(route('jobs.interest', $job), ['share_profile' => '1'])
             ->assertRedirect()
             ->assertSessionHas('success');
 
         $this->assertDatabaseHas('job_interests', ['oku_id' => $oku->id, 'job_id' => $job->id, 'status' => 'Interested']);
         $this->assertSame(1, $job->fresh()->applications_count);
 
-        $this->post(route('jobs.interest', $job));
+        $this->post(route('jobs.interest', $job), ['share_profile' => '1']);
         $this->assertSame(1, $job->fresh()->applications_count);
         $this->get('/jobs?employment_type=Freelance')->assertSessionHasErrors('employment_type');
     }
@@ -346,7 +350,7 @@ class MyOkuCareTest extends TestCase
             'employer_id' => $employer->id, 'title' => 'Pembantu Operasi',
             'description' => 'Membantu operasi pejabat.', 'requirements' => 'Boleh bekerja dalam pasukan.',
             'oku_category_suitable' => 'Semua', 'salary_min' => 1800, 'salary_max' => 2300,
-            'location' => 'Besut', 'employment_type' => 'Sepenuh Masa',
+            'job_category' => 'Pentadbiran dan Perkhidmatan', 'workplace_mukim' => 'Kampung Raja', 'employment_type' => 'Sepenuh Masa',
             'application_deadline' => today()->addMonth()->format('Y-m-d'), 'is_active' => '1',
         ])->assertRedirect(route('jobs.index'));
 
@@ -830,7 +834,9 @@ class MyOkuCareTest extends TestCase
         Job::create([
             'employer_id' => $employer->id, 'title' => 'Accessible Role', 'description' => 'Description',
             'requirements' => 'Requirements', 'oku_category_suitable' => 'Fizikal', 'salary_min' => 2000,
-            'location' => 'Selangor',
+            'location' => 'Kampung Raja, Besut, Terengganu', 'workplace_state' => 'Terengganu',
+            'workplace_district' => 'Besut', 'workplace_mukim' => 'Kampung Raja',
+            'job_category' => 'Pentadbiran dan Perkhidmatan',
         ]);
 
         $user = User::factory()->create(['role' => 'oku_user', 'oku_id' => $oku->id]);

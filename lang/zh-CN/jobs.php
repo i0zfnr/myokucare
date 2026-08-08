@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'page_title' => '就业机会', 'inclusive_employment' => '包容性就业',
+    'create_title' => '新增就业机会', 'edit_title' => '更新就业机会',
+    'job_category' => '工作类别', 'choose_job_category' => '选择工作类别', 'all_job_categories' => '所有工作类别',
+    'workplace_mukim' => '工作地点（Mukim）', 'choose_besut_mukim' => '选择勿述县内的 Mukim', 'mukim' => 'Mukim', 'all_besut_mukims' => '所有勿述 Mukim', 'mukims_offered' => '提供工作的 Mukim',
+    'village_area' => '村庄或地区', 'village_example' => '例如：Kampung Raja',
+    'besut_scope' => '勿述县范围', 'besut_scope_help' => '所有职位必须位于登嘉楼州勿述县内的 Mukim。',
+    'save_changes' => '保存更改', 'publish_job' => '发布职位',
+    'deadline' => '截止日期：:date', 'applications_open' => '开放申请',
+    'profile_shared' => '已分享个人资料', 'share_consent' => '我同意与此雇主分享我的职业资料和履历。', 'share_profile' => '分享资料', 'interested' => '我有兴趣',
+    'interest_count' => ':count 人有兴趣', 'view_candidates' => '查看候选人',
+    'interest_created' => '您的求职意向和资料分享同意已记录。', 'consent_updated' => '您的资料分享同意已更新。',
+    'job_created' => '就业机会已发布。', 'job_updated' => '就业机会已更新。',
+    'candidates_title' => '职位候选人', 'candidates_heading' => '候选人：:job', 'back_to_jobs' => '返回职位列表', 'application_number' => '申请 #:id',
+    'profile_not_shared' => '尚未分享资料', 'consent_given' => '已给予同意', 'no_consent' => '未给予同意',
+    'oku_category' => 'OKU 类别', 'education' => '教育程度', 'availability' => '可工作状态', 'skills' => '技能', 'career_summary' => '职业简介', 'not_provided' => '尚未填写',
+    'download_resume' => '下载履历', 'no_resume' => '没有履历', 'privacy_hidden' => '在候选人给予同意前，个人资料和履历将保持隐藏。',
+    'candidate_status' => '候选人状态', 'interview_date' => '面试日期', 'notes' => '备注', 'update_status' => '更新状态', 'status_updated' => '候选人状态已更新。',
+    'no_candidates' => '暂无候选人', 'no_candidates_help' => '表达求职意向的候选人将显示在这里。',
+    'validation_heading' => '请检查以下信息。',
+    'categories' => [
+        'Mekanik dan Automotif' => '机械与汽车维修', 'Cuci Kereta' => '洗车', 'Pembantu Kedai Makan' => '餐饮店助理', 'Pembantu Kedai Runcit' => '杂货店助理',
+        'Pertanian dan Perladangan' => '农业与种植业', 'Perikanan' => '渔业', 'Pembinaan dan Pertukangan' => '建筑与木工', 'Pembersihan' => '清洁',
+        'Jahitan dan Kraftangan' => '缝纫与手工艺', 'Penghantaran dan Logistik' => '配送与物流', 'Pentadbiran dan Perkhidmatan' => '行政与服务', 'Lain-lain' => '其他',
+    ],
+    'statuses' => ['Interested' => '有兴趣', 'Applied' => '已申请', 'Shortlisted' => '已入围', 'Interviewed' => '已面试', 'Hired' => '已录用', 'Rejected' => '未录用'],
+    'oku_categories' => ['Semua' => '全部', 'Fizikal' => '肢体障碍', 'Pendengaran' => '听力障碍', 'Mental' => '精神障碍', 'Pembelajaran' => '学习障碍', 'Penglihatan' => '视力障碍'],
+    'availability_values' => ['Mencari Kerja' => '正在求职', 'Sudah Bekerja' => '已就业', 'Tidak Tersedia' => '暂不求职'],
+    'employment_types' => ['Sepenuh Masa' => '全职', 'Separuh Masa' => '兼职', 'Kontrak' => '合约', 'Sementara' => '临时'],
+];

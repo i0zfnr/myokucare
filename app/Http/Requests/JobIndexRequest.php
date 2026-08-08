@@ -17,7 +17,8 @@ class JobIndexRequest extends FormRequest
         return [
             'search' => ['nullable', 'string', 'max:100'],
             'category' => ['nullable', Rule::in(['Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan', 'Semua'])],
-            'location' => ['nullable', 'string', 'max:255'],
+            'job_category' => ['nullable', Rule::in(config('jobs.categories'))],
+            'location' => ['nullable', Rule::in(config('besut.mukims'))],
             'employment_type' => ['nullable', Rule::in(['Sepenuh Masa', 'Separuh Masa', 'Kontrak', 'Sementara'])],
             'salary_min' => ['nullable', 'numeric', 'min:0', 'max:9999999'],
             'salary_max' => ['nullable', 'numeric', 'min:0', 'max:9999999', 'gte:salary_min'],

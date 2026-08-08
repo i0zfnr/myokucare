@@ -44,4 +44,46 @@ class LocalizationTest extends TestCase
     {
         return [['bm'], ['en'], ['zh-CN']];
     }
+
+    public function test_every_literal_blade_translation_key_resolves_in_every_locale(): void
+    {
+        $keys = collect();
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(resource_path('views')));
+
+        foreach ($files as $file) {
+            if (! $file->isFile() || ! str_ends_with($file->getFilename(), '.blade.php')) continue;
+            preg_match_all("/(?:__|trans)\\(\\s*['\"]([^'\"]+)['\"]|@lang\\(\\s*['\"]([^'\"]+)['\"]/", file_get_contents($file->getPathname()), $matches);
+            $keys->push(...array_filter(
+                [...$matches[1], ...$matches[2]],
+                fn (string $key) => $key !== '' && ! str_contains($key, '$') && ! str_ends_with($key, '.'),
+            ));
+        }
+
+        $missing = [];
+        foreach (['bm', 'en', 'zh-CN'] as $locale) {
+            app()->setLocale($locale);
+            foreach ($keys->unique() as $key) {
+                if (__($key) === $key) $missing[] = "{$locale}:{$key}";
+            }
+        }
+
+        $this->assertSame([], $missing, 'Missing Blade translations: '.implode(', ', $missing));
+    }
+
+    #[DataProvider('localeProvider')]
+    public function test_job_workflow_dynamic_values_are_translated(string $locale): void
+    {
+        app()->setLocale($locale);
+
+        $keys = [
+            ...array_map(fn ($value) => "jobs.categories.{$value}", config('jobs.categories')),
+            ...array_map(fn ($value) => "jobs.statuses.{$value}", ['Interested', 'Applied', 'Shortlisted', 'Interviewed', 'Hired', 'Rejected']),
+            ...array_map(fn ($value) => "jobs.employment_types.{$value}", ['Sepenuh Masa', 'Separuh Masa', 'Kontrak', 'Sementara']),
+            ...array_map(fn ($value) => "jobs.oku_categories.{$value}", ['Semua', 'Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan']),
+        ];
+
+        foreach ($keys as $key) {
+            $this->assertNotSame($key, __($key), "Missing {$locale} translation for {$key}.");
+        }
+    }
 }

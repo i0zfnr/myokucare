@@ -11,7 +11,7 @@ class Job extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['employer_id', 'title', 'description', 'requirements', 'responsibilities', 'oku_category_suitable', 'salary_min', 'salary_max', 'location', 'working_hours', 'employment_type', 'application_deadline', 'is_active', 'views_count', 'applications_count'];
+    protected $fillable = ['employer_id', 'title', 'job_category', 'description', 'requirements', 'responsibilities', 'oku_category_suitable', 'salary_min', 'salary_max', 'location', 'workplace_state', 'workplace_district', 'workplace_mukim', 'workplace_village', 'working_hours', 'employment_type', 'application_deadline', 'is_active', 'views_count', 'applications_count'];
 
     protected function casts(): array
     {
@@ -46,6 +46,17 @@ class Job extends Model
     public function scopeNotExpired(Builder $query): Builder
     {
         return $query->where(fn (Builder $q) => $q->whereDate('application_deadline', '>=', today())->orWhereNull('application_deadline'));
+    }
+
+    public function scopeInBesut(Builder $query): Builder
+    {
+        return $query->where(function (Builder $query) {
+            $query->where('workplace_district', config('jobs.district'))
+                ->orWhere(function (Builder $query) {
+                    $query->whereNull('workplace_district')
+                        ->where('location', 'like', '%'.config('jobs.district').'%');
+                });
+        });
     }
 
     public function getSalaryRangeAttribute(): string
