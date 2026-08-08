@@ -10,9 +10,16 @@ class FeatureManager
 {
     public const IDENTITY_VERIFICATION = 'identity_verification_enabled';
 
+    public const BESUT_ONLY_LOCATION_SCOPE = 'besut_only_location_scope_enabled';
+
     public function identityVerificationEnabled(): bool
     {
         return $this->enabled(self::IDENTITY_VERIFICATION, true);
+    }
+
+    public function besutOnlyLocationScopeEnabled(): bool
+    {
+        return $this->enabled(self::BESUT_ONLY_LOCATION_SCOPE, true);
     }
 
     public function enabled(string $key, bool $default = false): bool

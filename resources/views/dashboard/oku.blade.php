@@ -4,6 +4,7 @@
     $profileFields=$oku?collect(['name','ic_number','oku_card_number','oku_category','phone_number','education_level','career_summary','skills','oku_card_image_path'])->filter(fn($field)=>filled($oku->{$field})):collect();
     $profilePercent=$oku?(int)round(($profileFields->count()/9)*100):0;
     $verificationLabels=['Pending'=>__('dashboard.oku.verification_pending'),'Verified'=>__('dashboard.oku.verification_verified'),'Rejected'=>__('dashboard.oku.verification_rejected')];
+    $canViewEmployment=app(\App\Services\PermissionService::class)->allows(auth()->user(),'employment.view');
     $interestLabels=['Interested'=>__('dashboard.oku.interest_interested'),'Applied'=>__('dashboard.oku.interest_applied'),'Shortlisted'=>__('dashboard.oku.interest_shortlisted'),'Interviewed'=>__('dashboard.oku.interest_interviewed'),'Hired'=>__('dashboard.oku.interest_hired'),'Rejected'=>__('dashboard.oku.interest_rejected')];
     $metrics=[
         ['label'=>__('dashboard.oku.job_recommendations'),'value'=>$matchingJobs->count(),'icon'=>'job-search','tone'=>'coral','caption'=>__('dashboard.oku.profile_matches')],
@@ -17,6 +18,23 @@
     <div><p class="eyebrow">{{ __('ui.ruang_peribadi.969085d6') }}</p><h2>{{ __('dashboard.oku.welcome', ['name' => $oku?->name ?? auth()->user()->name]) }}</h2><p>{{ __('ui.temui_pekerjaan_yang_sesuai_dan_pantau_perkembangan.a059e0f9') }}</p></div>
     <div class="page-actions"><a class="btn" href="{{ route('career-profile.show') }}">{{ $oku?__('dashboard.oku.update_profile'):__('dashboard.oku.complete_profile') }}</a><a class="btn btn-primary" href="{{ route('jobs.index') }}">{{ __('ui.cari_peluang_kerja.4672ccd4') }}</a></div>
 </div>
+
+<section class="pwa-task-panel" aria-labelledby="pwa-next-actions">
+    <div class="pwa-task-heading">
+        <div><p class="panel-kicker">{{ __('dashboard.oku.pwa_today') }}</p><h3 id="pwa-next-actions">{{ __('dashboard.oku.pwa_next_actions') }}</h3></div>
+        <span class="pwa-residence-state">{{ __('dashboard.oku.pwa_residence') }}: {{ str_replace('_',' ',$oku?->residence_verification_status ?? 'UNVERIFIED') }}</span>
+    </div>
+    <div class="pwa-task-grid">
+        <a href="{{ route('career-profile.show') }}"><span aria-hidden="true"><x-dashboard-icon name="profile"/></span><strong>{{ __('dashboard.oku.pwa_profile') }}</strong><small>{{ $profilePercent }}% {{ __('dashboard.oku.pwa_complete') }}</small></a>
+        <a href="{{ route('jobs.index') }}"><span aria-hidden="true"><x-dashboard-icon name="jobs"/></span><strong>{{ __('dashboard.oku.pwa_jobs') }}</strong><small>{{ $matchingJobs->count() }} {{ __('dashboard.oku.pwa_matches') }}</small></a>
+        <a href="{{ route('welfare.index') }}"><span aria-hidden="true"><x-dashboard-icon name="welfare"/></span><strong>{{ __('dashboard.oku.pwa_welfare') }}</strong><small>{{ $welfareApplications->count() }} {{ __('dashboard.oku.pwa_records') }}</small></a>
+        @if($canViewEmployment)
+            <a href="{{ route('employments.index') }}"><span aria-hidden="true"><x-dashboard-icon name="employment-report"/></span><strong>{{ __('dashboard.oku.pwa_employment') }}</strong><small>{{ $activeEmployment ? __('dashboard.oku.pwa_active') : __('dashboard.oku.pwa_none') }}</small></a>
+        @else
+            <a href="{{ route('guideline.show') }}"><span aria-hidden="true"><x-dashboard-icon name="audit"/></span><strong>{{ __('guideline.nav') }}</strong><small>{{ __('guideline.replay') }}</small></a>
+        @endif
+    </div>
+</section>
 
 <section class="metric-grid professional-metrics oku-user-metrics" aria-label="{{ __('ui.ringkasan_peribadi.e1854ba7') }}">
 @foreach($metrics as $metric)

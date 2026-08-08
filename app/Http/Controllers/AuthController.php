@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Oku;
 use App\Models\User;
+use App\Services\BesutResidenceService;
 use App\Services\FeatureManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +27,18 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function signup(Request $request)
+    public function signup(Request $request, BesutResidenceService $residence)
     {
+        if ($residence->restrictedToBesut()) {
+            $request->merge([
+                'residential_state' => config('besut.state'),
+                'residential_district' => config('besut.district'),
+            ]);
+        }
+
         $okuRequired = Rule::requiredIf($request->input('role') === 'oku_user');
+        $besutOnly = $residence->restrictedToBesut();
+        $isBesut = $besutOnly || ($request->input('residential_state') === config('besut.state') && strcasecmp((string) $request->input('residential_district'), config('besut.district')) === 0);
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -39,6 +49,11 @@ class AuthController extends Controller
             'age' => [$okuRequired, 'nullable', 'integer', 'min:16', 'max:120'],
             'marital_status' => [$okuRequired, 'nullable', Rule::in(['Berkahwin', 'Bujang', 'Duda', 'Janda'])],
             'address' => [$okuRequired, 'nullable', 'string', 'max:2000'],
+            'residential_state' => [$okuRequired, 'nullable', Rule::in($besutOnly ? [config('besut.state')] : config('besut.states'))],
+            'residential_district' => array_filter([$okuRequired, 'nullable', 'string', 'max:100', $besutOnly ? Rule::in([config('besut.district')]) : null]),
+            'residential_mukim' => array_filter([Rule::requiredIf($request->input('role') === 'oku_user' && $isBesut), 'nullable', 'string', 'max:100', $isBesut ? Rule::in(config('besut.mukims')) : null]),
+            'residential_village' => [$okuRequired, 'nullable', 'string', 'max:255'],
+            'residential_postcode' => [$okuRequired, 'nullable', 'regex:/^\d{5}$/'],
             'phone_number' => [$okuRequired, 'nullable', 'string', 'max:20'],
             'education_level' => [$okuRequired, 'nullable', 'string', 'max:100'],
             'oku_card_number' => [$okuRequired, 'nullable', 'string', 'max:50', 'unique:okus,oku_card_number'],
@@ -48,10 +63,10 @@ class AuthController extends Controller
             'jenis_bantuan.*' => ['nullable', Rule::in(['EPOKU', 'BTB', 'BPT', 'BAT', 'Lain-lain', 'Tiada'])],
         ]);
 
-        DB::transaction(function () use ($data): void {
+        DB::transaction(function () use ($data, $residence): void {
             $oku = null;
             if ($data['role'] === 'oku_user') {
-                $oku = Oku::query()->create([
+                $oku = Oku::query()->create($residence->declaration([
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'ic_number' => $data['ic_number'],
@@ -59,6 +74,11 @@ class AuthController extends Controller
                     'age' => $data['age'],
                     'marital_status' => $data['marital_status'],
                     'address' => $data['address'],
+                    'residential_state' => $data['residential_state'],
+                    'residential_district' => $data['residential_district'],
+                    'residential_mukim' => $data['residential_mukim'],
+                    'residential_village' => $data['residential_village'],
+                    'residential_postcode' => $data['residential_postcode'],
                     'phone_number' => $data['phone_number'],
                     'profile_reviewed_at' => now(),
                     'education_level' => $data['education_level'],
@@ -68,7 +88,7 @@ class AuthController extends Controller
                     'jenis_bantuan' => $data['jenis_bantuan'] ?? null,
                     'availability_status' => 'Mencari Kerja',
                     'verification_status' => 'Pending',
-                ]);
+                ], true));
             }
 
             User::query()->create([

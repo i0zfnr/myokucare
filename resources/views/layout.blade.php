@@ -44,8 +44,28 @@
             ['label'=>'Audit','route'=>'admin.audit','active'=>'admin.audit','icon'=>'audit'],
             ['label'=>'Tetapan','route'=>'admin.settings','active'=>'admin.settings*','icon'=>'settings'],
         ],
+        'jkm_officer'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
+            ['label'=>'Semakan','route'=>'identity-reviews.index','active'=>'identity-reviews.*','icon'=>'audit'],
+            ['label'=>'Tetapan','route'=>'admin.settings','active'=>'admin.settings*','icon'=>'settings'],
+        ],
+        'employer'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Jawatan','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
+            ['label'=>'Pekerja','route'=>'employments.index','active'=>'employments.*','icon'=>'employment-report','permission'=>'employment.view'],
+            ['label'=>'Eksport','route'=>'exports.index','active'=>'exports.*','icon'=>'employment-report'],
+        ],
+        'oku_user'=>[
+            ['label'=>'Utama','route'=>'dashboard','active'=>'dashboard','icon'=>'dashboard'],
+            ['label'=>'Kerja','route'=>'jobs.index','active'=>'jobs.*','icon'=>'jobs'],
+            ['label'=>'Kebajikan','route'=>'welfare.index','active'=>'welfare.*','icon'=>'welfare'],
+            ['label'=>'Profil','route'=>'career-profile.show','active'=>'career-profile.*','icon'=>'profile'],
+        ],
     ];
-    $pwaNav = $pwaNavByRole[$user->role] ?? [];
+    $pwaNav = collect($pwaNavByRole[$user->role] ?? [])->filter(
+        fn($item) => !isset($item['permission']) || app(\App\Services\PermissionService::class)->allows($user,$item['permission'])
+    );
 @endphp
 <!doctype html>
 <html lang="{{ app()->getLocale() }}" data-default-font-scale="{{ $preferences['font_scale'] }}" data-default-high-contrast="{{ $preferences['high_contrast_default']?'1':'0' }}" data-preferences-version="{{ sha1(json_encode($preferences)) }}" data-dashboard-refresh="{{ $preferences['dashboard_refresh_seconds'] }}">

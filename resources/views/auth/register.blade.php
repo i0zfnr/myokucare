@@ -226,6 +226,7 @@
                             <textarea class="textarea oku-required" id="address" name="address" rows="3" required aria-required="true" aria-describedby="address-error" aria-invalid="{{ $errors->has('address') ? 'true' : 'false' }}">{{ old('address') }}</textarea>
                             <p class="field-error" id="address-error" role="alert"></p>
                         </div>
+                        <x-besut-residence-fields />
                     </div>
                 </section>
 

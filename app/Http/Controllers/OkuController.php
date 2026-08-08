@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OkuIndexRequest;
 use App\Http\Requests\SaveOkuRequest;
 use App\Models\Oku;
+use App\Services\BesutResidenceService;
 use App\Services\JobMatchingService;
 use App\Services\OkuDataService;
 use App\Services\OkuImportService;
@@ -74,16 +75,16 @@ class OkuController extends Controller
             $output = fopen('php://output', 'wb');
             fwrite($output, "\xEF\xBB\xBF");
             fputcsv($output, $importer->templateHeaders());
-            fputcsv($output, ['NAMA PENUH', '900101115555', 'LELAKI', '36', 'BUJANG', 'ALAMAT PENUH', 'SEKOLAH MENENGAH', 'PH110500000001', 'FIZIKAL', 'TIDAK BEKERJA', 'PEMBANTU KEDAI', 'BANTUAN OKU TIDAK BEKERJA (BTB)']);
+            fputcsv($output, ['NAMA PENUH', '900101115555', 'LELAKI', '36', 'BUJANG', 'ALAMAT PENUH', 'TERENGGANU', 'BESUT', 'KAMPUNG RAJA', 'KAMPUNG RAJA', '22200', 'SEKOLAH MENENGAH', 'PH110500000001', 'FIZIKAL', 'TIDAK BEKERJA', 'PEMBANTU KEDAI', 'BANTUAN OKU TIDAK BEKERJA (BTB)']);
             fclose($output);
         }, 'templat_import_oku.csv', ['Content-Type' => 'text/csv; charset=UTF-8']);
     }
 
-    public function store(SaveOkuRequest $request, PermissionService $permissions, RecordAuditService $audit)
+    public function store(SaveOkuRequest $request, PermissionService $permissions, RecordAuditService $audit, BesutResidenceService $residence)
     {
         $permissions->authorize($request->user(), 'oku_user.create');
-        $oku = DB::transaction(function () use ($request) {
-            $data = $request->validated();
+        $oku = DB::transaction(function () use ($request, $residence) {
+            $data = $residence->declaration($request->validated(), true);
             unset($data['oku_card_image'], $data['profile_photo']);
             $oku = Oku::query()->create($data);
             $this->storeUploadedDocuments($request, $oku);
@@ -105,12 +106,12 @@ class OkuController extends Controller
         return view('oku.form', compact('oku'));
     }
 
-    public function update(SaveOkuRequest $request, Oku $oku, PermissionService $permissions, RecordAuditService $audit)
+    public function update(SaveOkuRequest $request, Oku $oku, PermissionService $permissions, RecordAuditService $audit, BesutResidenceService $residence)
     {
         $permissions->authorize($request->user(), 'oku_user.update');
         $before = $oku->toArray();
-        DB::transaction(function () use ($request, $oku): void {
-            $data = $request->validated();
+        DB::transaction(function () use ($request, $oku, $residence): void {
+            $data = $residence->resetIfLocationChanged($oku, $residence->declaration($request->validated()));
             unset($data['oku_card_image'], $data['profile_photo']);
             $oku->update($data);
             $this->storeUploadedDocuments($request, $oku);
@@ -141,6 +142,12 @@ class OkuController extends Controller
                 'verification_notes' => null,
                 'verified_at' => null,
                 'verified_by' => null,
+                'residence_verification_status' => 'UNVERIFIED',
+                'card_address' => null,
+                'card_mukim' => null,
+                'residence_verification_notes' => null,
+                'residence_verified_at' => null,
+                'residence_verified_by' => null,
             ])->save();
         }
 

@@ -27,6 +27,24 @@
             </span>
         </label>
 
+        <input type="hidden" name="besut_only_location_scope_enabled" value="0">
+        <label class="setting-toggle">
+            <input type="checkbox" name="besut_only_location_scope_enabled" value="1" @checked($besutOnlyLocationScopeEnabled)>
+            <span>
+                <strong>Hadkan lokasi kepada Daerah Besut</strong>
+                <small>Apabila aktif, pengguna OKU hanya boleh memilih mukim dalam Besut. Apabila dimatikan, negeri dan daerah lain di Malaysia boleh didaftarkan.</small>
+            </span>
+        </label>
+
+        <div class="{{ $besutOnlyLocationScopeEnabled ? 'notice' : 'error' }}" role="status">
+            <strong>Skop lokasi: {{ $besutOnlyLocationScopeEnabled ? 'BESUT SAHAJA' : 'SELURUH MALAYSIA' }}</strong><br>
+            @if($besutOnlyLocationScopeEnabled)
+                Negeri dan daerah dikunci kepada Terengganu dan Besut.
+            @else
+                Pengguna boleh memilih negeri dan memasukkan daerah. Pengesahan mukim Kad OKU hanya digunakan untuk alamat Besut.
+            @endif
+        </div>
+
         <div class="{{ $identityVerificationEnabled ? 'notice' : 'error' }}" role="status">
             <strong>Status semasa: {{ $identityVerificationEnabled ? 'AKTIF' : 'TIDAK AKTIF' }}</strong><br>
             @if($identityVerificationEnabled)

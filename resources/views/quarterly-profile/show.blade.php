@@ -57,6 +57,8 @@
                     <textarea class="textarea @error('address') is-invalid @enderror" id="address" name="address" rows="4" maxlength="2000" autocomplete="street-address" required>{{ old('address', $oku->address) }}</textarea>
                 </div>
 
+                <x-besut-residence-fields :oku="$oku" />
+
                 <div class="form-group full">
                     <label class="check-option" for="confirm_information">
                         <input id="confirm_information" name="confirm_information" type="checkbox" value="1" required @checked(old('confirm_information'))>

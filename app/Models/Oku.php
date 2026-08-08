@@ -11,11 +11,13 @@ class Oku extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'ic_number', 'gender', 'age', 'marital_status', 'address', 'education_level', 'oku_card_number', 'oku_category', 'employment_status', 'job_name', 'sektor_pekerjaan', 'assistance_type', 'jenis_bantuan', 'career_summary', 'skills', 'availability_status', 'resume_path', 'oku_card_image_path', 'verification_status', 'verification_notes', 'verified_at', 'verified_by', 'phone_number', 'profile_reviewed_at', 'email', 'has_smartphone', 'has_internet', 'emergency_contact_name', 'emergency_contact_phone', 'profile_photo_path', 'is_active', 'disability_export_consent', 'deleted_by_user_id', 'deletion_reason', 'deletion_notes', 'previous_status', 'restored_at', 'restored_by_user_id', 'restore_reason'];
+    protected $fillable = ['name', 'ic_number', 'gender', 'age', 'marital_status', 'address', 'residential_state', 'residential_district', 'residential_mukim', 'residential_village', 'residential_postcode', 'card_address', 'card_mukim', 'residence_verification_status', 'residence_verification_notes', 'residence_verified_at', 'residence_verified_by', 'education_level', 'oku_card_number', 'oku_category', 'employment_status', 'job_name', 'sektor_pekerjaan', 'assistance_type', 'jenis_bantuan', 'career_summary', 'skills', 'availability_status', 'resume_path', 'oku_card_image_path', 'verification_status', 'verification_notes', 'verified_at', 'verified_by', 'phone_number', 'profile_reviewed_at', 'email', 'has_smartphone', 'has_internet', 'emergency_contact_name', 'emergency_contact_phone', 'profile_photo_path', 'is_active', 'disability_export_consent', 'deleted_by_user_id', 'deletion_reason', 'deletion_notes', 'previous_status', 'restored_at', 'restored_by_user_id', 'restore_reason'];
+
+    protected $hidden = ['card_address'];
 
     protected function casts(): array
     {
-        return ['age' => 'integer', 'has_smartphone' => 'boolean', 'has_internet' => 'boolean', 'is_active' => 'boolean', 'disability_export_consent' => 'boolean', 'verified_at' => 'datetime', 'profile_reviewed_at' => 'datetime', 'restored_at' => 'datetime', 'jenis_bantuan' => 'array'];
+        return ['age' => 'integer', 'has_smartphone' => 'boolean', 'has_internet' => 'boolean', 'is_active' => 'boolean', 'disability_export_consent' => 'boolean', 'verified_at' => 'datetime', 'residence_verified_at' => 'datetime', 'profile_reviewed_at' => 'datetime', 'restored_at' => 'datetime', 'jenis_bantuan' => 'array', 'card_address' => 'encrypted'];
     }
 
     public function isProfileReviewDue(): bool
@@ -43,6 +45,11 @@ class Oku extends Model
     public function verifiedBy()
     {
         return $this->belongsTo(User::class, 'verified_by');
+    }
+
+    public function residenceVerifiedBy()
+    {
+        return $this->belongsTo(User::class, 'residence_verified_by');
     }
 
     public function activeEmployment()

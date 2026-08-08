@@ -43,6 +43,7 @@
 <div class="form-group"><label for="{{ $field }}">{{ $label }} <span class="required-mark">*</span></label><select class="select @error($field) is-invalid @enderror" id="{{ $field }}" name="{{ $field }}" required aria-required="true" @error($field) aria-invalid="true" aria-describedby="{{ $field }}-error" @enderror><option value="">Pilih {{ strtolower($label) }}</option>@foreach($options as $option)<option value="{{ $option }}" @selected($value($field)===$option)>{{ $option }}</option>@endforeach</select>@error($field)<span class="field-error" id="{{ $field }}-error">{{ $message }}</span>@enderror</div>
 @endforeach
 <div class="form-group full"><label for="address">{{ __('ui.alamat.85b6ed5c') }} <span class="required-mark">*</span></label><textarea class="textarea @error('address') is-invalid @enderror" id="address" name="address" rows="3" maxlength="1000" autocomplete="street-address" required aria-required="true" @error('address') aria-invalid="true" aria-describedby="address-error" @enderror>{{ $value('address') }}</textarea>@error('address')<span class="field-error" id="address-error">{{ $message }}</span>@enderror</div>
+<x-besut-residence-fields :oku="$oku" />
 </div></section>
 
 <section class="panel form-section" aria-labelledby="oku-title">

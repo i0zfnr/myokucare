@@ -4,7 +4,7 @@
   "short_name": "MyOKUcare",
   "description": "Sistem sokongan komuniti OKU, pekerjaan inklusif dan bantuan kebajikan.",
   "lang": "ms",
-  "start_url": "/guideline?onboarding=1&source=pwa",
+  "start_url": "/dashboard?source=pwa",
   "scope": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],

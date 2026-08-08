@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Oku;
+use App\Services\BesutResidenceService;
 use App\Services\PermissionService;
 use App\Services\UserContentTranslationService;
 use Illuminate\Http\Request;
@@ -18,10 +19,19 @@ class CareerProfileController extends Controller
         return view('career-profile.show', ['oku' => $request->user()->oku]);
     }
 
-    public function save(Request $request, UserContentTranslationService $translations)
+    public function save(Request $request, UserContentTranslationService $translations, BesutResidenceService $residence)
     {
+        if ($residence->restrictedToBesut()) {
+            $request->merge([
+                'residential_state' => config('besut.state'),
+                'residential_district' => config('besut.district'),
+            ]);
+        }
+
         $user = $request->user();
         $oku = $user->oku;
+        $besutOnly = $residence->restrictedToBesut();
+        $isBesut = $besutOnly || ($request->input('residential_state') === config('besut.state') && strcasecmp((string) $request->input('residential_district'), config('besut.district')) === 0);
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'ic_number' => ['required', 'string', 'max:20', Rule::unique('okus')->ignore($oku)],
@@ -29,6 +39,11 @@ class CareerProfileController extends Controller
             'age' => ['required', 'integer', 'min:1', 'max:120'],
             'marital_status' => ['required', Rule::in(['Berkahwin', 'Bujang', 'Duda', 'Janda'])],
             'address' => ['required', 'string', 'max:2000'],
+            'residential_state' => ['required', Rule::in($besutOnly ? [config('besut.state')] : config('besut.states'))],
+            'residential_district' => array_filter(['required', 'string', 'max:100', $besutOnly ? Rule::in([config('besut.district')]) : null]),
+            'residential_mukim' => array_filter([$isBesut ? 'required' : 'nullable', 'string', 'max:100', $isBesut ? Rule::in(config('besut.mukims')) : null]),
+            'residential_village' => ['required', 'string', 'max:255'],
+            'residential_postcode' => ['required', 'regex:/^\d{5}$/'],
             'education_level' => ['required', 'string', 'max:100'],
             'oku_card_number' => ['required', 'string', 'max:50', Rule::unique('okus')->ignore($oku)],
             'oku_category' => ['required', Rule::in(['Fizikal', 'Penglihatan', 'Pendengaran', 'Pertuturan', 'Pembelajaran', 'Mental', 'Pelbagai'])],
@@ -44,7 +59,11 @@ class CareerProfileController extends Controller
         ]);
 
         unset($data['oku_card_image'], $data['resume']);
+        $data = $residence->declaration($data, ! $oku);
         $data['email'] = $user->email;
+        if ($oku) {
+            $data = $residence->resetIfLocationChanged($oku, $data);
+        }
 
         DB::transaction(function () use ($request, $user, &$oku, $data): void {
             if ($oku) {
@@ -61,6 +80,12 @@ class CareerProfileController extends Controller
                     'verification_notes' => null,
                     'verified_at' => null,
                     'verified_by' => null,
+                    'residence_verification_status' => 'UNVERIFIED',
+                    'card_address' => null,
+                    'card_mukim' => null,
+                    'residence_verification_notes' => null,
+                    'residence_verified_at' => null,
+                    'residence_verified_by' => null,
                 ])->save();
             }
 
@@ -95,15 +120,22 @@ class CareerProfileController extends Controller
         return Storage::disk('local')->download($path);
     }
 
-    public function verify(Request $request, Oku $oku)
+    public function verify(Request $request, Oku $oku, BesutResidenceService $residence)
     {
         abort_unless($oku->oku_card_image_path, 422, 'Imej Kad OKU belum dimuat naik.');
         $data = $request->validate([
             'verification_status' => ['required', Rule::in(['Verified', 'Rejected'])],
             'verification_notes' => ['nullable', 'required_if:verification_status,Rejected', 'string', 'max:2000'],
+            'card_address' => [$residence->isBesutLocation($oku) ? 'required' : 'nullable', 'string', 'max:2000'],
+            'card_mukim' => [$residence->isBesutLocation($oku) ? 'required' : 'nullable', Rule::in([...config('besut.mukims'), ...array_keys(BesutResidenceService::SPECIAL_CARD_LOCATIONS)])],
+            'residence_verification_notes' => ['nullable', 'string', 'max:2000'],
         ]);
 
-        $oku->update($data + [
+        $residence->verifyFromCard($oku, $request->user(), $data);
+
+        $oku->update([
+            'verification_status' => $data['verification_status'],
+            'verification_notes' => $data['verification_notes'] ?? null,
             'verified_at' => now(),
             'verified_by' => $request->user()->id,
         ]);

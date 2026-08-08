@@ -51,6 +51,9 @@ class MyOkuCareTest extends TestCase
             'age' => 36,
             'marital_status' => 'Bujang',
             'address' => 'Besut, Terengganu',
+            'residential_mukim' => 'Kampung Raja',
+            'residential_village' => 'Kampung Raja',
+            'residential_postcode' => '22200',
             'education_level' => 'SPM',
             'oku_card_number' => 'PH110500009999',
             'oku_category' => 'Fizikal',
@@ -83,6 +86,9 @@ class MyOkuCareTest extends TestCase
             'age' => $oku->age,
             'marital_status' => $oku->marital_status,
             'address' => $oku->address,
+            'residential_mukim' => $oku->residential_mukim,
+            'residential_village' => $oku->residential_village,
+            'residential_postcode' => $oku->residential_postcode,
             'education_level' => $oku->education_level,
             'oku_card_number' => $oku->oku_card_number,
             'oku_category' => $oku->oku_category,
@@ -637,6 +643,9 @@ class MyOkuCareTest extends TestCase
             'age' => 28,
             'marital_status' => 'Bujang',
             'address' => 'Besut, Terengganu',
+            'residential_mukim' => 'Kampung Raja',
+            'residential_village' => 'Kampung Raja',
+            'residential_postcode' => '22200',
             'education_level' => 'Diploma',
             'oku_card_number' => 'CAREER-OKU-1',
             'oku_category' => 'Fizikal',
@@ -661,6 +670,9 @@ class MyOkuCareTest extends TestCase
         $this->actingAs($officer)->put("/oku/{$oku->id}/verification", [
             'verification_status' => 'Verified',
             'verification_notes' => 'Kad telah disemak.',
+            'card_address' => 'Kampung Raja, 22200 Besut, Terengganu',
+            'card_mukim' => 'Kampung Raja',
+            'residence_verification_notes' => 'Alamat kad sepadan dengan pengisytiharan.',
         ])->assertRedirect();
 
         $this->assertDatabaseHas('okus', [
@@ -702,6 +714,9 @@ class MyOkuCareTest extends TestCase
             'age' => 25,
             'marital_status' => 'Bujang',
             'address' => 'Besut, Terengganu',
+            'residential_mukim' => 'Kampung Raja',
+            'residential_village' => 'Kampung Raja',
+            'residential_postcode' => '22200',
             'phone_number' => '0123456789',
             'education_level' => 'SPM',
             'oku_card_number' => 'REGISTER-OKU-1',
@@ -716,6 +731,7 @@ class MyOkuCareTest extends TestCase
             'ic_number' => 'REGISTER-IC-1',
             'oku_card_number' => 'REGISTER-OKU-1',
             'verification_status' => 'Pending',
+            'residence_verification_status' => 'UNVERIFIED',
         ]);
         $this->assertGuest();
 
@@ -749,8 +765,8 @@ class MyOkuCareTest extends TestCase
     {
         $this->actingAs(User::factory()->create(['role' => 'jkm_officer', 'is_active' => true]));
         $csv = implode("\n", [
-            'NAMA,NOMBOR KAD PENGENALAN,JANTINA,UMUR,STATUS PERKAHWINAN,ALAMAT SURAT MENYURAT,TARAF PENDIDIKAN,NOMBOR PENDAFTARAN OKU,KATEGORI OKU,SEKTOR PEKERJAAN,NAMA PEKERJAAN,JENIS BANTUAN',
-            'TEST IMPORT,900101115555,LELAKI,36 tahun,BALU,ALAMAT TEST,SEKOLAH MENENGAH,PH110500000001,FIZIKAL,SWASTA,PEMBANTU KEDAI,BANTUAN OKU TIDAK BEKERJA (BTB)',
+            'NAMA,NOMBOR KAD PENGENALAN,JANTINA,UMUR,STATUS PERKAHWINAN,ALAMAT SURAT MENYURAT,NEGERI KEDIAMAN,DAERAH KEDIAMAN,MUKIM KEDIAMAN,KAMPUNG ATAU KAWASAN,POSKOD,TARAF PENDIDIKAN,NOMBOR PENDAFTARAN OKU,KATEGORI OKU,SEKTOR PEKERJAAN,NAMA PEKERJAAN,JENIS BANTUAN',
+            'TEST IMPORT,900101115555,LELAKI,36 tahun,BALU,ALAMAT TEST,TERENGGANU,BESUT,KAMPUNG RAJA,KAMPUNG RAJA,22200,SEKOLAH MENENGAH,PH110500000001,FIZIKAL,SWASTA,PEMBANTU KEDAI,BANTUAN OKU TIDAK BEKERJA (BTB)',
         ]);
 
         $this->post('/oku/import', [
@@ -771,10 +787,10 @@ class MyOkuCareTest extends TestCase
     {
         $headers = [
             'NAMA', 'NOMBOR KAD PENGENALAN', 'JANTINA', 'UMUR', 'STATUS PERKAHWINAN',
-            'ALAMAT SURAT MENYURAT', 'TARAF PENDIDIKAN', 'NOMBOR PENDAFTARAN OKU',
+            'ALAMAT SURAT MENYURAT', 'NEGERI KEDIAMAN', 'DAERAH KEDIAMAN', 'MUKIM KEDIAMAN', 'KAMPUNG ATAU KAWASAN', 'POSKOD', 'TARAF PENDIDIKAN', 'NOMBOR PENDAFTARAN OKU',
             'KATEGORI OKU', 'SEKTOR PEKERJAAN',
         ];
-        $data = ['XLSX IMPORT', '910101115555', 'PEREMPUAN', '35', 'BUJANG', 'ALAMAT XLSX', 'DIPLOMA', 'DE110500000002', 'PENDENGARAN', 'SENDIRI'];
+        $data = ['XLSX IMPORT', '910101115555', 'PEREMPUAN', '35', 'BUJANG', 'ALAMAT XLSX', 'TERENGGANU', 'BESUT', 'KAMPUNG RAJA', 'KAMPUNG RAJA', '22200', 'DIPLOMA', 'DE110500000002', 'PENDENGARAN', 'SENDIRI'];
         $path = tempnam(sys_get_temp_dir(), 'oku-xlsx-');
         $zip = new ZipArchive;
         $zip->open($path, ZipArchive::OVERWRITE);

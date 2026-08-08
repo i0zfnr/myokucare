@@ -173,10 +173,10 @@ class GuidelineTest extends TestCase
         $this->assertDatabaseCount('guideline_activity_logs', 0);
     }
 
-    public function test_manifest_launches_the_pwa_onboarding(): void
+    public function test_manifest_launches_the_pwa_dashboard_and_first_open_logic_controls_onboarding(): void
     {
         $manifest = json_decode(file_get_contents(public_path('manifest.webmanifest')), true, flags: JSON_THROW_ON_ERROR);
 
-        $this->assertSame('/guideline?onboarding=1&source=pwa', $manifest['start_url']);
+        $this->assertSame('/dashboard?source=pwa', $manifest['start_url']);
     }
 }

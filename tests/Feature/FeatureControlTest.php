@@ -28,6 +28,7 @@ class FeatureControlTest extends TestCase
             ->get(route('admin.feature-controls.index'))
             ->assertOk()
             ->assertSeeText('Kawalan Ciri')
+            ->assertSeeText('Hadkan lokasi kepada Daerah Besut')
             ->assertSeeText('Status semasa: AKTIF');
 
         $this->actingAs($officer)
@@ -83,5 +84,24 @@ class FeatureControlTest extends TestCase
         $this->postJson(route('identity-verification.session.create'), ['consent' => true])
             ->assertStatus(503)
             ->assertJsonPath('code', 'IDENTITY_VERIFICATION_DISABLED');
+    }
+
+    public function test_super_admin_can_switch_between_besut_only_and_malaysia_location_modes(): void
+    {
+        $admin = User::factory()->create(['role' => 'super_admin']);
+
+        $this->actingAs($admin)->put(route('admin.feature-controls.update'), [
+            'besut_only_location_scope_enabled' => '0',
+        ])->assertRedirect();
+
+        $this->assertFalse(app(FeatureManager::class)->besutOnlyLocationScopeEnabled());
+        $this->assertDatabaseHas('activity_logs', [
+            'action' => 'system_feature_toggled',
+        ]);
+
+        $this->put(route('admin.feature-controls.update'), [
+            'besut_only_location_scope_enabled' => '1',
+        ])->assertRedirect();
+        $this->assertTrue(app(FeatureManager::class)->besutOnlyLocationScopeEnabled());
     }
 }

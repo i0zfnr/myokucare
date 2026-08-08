@@ -50,6 +50,9 @@ class QuarterlyProfileReviewTest extends TestCase
             ->put(route('quarterly-profile.update'), [
                 'employment_status' => 'Bekerja',
                 'address' => 'Alamat baharu, Kuala Terengganu',
+                'residential_mukim' => 'Kampung Raja',
+                'residential_village' => 'Kampung Raja',
+                'residential_postcode' => '22200',
                 'phone_number' => '0198765432',
             ])
             ->assertSessionHasErrors('confirm_information');
@@ -57,6 +60,9 @@ class QuarterlyProfileReviewTest extends TestCase
         $this->put(route('quarterly-profile.update'), [
             'employment_status' => 'Bekerja',
             'address' => 'Alamat baharu, Kuala Terengganu',
+            'residential_mukim' => 'Kampung Raja',
+            'residential_village' => 'Kampung Raja',
+            'residential_postcode' => '22200',
             'phone_number' => '0198765432',
             'confirm_information' => '1',
         ])->assertRedirect(route('dashboard'));

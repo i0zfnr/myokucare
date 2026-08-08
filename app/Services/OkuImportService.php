@@ -11,6 +11,8 @@ use ZipArchive;
 
 class OkuImportService
 {
+    public function __construct(private BesutResidenceService $residence) {}
+
     private const HEADERS = [
         'NAMA' => 'name',
         'NOMBOR KAD PENGENALAN' => 'ic_number',
@@ -18,6 +20,11 @@ class OkuImportService
         'UMUR' => 'age',
         'STATUS PERKAHWINAN' => 'marital_status',
         'ALAMAT SURAT MENYURAT' => 'address',
+        'NEGERI KEDIAMAN' => 'residential_state',
+        'DAERAH KEDIAMAN' => 'residential_district',
+        'MUKIM KEDIAMAN' => 'residential_mukim',
+        'KAMPUNG ATAU KAWASAN' => 'residential_village',
+        'POSKOD' => 'residential_postcode',
         'TARAF PENDIDIKAN' => 'education_level',
         'NOMBOR PENDAFTARAN OKU' => 'oku_card_number',
         'KATEGORI OKU' => 'oku_category',
@@ -27,7 +34,9 @@ class OkuImportService
     ];
 
     private const REQUIRED_FIELDS = [
-        'name', 'ic_number', 'gender', 'age', 'marital_status', 'address',
+        'name', 'ic_number', 'gender', 'age', 'marital_status', 'address', 'residential_state',
+        'residential_district', 'residential_mukim',
+        'residential_village', 'residential_postcode',
         'education_level', 'oku_card_number', 'oku_category', 'employment_status',
     ];
 
@@ -69,6 +78,7 @@ class OkuImportService
             $data['job_name'] ??= null;
             $data['assistance_type'] ??= null;
             $data = $this->normaliseData($data);
+            $isBesut = $this->residence->restrictedToBesut() || $this->residence->isBesutLocation($data);
 
             if (Oku::query()->withTrashed()->where('ic_number', $data['ic_number'])->orWhere('oku_card_number', $data['oku_card_number'])->exists()) {
                 $result['duplicates']++;
@@ -83,6 +93,11 @@ class OkuImportService
                 'age' => ['required', 'integer', 'min:1', 'max:120'],
                 'marital_status' => ['required', Rule::in(['Berkahwin', 'Bujang', 'Duda', 'Janda'])],
                 'address' => ['required', 'string'],
+                'residential_state' => ['required', Rule::in($this->residence->restrictedToBesut() ? [config('besut.state')] : config('besut.states'))],
+                'residential_district' => array_filter(['required', 'string', 'max:100', $this->residence->restrictedToBesut() ? Rule::in([config('besut.district')]) : null]),
+                'residential_mukim' => array_filter([$isBesut ? 'required' : 'nullable', 'string', 'max:100', $isBesut ? Rule::in(config('besut.mukims')) : null]),
+                'residential_village' => ['required', 'string', 'max:255'],
+                'residential_postcode' => ['required', 'regex:/^\d{5}$/'],
                 'education_level' => ['required', 'string', 'max:100'],
                 'oku_card_number' => ['required', 'string', 'max:50', 'unique:okus,oku_card_number'],
                 'oku_category' => ['required', Rule::in(['Fizikal', 'Pendengaran', 'Mental', 'Pembelajaran', 'Penglihatan'])],
@@ -98,7 +113,7 @@ class OkuImportService
                 continue;
             }
 
-            Oku::query()->create($validator->validated());
+            Oku::query()->create($this->residence->declaration($validator->validated(), true));
             $result['imported']++;
         }
 
@@ -126,6 +141,15 @@ class OkuImportService
             'JANDA', 'BALU' => 'Janda',
             default => $data['marital_status'],
         };
+        $data['residential_mukim'] = collect(config('besut.mukims'))
+            ->first(fn (string $mukim) => $upper($mukim) === $upper($data['residential_mukim']))
+            ?? $data['residential_mukim'];
+        $data['residential_state'] = collect(config('besut.states'))
+            ->first(fn (string $state) => $upper($state) === $upper($data['residential_state']))
+            ?? $data['residential_state'];
+        if ($upper($data['residential_district']) === $upper(config('besut.district'))) {
+            $data['residential_district'] = config('besut.district');
+        }
         $data['oku_category'] = match ($upper($data['oku_category'])) {
             'FIZIKAL' => 'Fizikal',
             'PENDENGARAN' => 'Pendengaran',

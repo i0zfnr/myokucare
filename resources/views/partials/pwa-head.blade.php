@@ -14,6 +14,7 @@
 window.MyOKUcareI18n = {!! json_encode([
     'online' => __('js.online'),
     'offline' => __('js.offline'),
+    'online_required' => __('js.online_required'),
     'no_file' => __('js.no_file'),
     'show_password' => __('js.show_password'),
     'hide_password' => __('js.hide_password'),

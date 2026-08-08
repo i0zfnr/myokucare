@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'myokucare-v4-rounded-favicon';
+const CACHE_VERSION = 'myokucare-v5-pwa-navigation';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const OFFLINE_URL = '/offline.html';
 const PRECACHE = [

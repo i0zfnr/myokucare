@@ -36,6 +36,7 @@
                     <div class="form-group"><label for="age">{{ __('ui.umur.133cb71a') }}</label><input class="field" id="age" name="age" type="number" min="1" max="120" value="{{ old('age', $oku?->age) }}" required></div>
                     <div class="form-group"><label for="marital_status">{{ __('ui.status_perkahwinan.9b26b931') }}</label><select class="select" id="marital_status" name="marital_status" required><option value="">{{ __('ui.pilih_status.6b38bfb5') }}</option>@foreach(['Berkahwin','Bujang','Duda','Janda'] as $value)<option @selected(old('marital_status',$oku?->marital_status)===$value)>{{ $value }}</option>@endforeach</select></div>
                     <div class="form-group full"><label for="address">{{ __('ui.alamat.85b6ed5c') }}</label><textarea class="textarea" id="address" name="address" rows="3" required>{{ old('address', $oku?->address) }}</textarea></div>
+                    <x-besut-residence-fields :oku="$oku" />
                 </div>
             </article>
 

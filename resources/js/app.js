@@ -34,6 +34,23 @@ if (standaloneMode && guidelineStorageKey && window.location.pathname !== '/guid
     window.location.replace('/guideline?onboarding=1&source=pwa');
 }
 let pendingInstallPrompt;
+const installDismissedKey = 'myokucare-install-dismissed-v1';
+const installDismissalDuration = 14 * 24 * 60 * 60 * 1000;
+const installPromptDismissed = () => {
+    try {
+        const dismissedAt = Number(localStorage.getItem(installDismissedKey) || 0);
+        return dismissedAt > 0 && Date.now() - dismissedAt < installDismissalDuration;
+    } catch {
+        return false;
+    }
+};
+const rememberInstallDismissal = () => {
+    try {
+        localStorage.setItem(installDismissedKey, String(Date.now()));
+    } catch {
+        // Storage can be unavailable in private browsing; hiding still works for this page.
+    }
+};
 const installPanel = document.createElement('aside');
 installPanel.className = 'pwa-install-panel';
 installPanel.hidden = true;
@@ -46,7 +63,7 @@ document.body.appendChild(installPanel);
 window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
     pendingInstallPrompt = event;
-    installPanel.hidden = false;
+    installPanel.hidden = standaloneMode || installPromptDismissed();
 });
 installPanel.querySelector('.pwa-install-button').addEventListener('click', async () => {
     if (!pendingInstallPrompt) return;
@@ -55,9 +72,13 @@ installPanel.querySelector('.pwa-install-button').addEventListener('click', asyn
     pendingInstallPrompt = undefined;
     installPanel.hidden = true;
 });
-installPanel.querySelector('.pwa-install-close').addEventListener('click', () => { installPanel.hidden = true; });
+installPanel.querySelector('.pwa-install-close').addEventListener('click', () => {
+    rememberInstallDismissal();
+    installPanel.hidden = true;
+});
 window.addEventListener('appinstalled', () => {
     pendingInstallPrompt = undefined;
+    rememberInstallDismissal();
     installPanel.hidden = true;
 });
 
@@ -70,13 +91,21 @@ document.body.appendChild(connectionNotice);
 const updateConnectionStatus = () => {
     connectionNotice.textContent = navigator.onLine
         ? t('online')
-        : t('offline');
+        : t('online_required');
     connectionNotice.classList.toggle('is-online', navigator.onLine);
     connectionNotice.hidden = false;
     if (navigator.onLine) window.setTimeout(() => { connectionNotice.hidden = true; }, 3500);
 };
 window.addEventListener('online', updateConnectionStatus);
 window.addEventListener('offline', updateConnectionStatus);
+if (!navigator.onLine) updateConnectionStatus();
+document.addEventListener('submit', (event) => {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement) || navigator.onLine || form.method.toLowerCase() === 'get') return;
+    event.preventDefault();
+    updateConnectionStatus();
+    connectionNotice.focus?.();
+});
 
 /* ── Live Dashboard ── */
 const liveDashboard = document.querySelector('[data-live-dashboard]');

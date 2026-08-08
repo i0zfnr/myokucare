@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Services\FeatureManager;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -15,6 +16,8 @@ class SaveOkuRequest extends FormRequest
     public function rules(): array
     {
         $oku = $this->route('oku');
+        $besutOnly = app(FeatureManager::class)->besutOnlyLocationScopeEnabled();
+        $isBesut = $besutOnly || ($this->input('residential_state') === config('besut.state') && strcasecmp((string) $this->input('residential_district'), config('besut.district')) === 0);
 
         return [
             'name' => ['required', 'string', 'max:255'],
@@ -23,6 +26,11 @@ class SaveOkuRequest extends FormRequest
             'age' => ['required', 'integer', 'min:1', 'max:120'],
             'marital_status' => ['required', Rule::in(['Berkahwin', 'Bujang', 'Duda', 'Janda'])],
             'address' => ['required', 'string', 'max:1000'],
+            'residential_state' => ['required', Rule::in($besutOnly ? [config('besut.state')] : config('besut.states'))],
+            'residential_district' => array_filter(['required', 'string', 'max:100', $besutOnly ? Rule::in([config('besut.district')]) : null]),
+            'residential_mukim' => array_filter([$isBesut ? 'required' : 'nullable', 'string', 'max:100', $isBesut ? Rule::in(config('besut.mukims')) : null]),
+            'residential_village' => ['required', 'string', 'max:255'],
+            'residential_postcode' => ['required', 'regex:/^\d{5}$/'],
             'education_level' => ['required', 'string', 'max:100'],
             'oku_card_number' => ['required', 'string', 'max:50', Rule::unique('okus', 'oku_card_number')->ignore($oku)],
             'oku_category' => ['required', Rule::in(['Fizikal', 'Penglihatan', 'Pendengaran', 'Pertuturan', 'Pembelajaran', 'Mental', 'Pelbagai'])],
@@ -53,6 +61,11 @@ class SaveOkuRequest extends FormRequest
             'age' => 'umur',
             'marital_status' => 'status perkahwinan',
             'address' => 'alamat',
+            'residential_mukim' => 'mukim kediaman',
+            'residential_state' => 'negeri kediaman',
+            'residential_district' => 'daerah kediaman',
+            'residential_village' => 'kampung atau kawasan kediaman',
+            'residential_postcode' => 'poskod kediaman',
             'education_level' => 'tahap pendidikan',
             'oku_card_number' => 'nombor kad OKU',
             'oku_category' => 'kategori OKU',
@@ -70,6 +83,13 @@ class SaveOkuRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        if (app(FeatureManager::class)->besutOnlyLocationScopeEnabled()) {
+            $this->merge([
+                'residential_state' => config('besut.state'),
+                'residential_district' => config('besut.district'),
+            ]);
+        }
+
         $this->merge([
             'has_smartphone' => $this->boolean('has_smartphone'),
             'has_internet' => $this->boolean('has_internet'),
